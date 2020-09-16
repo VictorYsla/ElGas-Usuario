@@ -25,7 +25,7 @@ const Navegador = (props) => {
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
-    <PantallaBienvenida />
+    <PantallaBienvenida setShowRealApp={setShowRealApp} />
   );
 };
 const styles = StyleSheet.create({
