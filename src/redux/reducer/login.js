@@ -5,11 +5,7 @@ export const actualizarLogin = (login) => ({
 	login,
 });
 
-const initialState = {
-	login: {
-		hola: 'mundo',
-	},
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
 	switch (action.type) {

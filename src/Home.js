@@ -5,24 +5,23 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { actions } from './redux';
 import { getAllUsers } from './apis/firebase';
+import Container from './generales/Container';
 
 function Home(props) {
-	//console.log('Primer redux', props.login);//
+	const { login, dispatch, navigation } = props;
 
 	const probando = async () => {
-		await getAllUsers((r) => {
-			console.log('Homa', r);
-		});
+		await getAllUsers((r) => {});
 	};
 
 	useEffect(() => {
-		probando();
+		dispatch(actions.actualizarNavigation(navigation));
 	}, []);
 
 	return (
-		<View style={styles.container}>
+		<Container style={styles.container}>
 			<Text>Hola Mundo</Text>
-		</View>
+		</Container>
 	);
 }
 
@@ -35,7 +34,5 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = (state) => ({
-	login: state.login.login,
-});
+const mapStateToProps = (state) => ({ login: state.login });
 export default connect(mapStateToProps)(Home);

@@ -3,9 +3,9 @@ import { StyleSheet, View, Platform, ActivityIndicator, Alert, BackHandler, Text
 import { colores } from '../constantes/Temas';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
-const Cargando = (props) => {
+const Cargando = ({ style, tituloStyle, titulo, showError, errorStyle, error }) => {
 	return (
-		<View style={[styles.container, props.style]}>
+		<View style={[styles.container, style]}>
 			<Text
 				style={[
 					{
@@ -14,13 +14,13 @@ const Cargando = (props) => {
 						fontSize: RFPercentage(3.5),
 						color: colores.verCanasta,
 					},
-					props.tituloStyle,
+					tituloStyle,
 				]}
 			>
-				{props.titulo !== undefined ? props.titulo : '¡Bienvenido!'}
+				{titulo !== undefined ? titulo : '¡Bienvenido!'}
 			</Text>
 			<ActivityIndicator size="large" color={colores.verCanasta} />
-			{props.showError && (
+			{showError && (
 				<Text
 					style={[
 						{
@@ -30,10 +30,10 @@ const Cargando = (props) => {
 							color: colores.verCanasta,
 						},
 						,
-						props.errorStyle,
+						errorStyle,
 					]}
 				>
-					{props.error}
+					{error}
 				</Text>
 			)}
 		</View>

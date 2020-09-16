@@ -40,11 +40,13 @@ export default function App() {
 
 	return (
 		!load && (
-			<Provider store={store}>
-				<PersistGate persistor={persistor} loading={renderLoading()}>
-					<Navigate />
-				</PersistGate>
-			</Provider>
+			<View style={styles.container}>
+				<Provider store={store}>
+					<PersistGate persistor={persistor} loading={renderLoading()}>
+						<Navigate />
+					</PersistGate>
+				</Provider>
+			</View>
 		)
 	);
 }
