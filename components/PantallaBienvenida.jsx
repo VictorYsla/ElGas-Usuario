@@ -1,41 +1,52 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { Ionicons } from "@expo/vector-icons";
 
 const PantallaBienvenida = (props) => {
   const slides = [
     {
       key: "1",
-      text: "\n Regístrate para comprar \n       tu tanque de gas",
+      text: "Regístrate para comprar tu tanque de gas",
       image: require("../assets/img/welcome-1.png"),
-      backgroundColor: "#59b2ab",
     },
     {
       key: "2",
-      text: "\n          Tu cilindro de gas \n a un solo click de distancia",
+      text: "Tu cilindro de gas a un solo click de distancia",
       image: require("../assets/img/welcome-2.png"),
-      backgroundColor: "#febe29",
     },
     {
       key: "3",
-      text:
-        "\n       Puedes pagar en efectivo \n y con tarjeta de crédito o débito",
+      text: "Puedes pagar en efectivo y con tarjeta de crédito o débito",
       image: require("../assets/img/welcome-3.png"),
-      backgroundColor: "#22bcb5",
     },
   ];
 
-  const onDone = () => setShowRealApp(false);
+  const onDone = () => props.setShowRealApp(true);
+
+  const _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-checkmark"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          onPress={onDone}
+        />
+      </View>
+    );
+  };
 
   const _renderItem = ({ item }) => {
     return (
-      <View style={{ flex: 1, alignItems: "center", marginTop: 80 }}>
-        <Image
-          source={item.image}
-          style={{ width: "90%", height: "80%" }}
-          resizeMode="contain"
-        />
-        <Text style={styles.text}>{item.text}</Text>
+      <View style={styles.screen}>
+        <Image source={item.image} style={styles.image} resizeMode="contain" />
+        <View style={{ width: "60%" }}>
+          <Text numberOfLines={2} style={styles.text}>
+            {item.text}
+          </Text>
+        </View>
       </View>
     );
   };
@@ -46,6 +57,7 @@ const PantallaBienvenida = (props) => {
       data={slides}
       onDone={onDone}
       activeDotStyle={{ backgroundColor: "#FFB500" }}
+      renderDoneButton={_renderDoneButton}
     />
   );
 };
@@ -55,6 +67,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  image: {
+    height: "70%",
+  },
+  buttonCircle: {
+    width: 40,
+    height: 40,
+    backgroundColor: "rgba(255,181,0,0.6)",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  text: {
+    marginVertical: 20,
+    fontSize: RFPercentage(2.2),
+    textAlign: "center",
   },
 });
 
