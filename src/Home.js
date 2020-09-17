@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 });
-
+//
 const mapStateToProps = (state) => ({ login: state.login });
 export default connect(mapStateToProps)(Home);
