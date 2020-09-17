@@ -8,12 +8,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "./Home";
 import PantallaBienvenida from "../components/PantallaBienvenida";
+import PantallaLogin from "../components/PantallaLogin";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
   const [showRealApp, setShowRealApp] = useState(false);
 
-  return showRealApp ? (
+  /* showRealApp ? (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -26,7 +27,9 @@ const Navegador = (props) => {
     </NavigationContainer>
   ) : (
     <PantallaBienvenida setShowRealApp={setShowRealApp} />
-  );
+  ); */
+
+  return <PantallaLogin />;
 };
 const styles = StyleSheet.create({
   container: {
