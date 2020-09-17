@@ -4,6 +4,8 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 
+import { colores } from "../src/constantes/Temas";
+
 const PantallaBienvenida = (props) => {
   const slides = [
     {
@@ -56,7 +58,7 @@ const PantallaBienvenida = (props) => {
       renderItem={_renderItem}
       data={slides}
       onDone={onDone}
-      activeDotStyle={{ backgroundColor: "#FFB500" }}
+      activeDotStyle={{ backgroundColor: colores.amarillo }}
       renderDoneButton={_renderDoneButton}
     />
   );
