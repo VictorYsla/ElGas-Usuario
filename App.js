@@ -10,10 +10,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist'; //NO BORRAR
 
 import { store, persistor } from './src/redux/store';
-import Cargando from './src/redux/generales/Cargando';
+import Cargando from './src/generales/Cargando';
 import Navigate from './src/Navigate';
 
-export default function App() {
+function App() {
 	const [load, setload] = useState(true);
 
 	const renderLoading = () => (
@@ -58,3 +58,5 @@ const styles = StyleSheet.create({
 		paddingTop: Platform.OS == 'ios' ? 0 : Constants.statusBarHeight,
 	},
 });
+
+export default App;

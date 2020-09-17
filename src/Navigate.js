@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -7,22 +7,29 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './Home';
+import PantallaBienvenida from '../components/PantallaBienvenida';
+import PantallaLogin from '../components/PantallaLogin';
 
 const Navegador = (props) => {
 	const Stack = createStackNavigator();
+	const [showRealApp, setShowRealApp] = useState(false);
 
-	return (
-		<NavigationContainer>
-			<Stack.Navigator
-				screenOptions={{
-					headerShown: false,
-				}}
-				initialRouteName="Home"
-			>
-				<Stack.Screen name="Home" component={Home} />
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
+	/* showRealApp ? (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Home"
+      >
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  ) : (
+    <PantallaBienvenida setShowRealApp={setShowRealApp} />
+  ); */
+
+	return <PantallaLogin />;
 };
 const styles = StyleSheet.create({
 	container: {

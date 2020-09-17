@@ -14,6 +14,8 @@ export const colores = {
 	naranja: '#E1B100',
 	dorado: '#E1B100',
 	gratis: '#c00525',
+	bgOscuro: '#2E2E2D',
+	amarillo: '#FFB500',
 };
 export const opacidades = {
 	bordesInputs: 'rgba(52,52,52,0.6)',
@@ -21,6 +23,13 @@ export const opacidades = {
 	vacioGrave: 'rgba(52,52,52,0.9)',
 	verCanasta: 'rgba(78,69,142,0.5)',
 };
+
+export const tipoDeLetra = {
+	bold: 'RobotoBold',
+	italic: 'RobotoItalic',
+	regular: 'RobotoRegular',
+};
+
 export const tamañoLetra = {
 	terminos: 2.2,
 	tituloContainer: 2.5,
