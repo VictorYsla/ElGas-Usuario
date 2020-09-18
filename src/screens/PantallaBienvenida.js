@@ -4,28 +4,31 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 
-import { colores } from "../src/constantes/Temas";
+import { colores } from "../constantes/Temas";
 
 const PantallaBienvenida = (props) => {
   const slides = [
     {
       key: "1",
       text: "Regístrate para comprar tu tanque de gas",
-      image: require("../assets/img/welcome-1.png"),
+      image: require("../../assets/img/welcome-1.png"),
     },
     {
       key: "2",
       text: "Tu cilindro de gas a un solo click de distancia",
-      image: require("../assets/img/welcome-2.png"),
+      image: require("../../assets/img/welcome-2.png"),
     },
     {
       key: "3",
       text: "Puedes pagar en efectivo y con tarjeta de crédito o débito",
-      image: require("../assets/img/welcome-3.png"),
+      image: require("../../assets/img/welcome-3.png"),
     },
   ];
 
-  const onDone = () => props.setShowRealApp(true);
+  const onDone = () => {
+    props.setShowRealApp(true);
+    props.navigation.replace("Login");
+  };
 
   const _renderDoneButton = () => {
     return (
@@ -60,6 +63,7 @@ const PantallaBienvenida = (props) => {
       onDone={onDone}
       activeDotStyle={{ backgroundColor: colores.amarillo }}
       renderDoneButton={_renderDoneButton}
+      showNextButton={false}
     />
   );
 };
