@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-//importaciones necesarias para redux
+//importaciones necesarias para redux//
 import { connect } from 'react-redux';
 import { actions } from './redux';
 import { getAllUsers } from './apis/firebase';
