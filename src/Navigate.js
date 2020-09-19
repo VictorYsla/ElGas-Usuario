@@ -29,7 +29,7 @@ const Navegador = (props) => {
     <PantallaBienvenida setShowRealApp={setShowRealApp} />
   ); */
 
-	return <PantallaLogin />;
+	return <Home />;
 };
 const styles = StyleSheet.create({
 	container: {
