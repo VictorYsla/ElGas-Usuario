@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Home';
 import PantallaBienvenida from '../components/PantallaBienvenida';
 import PantallaLogin from '../components/PantallaLogin';
+import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
 
 const Navegador = (props) => {
 	const Stack = createStackNavigator();
@@ -29,8 +30,19 @@ const Navegador = (props) => {
     <PantallaBienvenida setShowRealApp={setShowRealApp} />
   ); */
 
-	return <Home />;
+	return <AddressDeliveryForm />;
 };
+
+const EditUserInfoStack = createStackNavigator()
+const EditUserInfo = ({}) => {
+  return(
+    <EditUserInfoStack.Navigator>
+      <EditUserInfoStack.Screen />
+    </EditUserInfoStack.Navigator>
+  )
+}
+
+
 const styles = StyleSheet.create({
 	container: {
 		height: '100%',
