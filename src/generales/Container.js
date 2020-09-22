@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Cargando from './Cargando';
 import { connect } from 'react-redux';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+const {width, height} = Dimensions.get('window')
 
 function Container({ styleContainer, children, isloading = false, navigation, footer = true }) {
 	return (
@@ -23,7 +26,7 @@ const Footer = ({ navigation }) => {
 			style={{
 				flexDirection: 'row',
 				width: '100%',
-				height: 60,
+				height: hp(7.3),
 				borderTopWidth: 1,
 				justifyContent: 'space-around',
 				alignItems: 'center',
