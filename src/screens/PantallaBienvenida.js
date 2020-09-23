@@ -30,41 +30,41 @@ const PantallaBienvenida = (props) => {
     props.navigation.replace("Login");
   };
 
-  const _renderDoneButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Ionicons
-          name="md-checkmark"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-          onPress={onDone}
-        />
-      </View>
-    );
-  };
-
-  const _renderItem = ({ item }) => {
-    return (
-      <View style={styles.screen}>
-        <Image source={item.image} style={styles.image} resizeMode="contain" />
-        <View style={{ width: "60%" }}>
-          <Text numberOfLines={2} style={styles.text}>
-            {item.text}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <AppIntroSlider
       renderItem={_renderItem}
       data={slides}
       onDone={onDone}
       activeDotStyle={{ backgroundColor: colores.amarillo }}
-      renderDoneButton={_renderDoneButton}
+      renderDoneButton={() => <RenderDoneButton />}
       showNextButton={false}
     />
+  );
+};
+
+const RenderDoneButton = ({ onDone }) => {
+  return (
+    <View style={styles.buttonCircle}>
+      <Ionicons
+        name="md-checkmark"
+        color="rgba(255, 255, 255, .9)"
+        size={24}
+        onPress={onDone}
+      />
+    </View>
+  );
+};
+
+const _renderItem = ({ item }) => {
+  return (
+    <View style={styles.screen}>
+      <Image source={item.image} style={styles.image} resizeMode="contain" />
+      <View style={{ width: "60%" }}>
+        <Text numberOfLines={2} style={styles.text}>
+          {item.text}
+        </Text>
+      </View>
+    </View>
   );
 };
 
