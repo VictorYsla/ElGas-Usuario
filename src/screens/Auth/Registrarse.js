@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 
 import Container from "../../generales/Container";
-import BotonRegistrar from "../../generales/CustomButton";
+import BotonRegistrar from "../../components/CustomButton";
 
 const Registrarse = (props) => {
   return (
