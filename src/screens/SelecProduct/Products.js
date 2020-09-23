@@ -8,7 +8,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import useForm from '../../hooks/useForm'
 const initialValues={city:'', address:'', addressDetails:''}
 
-const AddressDeliveryForm = ({}) => {
+const Product = ({}) => {
     const form = useForm({initialValues})
     const [basket, setBasket] = useState(1)
     const localImagesArray = [
@@ -106,4 +106,4 @@ const ImageCarrousel = ({image=require('../../../assets/img/CancelButton.png'), 
 }
 
 
-export default AddressDeliveryForm
+export default Product
