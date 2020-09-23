@@ -4,53 +4,30 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 
-import { colores } from "../src/constantes/Temas";
+import { colores } from "../constantes/Temas";
 
 const PantallaBienvenida = (props) => {
   const slides = [
     {
       key: "1",
       text: "Regístrate para comprar tu tanque de gas",
-      image: require("../assets/img/welcome-1.png"),
+      image: require("../../assets/img/welcome-1.png"),
     },
     {
       key: "2",
       text: "Tu cilindro de gas a un solo click de distancia",
-      image: require("../assets/img/welcome-2.png"),
+      image: require("../../assets/img/welcome-2.png"),
     },
     {
       key: "3",
       text: "Puedes pagar en efectivo y con tarjeta de crédito o débito",
-      image: require("../assets/img/welcome-3.png"),
+      image: require("../../assets/img/welcome-3.png"),
     },
   ];
 
-  const onDone = () => props.setShowRealApp(true);
-
-  const _renderDoneButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Ionicons
-          name="md-checkmark"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-          onPress={onDone}
-        />
-      </View>
-    );
-  };
-
-  const _renderItem = ({ item }) => {
-    return (
-      <View style={styles.screen}>
-        <Image source={item.image} style={styles.image} resizeMode="contain" />
-        <View style={{ width: "60%" }}>
-          <Text numberOfLines={2} style={styles.text}>
-            {item.text}
-          </Text>
-        </View>
-      </View>
-    );
+  const onDone = () => {
+    props.setShowRealApp(true);
+    props.navigation.replace("Login");
   };
 
   return (
@@ -59,8 +36,35 @@ const PantallaBienvenida = (props) => {
       data={slides}
       onDone={onDone}
       activeDotStyle={{ backgroundColor: colores.amarillo }}
-      renderDoneButton={_renderDoneButton}
+      renderDoneButton={() => <RenderDoneButton />}
+      showNextButton={false}
     />
+  );
+};
+
+const RenderDoneButton = ({ onDone }) => {
+  return (
+    <View style={styles.buttonCircle}>
+      <Ionicons
+        name="md-checkmark"
+        color="rgba(255, 255, 255, .9)"
+        size={24}
+        onPress={onDone}
+      />
+    </View>
+  );
+};
+
+const _renderItem = ({ item }) => {
+  return (
+    <View style={styles.screen}>
+      <Image source={item.image} style={styles.image} resizeMode="contain" />
+      <View style={{ width: "60%" }}>
+        <Text numberOfLines={2} style={styles.text}>
+          {item.text}
+        </Text>
+      </View>
+    </View>
   );
 };
 

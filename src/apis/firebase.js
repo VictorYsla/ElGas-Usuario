@@ -3,13 +3,13 @@ import 'firebase/storage';
 import 'firebase/firestore';
 
 export const firebaseConfig = {
-	apiKey: 'AIzaSyAh8muXfWDQ7nIhewKZJNXrpn20qV83_K0',
+	apiKey: 'AIzaSyBk5ZiEvknFcEYFohScW2l_UER61mXwOIs',
 	authDomain: 'camp-ebd9b.firebaseapp.com',
-	databaseURL: 'https://camp-ebd9b.firebaseio.com',
-	projectId: 'camp-ebd9b',
-	storageBucket: 'camp-ebd9b.appspot.com',
-	messagingSenderId: '820604354987',
-	appId: '1:979738891294:android:4fb0a381432babeebc0a0f',
+	databaseURL: 'https://elgas-68c82.firebaseio.com',
+	projectId: 'elgas-68c82',
+	storageBucket: 'elgas-68c82.appspot.com',
+	messagingSenderId: '564053304656',
+	appId: '1:564053304656:android:6aeaf58d5780d7c9cb3855',
 };
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
