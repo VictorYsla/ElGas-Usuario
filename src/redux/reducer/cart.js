@@ -36,17 +36,15 @@ const initialState = {
 
 export default (state = initialState, action) => {
     let newState = { ...state }
+    let total = 0
+    newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
 	switch (action.type) {
 		case ADD_ELEMENT:
             newState.Cart.cart.push(action.element)
-            let total = 0
-            newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
             newState.Cart.totalPrice = total
             return newState;
         case REMOVE_ELEMENT:
             newState.Cart.cart = newState.Cart.cart.filter(value => value.name !== action.element.id)
-            let total = 0
-            newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
             newState.Cart.totalPrice = total
             return newState;
         case DELETE_CART:
@@ -55,8 +53,6 @@ export default (state = initialState, action) => {
             return newState;
         case EDIT_CART:
             newState.Cart.cart[action.index] = action.element
-            let total = 0
-            newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
             newState.Cart.totalPrice = total
 			return newState;
 		default:

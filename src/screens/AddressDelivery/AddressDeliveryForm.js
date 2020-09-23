@@ -16,7 +16,10 @@ const initialValues={city:'', address:'', addressDetails:''}
 
 const AddressDeliveryForm = ({}) => {
     const form = useForm({initialValues})
-    const [location, setLocation] = useState(null)
+    const [location, setLocation] = useState({
+        latitude: 74.000,
+        longitude: -4.000
+    })
     useEffect(()=>{
         GetCurrentLocation()
     },[])

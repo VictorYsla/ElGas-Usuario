@@ -11,6 +11,7 @@ import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
 import AddressDeliveryOptions from './screens/AddressDelivery/AddressDeliveryOptions'
 import AddressDeliveryUsers from './screens/AddressDelivery/AddressDeliveryUsers'
 import AddressDeliveryFormUser from './screens/AddressDelivery/AddressDeliveryFormUser'
+import Products from './screens/SelecProduct/Products'
 
 const Navegador = (props) => {
 	const Stack = createStackNavigator();
@@ -31,7 +32,7 @@ const Navegador = (props) => {
     <PantallaBienvenida setShowRealApp={setShowRealApp} />
   ); */
 
-	return <AddressDeliveryForm />;
+	return <Products />;
 };
 
 const EditUserInfoStack = createStackNavigator()
