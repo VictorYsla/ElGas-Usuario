@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import Container from "../../generales/Container";
-import BotonRegistrar from "../../generales/CustomButton";
+import CustomButton from "../../components/CustomButton";
 
 const RecuperarContrasena = (props) => {
   return (
@@ -36,9 +36,9 @@ const RecuperarContrasena = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonRegistrar>
+        <CustomButton>
           <Text style={styles.buttonLabel}>ENVIAR MAIL</Text>
-        </BotonRegistrar>
+        </CustomButton>
       </View>
     </Container>
   );
