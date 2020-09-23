@@ -14,6 +14,7 @@ import {
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { colores } from "../../constantes/Temas";
+import Container from "../../generales/Container";
 
 const Button = (props) => {
   let TouchableComponent = TouchableOpacity;
@@ -70,11 +71,7 @@ const Button = (props) => {
 
 const PantallaLogin = (props) => {
   return (
-    <KeyboardAvoidingView
-      style={styles.screen}
-      behavior="padding"
-      keyboardVerticalOffset={-550}
-    >
+    <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.logo}>
         <Image
           source={require("../../../assets/img/logo.png")}
@@ -188,20 +185,27 @@ const PantallaLogin = (props) => {
         </Button>
 
         <View style={{ alignItems: "center", marginVertical: 10 }}>
-          <TouchableOpacity activeOpacity={0.6} style={{ marginVertical: 10 }}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={{ marginVertical: 10 }}
+            onPress={() => props.navigation.navigate("Registrarse")}
+          >
             <Text style={{ color: "#fff" }}>
               ¿No tienes una cuenta? Créala aquí
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.6}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => props.navigation.navigate("RecuperarContrasena")}
+          >
             <Text style={{ color: "#fff" }}>Olvidé mi contraseña</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <StatusBar barStyle="light-content" />
-    </KeyboardAvoidingView>
+    </Container>
   );
 };
 
