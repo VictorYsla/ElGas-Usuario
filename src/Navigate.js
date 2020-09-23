@@ -9,6 +9,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./Home";
 import PantallaBienvenida from "./screens/PantallaBienvenida";
 import PantallaLogin from "./screens/Auth/PantallaLogin";
+import Registrarse from "./screens/Auth/Registrarse";
+import RecuperarContrasena from "./screens/Auth/RecuperarContrasena";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -31,6 +33,11 @@ const Navegador = (props) => {
           }}
         </Stack.Screen>
         <Stack.Screen name="Login" component={PantallaLogin} />
+        <Stack.Screen name="Registrarse" component={Registrarse} />
+        <Stack.Screen
+          name="RecuperarContrasena"
+          component={RecuperarContrasena}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
