@@ -3,16 +3,13 @@ import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 
 import Container from "../../generales/Container";
 import CustomButton from "../../components/CustomButton";
+import RegisterIcon from "../../components/Icons/RegisterIcon";
 
 const Registrarse = (props) => {
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../../../assets/img/user-logo.png")}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        <RegisterIcon height="100%" width="100%" />
       </View>
 
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Registrarse</Text>

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import CustomButton from "../../components/CustomButton";
+import CardsBanner from "../../components/Icons/CardsBanner";
 import Container from "../../generales/Container";
 
 const AgregarTarjeta = (props) => {
@@ -22,7 +23,16 @@ const AgregarTarjeta = (props) => {
         <Text style={{ color: "#fff" }}>Mis Tarjetas</Text>
       </View>
 
-      <View style={[{ flex: 1, width: "100%", alignItems: "center" }]}>
+      <View
+        style={[
+          {
+            flex: 1,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        ]}
+      >
         <View style={[styles.messageContainer]}>
           <Text style={[styles.message]}>
             Por tu seguridad paga tus servicios de El Gas con tu tarjeta de
@@ -35,11 +45,12 @@ const AgregarTarjeta = (props) => {
         </View>
 
         <View style={[{ width: "100%", height: 50 }]}>
-          <Image
+          {/* <Image
             source={require("../../../assets/img/banner.png")}
             resizeMode="cover"
             style={{ height: "100%", width: "100%" }}
-          />
+          /> */}
+          <CardsBanner width="100%" height="100%" />
         </View>
 
         <View
