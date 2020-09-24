@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 
 import Container from "../../generales/Container";
-import BotonRegistrar from "../../components/CustomButton";
+import CustomButton from "../../components/CustomButton";
 
 const Registrarse = (props) => {
   return (
@@ -29,9 +29,9 @@ const Registrarse = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonRegistrar>
+        <CustomButton>
           <Text style={styles.buttonLabel}>Registrarse</Text>
-        </BotonRegistrar>
+        </CustomButton>
       </View>
     </Container>
   );
