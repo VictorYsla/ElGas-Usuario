@@ -44,7 +44,7 @@ const SeleccionarTarjeta = (props) => {
   const years = getYears();
 
   return (
-    <Container styleContainer={styles.screen} footer={false}>
+    <Container styleContainer={styles.screen} footer={true}>
       <View
         style={[
           {
@@ -128,7 +128,7 @@ const SeleccionarTarjeta = (props) => {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    minHeight: 400,
     alignItems: "center",
     backgroundColor: "#fff",
   },
