@@ -4,12 +4,14 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   TouchableNativeFeedback,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { pantalla } from "../../constantes/Temas";
 
+import AddIcon from "../../components/Icons/AddIcon";
+import CardIcon from "../../components/Icons/CardIcon";
+import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
+import { pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 
 const Tarjetas = (props) => {
@@ -78,18 +80,12 @@ const Tarjetas = (props) => {
                       },
                     ]}
                   >
-                    <Image
-                      source={require("../../../assets/img/card.png")}
-                      style={[{ width: 25, height: 20, marginRight: 10 }]}
-                      resizeMode="contain"
-                    />
+                    <View style={[{ marginRight: 10 }]}>
+                      <CardIcon width={25} height={20} />
+                    </View>
                     <Text style={styles.cardNumber}>{maskedText}</Text>
                   </View>
-                  <Image
-                    source={require("../../../assets/img/chevron-right.png")}
-                    style={[{ height: 12, width: 12 }]}
-                    resizeMode="contain"
-                  />
+                  <ChevronRightIcon height={12} width={12} />
                 </View>
               </TouchableNativeFeedback>
             );
@@ -113,11 +109,7 @@ const FAB = (props) => {
     <View style={[styles.fab, { ...props.style }]}>
       <TouchableNativeFeedback onPress={props.onPress}>
         <View style={styles.fabImage}>
-          <Image
-            source={require("../../../assets/img/add.png")}
-            style={[{ height: 15, width: 15 }]}
-            resizeMode="contain"
-          />
+          <AddIcon height={15} width={15} />
         </View>
       </TouchableNativeFeedback>
     </View>
