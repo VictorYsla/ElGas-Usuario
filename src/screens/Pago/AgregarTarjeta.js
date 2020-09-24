@@ -83,7 +83,7 @@ const AgregarTarjeta = (props) => {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: "#fff",
-    alignItems: "center",
+    minHeight: 500,
   },
   messageContainer: {
     height: 150,
