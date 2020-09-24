@@ -1,54 +1,16 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  TouchableNativeFeedback,
-} from "react-native";
-import Picker from "react-native-picker-select";
+import React from "react";
+import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-
+import CustomButton from "../../components/CustomButton";
 import Container from "../../generales/Container";
-import BotonRegistrar from "../../components/CustomButton";
 
 const AgregarTarjeta = (props) => {
-  const [selectedMonth, setSelectedMonth] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
-
-  const months = [
-    { value: 1, label: "01" },
-    { value: 2, label: "02" },
-    { value: 3, label: "03" },
-    { value: 4, label: "04" },
-    { value: 5, label: "05" },
-    { value: 6, label: "06" },
-    { value: 7, label: "07" },
-    { value: 8, label: "08" },
-    { value: 9, label: "09" },
-    { value: 0, label: "10" },
-    { value: 11, label: "11" },
-    { value: 12, label: "12" },
-  ];
-
-  const year = new Date().getFullYear();
-  const getYears = () => {
-    const tempArr = [];
-    for (let i = year; i <= year + 10; i++) {
-      tempArr.push({ label: i.toString().substr(2, 2), value: i });
-    }
-    return tempArr;
-  };
-
-  const years = getYears();
-
   return (
-    <Container styleContainer={styles.screen} footer={false}>
+    <Container styleContainer={[styles.screen]}>
       <View
         style={[
           {
-            backgroundColor: "#F2f2f2",
+            backgroundColor: "#2E2E2D",
             flexDirection: "row",
             width: "100%",
             height: 50,
@@ -57,70 +19,62 @@ const AgregarTarjeta = (props) => {
           },
         ]}
       >
-        <Text>Revisar datos tarjetas</Text>
+        <Text style={{ color: "#fff" }}>Mis Tarjetas</Text>
       </View>
 
-      <View style={styles.total}>
-        <Text style={styles.totalLabel}>TOTAL PEDIDO</Text>
-        <Text style={[styles.boldText, styles.totalLabel]}> $4.80 </Text>
-      </View>
-      <View style={styles.listTile}>
-        <Image
-          source={require("../../../assets/img/user.png")}
-          resizeMode="contain"
-          style={{ width: 20, height: 20, marginRight: 15 }}
-        />
-        <Text style={[styles.boldText, styles.infoText]}>Fernando Carpio </Text>
-      </View>
-      <View style={styles.listTile}>
-        <Image
-          source={require("../../../assets/img/card.png")}
-          resizeMode="contain"
-          style={{ width: 20, height: 20, marginRight: 15 }}
-        />
-        <Text style={[styles.boldText, styles.infoText]}>46xxxxxxxxx2589 </Text>
-      </View>
+      <View style={[{ flex: 1, width: "100%", alignItems: "center" }]}>
+        <View style={[styles.messageContainer]}>
+          <Text style={[styles.message]}>
+            Por tu seguridad paga tus servicios de El Gas con tu tarjeta de
+            crédito.
+          </Text>
+          <Text style={[styles.message, { marginTop: 20 }]}>
+            ¿Desconfías? No te preocupes, los datos son almacenados bajo
+            estrictas normas de seguridad.
+          </Text>
+        </View>
 
-      <View style={styles.cardDetailsContainer}>
-        <Text style={[styles.expireTitle]}>Fecha de Caducidad</Text>
-        <View style={[styles.row, { marginVertical: 10 }]}>
-          <Picker
-            placeholder={{ label: "Mes", value: null }}
-            onValueChange={(value) => setSelectedMonth(value)}
-            value={selectedMonth}
-            items={months}
-            style={{ viewContainer: { width: 100 } }}
+        <View style={[{ width: "100%", height: 50 }]}>
+          <Image
+            source={require("../../../assets/img/banner.png")}
+            resizeMode="cover"
+            style={{ height: "100%", width: "100%" }}
           />
+        </View>
 
-          <Picker
-            placeholder={{ label: "Año", value: null }}
-            onValueChange={(value) => setSelectedYear(value)}
-            value={selectedYear}
-            items={years}
-            style={{
-              viewContainer: { width: 100 },
-              headlessAndroidPicker: { width: 10 },
-            }}
-          />
-
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: 20,
+          }}
+        >
           <TextInput
             style={{
-              width: 50,
+              width: "70%",
               borderBottomColor: "#000",
               borderBottomWidth: 1,
               marginVertical: 10,
-              marginLeft: 10,
-              textAlign: "center",
             }}
-            placeholder="CVV"
+            placeholder="Nombre (Igual que en la tarjeta)"
+          />
+          <TextInput
+            style={{
+              width: "70%",
+              borderBottomColor: "#000",
+              borderBottomWidth: 1,
+              marginVertical: 10,
+            }}
+            placeholder="Número de tarjeta"
           />
         </View>
-      </View>
 
-      <View style={styles.buttonContainer}>
-        <BotonRegistrar>
-          <Text style={styles.buttonLabel}>Realizar Pago</Text>
-        </BotonRegistrar>
+        <View style={{ height: 40, width: 150 }}>
+          <CustomButton>
+            <Text>Guardar</Text>
+          </CustomButton>
+        </View>
       </View>
     </Container>
   );
@@ -128,47 +82,19 @@ const AgregarTarjeta = (props) => {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignItems: "center",
     backgroundColor: "#fff",
-  },
-  total: {
-    marginVertical: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F2F2F2",
-    width: "100%",
-    height: "15%",
-  },
-  totalLabel: {
-    fontSize: RFPercentage(2.8),
-  },
-  listTile: {
-    flexDirection: "row",
-    height: 50,
-    padding: 10,
-    width: "80%",
-  },
-  boldText: { fontWeight: "bold" },
-  infoText: { fontSize: RFPercentage(2.4) },
-  expireTitle: { textAlign: "left" },
-  row: {
-    flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
   },
-  cardDetailsContainer: {
-    marginTop: 20,
+  messageContainer: {
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
     width: "80%",
+    marginVertical: 10,
   },
-  buttonContainer: {
-    width: 150,
-    height: 40,
-    marginTop: 50,
-  },
-  buttonLabel: {
-    fontWeight: "bold",
-    textTransform: "uppercase",
+  message: {
+    fontSize: RFPercentage(2.4),
+    textAlign: "center",
   },
 });
 export default AgregarTarjeta;
