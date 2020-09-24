@@ -1,29 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 
 import { colores } from "../constantes/Temas";
+import { useDispatch } from "react-redux";
+import { actions } from "../redux";
+
+const slides = [
+  {
+    key: "1",
+    text: "Regístrate para comprar tu tanque de gas",
+    image: require("../../assets/img/welcome-1.png"),
+  },
+  {
+    key: "2",
+    text: "Tu cilindro de gas a un solo click de distancia",
+    image: require("../../assets/img/welcome-2.png"),
+  },
+  {
+    key: "3",
+    text: "Puedes pagar en efectivo y con tarjeta de crédito o débito",
+    image: require("../../assets/img/welcome-3.png"),
+  },
+];
 
 const PantallaBienvenida = (props) => {
-  const slides = [
-    {
-      key: "1",
-      text: "Regístrate para comprar tu tanque de gas",
-      image: require("../../assets/img/welcome-1.png"),
-    },
-    {
-      key: "2",
-      text: "Tu cilindro de gas a un solo click de distancia",
-      image: require("../../assets/img/welcome-2.png"),
-    },
-    {
-      key: "3",
-      text: "Puedes pagar en efectivo y con tarjeta de crédito o débito",
-      image: require("../../assets/img/welcome-3.png"),
-    },
-  ];
+  const { navigation } = props;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.actualizarNavigation(navigation));
+  }, []);
 
   const onDone = () => {
     props.setShowRealApp(true);
