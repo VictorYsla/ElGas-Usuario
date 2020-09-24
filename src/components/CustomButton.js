@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 
-const BotonRegistrar = ({ onPress, children }) => (
+const CustomButton = ({ onPress, children }) => (
   <View style={styles.buttonWrapper}>
     <TouchableNativeFeedback onPress={() => onPress}>
       <View style={styles.button}>{children}</View>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BotonRegistrar;
+export default CustomButton;
