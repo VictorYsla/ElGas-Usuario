@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  Button,
-  TouchableNativeFeedback,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+
 import Container from "../../generales/Container";
+import CustomButton from "../../components/CustomButton";
 
 const Registrarse = (props) => {
   return (
@@ -35,21 +29,13 @@ const Registrarse = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonRegistrar>
+        <CustomButton>
           <Text style={styles.buttonLabel}>Registrarse</Text>
-        </BotonRegistrar>
+        </CustomButton>
       </View>
     </Container>
   );
 };
-
-const BotonRegistrar = ({ onPress, children }) => (
-  <View style={styles.buttonWrapper}>
-    <TouchableNativeFeedback onPress={() => onPress}>
-      <View style={styles.button}>{children}</View>
-    </TouchableNativeFeedback>
-  </View>
-);
 
 const styles = StyleSheet.create({
   screen: {
@@ -84,16 +70,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 40,
   },
-  buttonWrapper: { overflow: "hidden", borderRadius: 10 },
-  button: {
-    padding: 20,
-    backgroundColor: "#F2F2F2",
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-  },
+
   buttonLabel: {
     fontWeight: "bold",
     textTransform: "uppercase",
