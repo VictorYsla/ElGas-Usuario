@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
 
 import { connect } from "react-redux";
 
@@ -59,15 +58,6 @@ const Navegador = (props) => {
     </NavigationContainer>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    //backgroundColor: '#e1e8f4',
-  },
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,
