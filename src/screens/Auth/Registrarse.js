@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -6,11 +6,44 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableNativeFeedback,
+  TouchableNativeFeedback, Alert
 } from "react-native";
 import Container from "../../generales/Container";
+import useForm from '../../hooks/useForm'
+import {ValidateForm} from '../../functions/ValidateForm'
+import {auth} from '../../apis/querys'
+import { connect } from "react-redux";
+import {actions} from '../../redux/index'
 
-const Registrarse = (props) => {
+const initialValues={
+  name:'',
+  email:'',
+  password:'',
+  phone:''
+}
+const Registrarse = ({dispatch}) => {
+  const form = useForm({initialValues})
+  const [registerResponse, setRegisterResponse] = useState(null)
+  const register = () =>{
+    console.log('Press', ValidateForm(form));
+    const {name, email, password, phone} = form.fields
+    if(ValidateForm(form)){
+      console.log('Sii');
+      auth(email,name, password, phone, setRegisterResponse)
+    }else{
+      Alert.alert('Todos los campos son obligatorios')
+    }
+  }
+  useEffect(()=>{
+    console.log(form, registerResponse);
+    if(registerResponse){
+      if(registerResponse.type === 'sucess'){
+        // console.log( 'values', registerResponse.value)
+        // console.log('dis:', dispatch)
+        dispatch(actions.actualizarLogin({...registerResponse.value, isLoged: true}))
+      }
+    }
+  },[registerResponse])
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
@@ -24,18 +57,19 @@ const Registrarse = (props) => {
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Registrarse</Text>
 
       <View style={styles.form}>
-        <TextInput style={styles.input} placeholder="Nombre" />
-        <TextInput style={styles.input} placeholder="E-mail" />
+        <TextInput style={styles.input} placeholder="Nombre"  {...form.getInput('name')} />
+        <TextInput style={styles.input} placeholder="E-mail" keyboardType='email-address' {...form.getInput('email')} />
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
           secureTextEntry
+          {...form.getInput('password')}
         />
-        <TextInput style={styles.input} placeholder="Teléfono" />
+        <TextInput style={styles.input} placeholder="Teléfono" keyboardType='number-pad' {...form.getInput('phone')} />
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonRegistrar>
+        <BotonRegistrar onPress={register} >
           <Text style={styles.buttonLabel}>Registrarse</Text>
         </BotonRegistrar>
       </View>
@@ -43,9 +77,9 @@ const Registrarse = (props) => {
   );
 };
 
-const BotonRegistrar = ({ onPress, children }) => (
+const BotonRegistrar = ({ onPress=()=>{}, children }) => (
   <View style={styles.buttonWrapper}>
-    <TouchableNativeFeedback onPress={() => onPress}>
+    <TouchableNativeFeedback onPress={() => onPress()}>
       <View style={styles.button}>{children}</View>
     </TouchableNativeFeedback>
   </View>
@@ -99,4 +133,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 });
-export default Registrarse;
+const mapStateToProps = (state) => ({
+  user: state.login.login.userName,
+  login: state.login.login,
+});
+export default connect(mapStateToProps) (Registrarse);

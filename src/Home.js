@@ -7,7 +7,7 @@ import { actions } from './redux';
 import { getAllUsers } from './apis/firebase';
 import Container from './generales/Container';
 import {getCollection, postCollection} from './apis/querys'
-import BasicHeader from '../components/Header/BasicHeader'
+import BasicHeader from '../src/screens/Header/BasicHeader'
 
 
 function Home(props) {
@@ -25,7 +25,7 @@ function Home(props) {
 
 	return (
 		<Container style={styles.container}>
-			<BasicHeader title='Home' />
+			{/* <BasicHeader title='Home' /> */}
 			<Text>Hola Mundo</Text>
 		</Container>
 	);

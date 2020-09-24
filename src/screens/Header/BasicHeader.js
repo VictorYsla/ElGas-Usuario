@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { colores } from '../../src/constantes/Temas';
+import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const InitalLeftComponent = (icon, iconWidth, iconHeight) => {
@@ -19,7 +19,7 @@ const InitalLeftComponent = (icon, iconWidth, iconHeight) => {
     )
 }
 
-const BasicHeader = ({leftWidth=20, iconWidth=6.2,iconHeight=2.6 , rigthWidth=20, icon=require('../../assets/img/BackButton.png'),centerWidth=60,leftComponent=()=>InitalLeftComponent(icon, iconWidth,iconHeight ), headerHeigth=7.5, rigthComponent=()=>{}, centerComponent=()=>{}, title='title'}) => {
+const BasicHeader = ({leftWidth=20, iconWidth=6.2,iconHeight=2.6 , rigthWidth=20, icon=require('../../../assets/img/BackButton.png'),centerWidth=60,leftComponent=()=>InitalLeftComponent(icon, iconWidth,iconHeight ), headerHeigth=7.5, rigthComponent=()=>{}, centerComponent=()=>{}, title='title'}) => {
     //const navigation = useNavigation()
     return(
         <View style={{height:`${headerHeigth}%`, flexDirection:'row', width:'100%', backgroundColor:colores.bgOscuro}} >

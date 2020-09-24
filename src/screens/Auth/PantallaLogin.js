@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   View,
   Text,
@@ -9,12 +9,21 @@ import {
   TextInput,
   Platform,
   StatusBar,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, Alert
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-
 import { colores } from "../../constantes/Temas";
 import Container from "../../generales/Container";
+import useForm from '../../hooks/useForm'
+import {ValidateForm} from '../../functions/ValidateForm'
+import {auth, logIn} from '../../apis/querys'
+import { connect } from "react-redux";
+import {actions} from '../../redux/index'
+
+const initialValues={
+  email:'',
+  password:'',
+}
 
 const Button = (props) => {
   let TouchableComponent = TouchableOpacity;
@@ -41,7 +50,7 @@ const Button = (props) => {
         props.style,
       ]}
     >
-      <TouchableComponent onPress={() => {}} activeOpacity={0.6}>
+      <TouchableComponent onPress={() => {props.press()}} activeOpacity={0.6}>
         <View
           style={
             !props.horizontal
@@ -70,6 +79,28 @@ const Button = (props) => {
 };
 
 const PantallaLogin = (props) => {
+  const form = useForm({initialValues})
+  // console.log(form);
+  const [loginResponse, setLoginResponse] = useState(null)
+  const onLogin = () =>{
+    if(ValidateForm(form)){
+      const {email, password} = form.fields
+      logIn(email,password, setLoginResponse)
+      console.log('Siii');
+    }else{
+      Alert.alert('Todos los campos son requeridos')
+    }
+  }
+  useEffect(()=>{
+    console.log(form, loginResponse);
+    if(loginResponse){
+      if(loginResponse.type === 'sucess'){
+        // console.log( 'values', loginResponse.value)
+        // console.log('dis:', props.dispatch)
+        props.dispatch(actions.actualizarLogin({...loginResponse.value, isLoged: true}))
+      }
+    }
+  },[loginResponse])
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.logo}>
@@ -116,6 +147,8 @@ const PantallaLogin = (props) => {
               },
             ]}
             placeholder="E-mail"
+            keyboardType='email-address'
+            {...form.getInput('email')}
           />
         </View>
         <View
@@ -152,12 +185,13 @@ const PantallaLogin = (props) => {
             ]}
             placeholder="Password"
             secureTextEntry
+            {...form.getInput('password')}
           />
         </View>
       </View>
 
       <View style={styles.contenedor}>
-        <Button color="#fff" style={{ marginBottom: 10 }}>
+        <Button press={onLogin} color="#fff" style={{ marginBottom: 10 }}>
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
           </Text>
@@ -240,4 +274,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default PantallaLogin;
+export default connect() (PantallaLogin);
