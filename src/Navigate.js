@@ -14,6 +14,7 @@ import Tarjetas from "./screens/Pago/Tarjetas";
 import SeleccionarTarjeta from "./screens/Pago/SeleccionarTarjeta";
 import PantallaPedidos from "./screens/User/PantallaPedidos";
 import AgregarTarjeta from "./screens/Pago/AgregarTarjeta";
+import { StyleSheet } from "react-native";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
