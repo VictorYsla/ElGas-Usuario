@@ -59,6 +59,25 @@ const Navegador = (props) => {
   );
 };
 
+const EditUserInfoStack = createStackNavigator();
+const EditUserInfo = ({}) => {
+  return (
+    <EditUserInfoStack.Navigator>
+      <EditUserInfoStack.Screen />
+    </EditUserInfoStack.Navigator>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    //backgroundColor: '#e1e8f4',
+  },
+});
+
 const mapStateToProps = (state) => ({
   login: state.login,
 });

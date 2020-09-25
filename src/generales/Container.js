@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Cargando from "./Cargando";
 import { connect } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { RFPercentage } from "react-native-responsive-fontsize";
+
 import { colores, pantalla } from "../constantes/Temas";
 import SvgHome from "../components/Icons/HomeIcon";
 import SvgProfile from "../components/Icons/ProfileIcon";
 import SvgOrders from "../components/Icons/OrdersIcon";
 import CardIcon from "../components/Icons/CardIcon";
 import SvgLogout from "../components/Icons/LogoutIcon";
+
+const { width, height } = Dimensions.get("window");
 
 function Container({
   styleContainer,

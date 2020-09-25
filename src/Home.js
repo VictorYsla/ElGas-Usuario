@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 //importaciones necesarias para redux//
@@ -6,20 +6,26 @@ import { connect } from 'react-redux';
 import { actions } from './redux';
 import { getAllUsers } from './apis/firebase';
 import Container from './generales/Container';
+import {getCollection, postCollection} from './apis/querys'
+import BasicHeader from '../src/screens/Header/BasicHeader'
+
 
 function Home(props) {
 	const { login, dispatch, navigation } = props;
-
+	const [response, setResponse] = useState(null)
 	const probando = async () => {
 		await getAllUsers((r) => {});
 	};
-
+	console.log('hook', response)
 	useEffect(() => {
 		dispatch(actions.actualizarNavigation(navigation));
+		getCollection(setResponse, '1')
+		postCollection('2', {name:'Hola mundo'})
 	}, []);
 
 	return (
 		<Container style={styles.container}>
+			{/* <BasicHeader title='Home' /> */}
 			<Text>Hola Mundo</Text>
 		</Container>
 	);
