@@ -8,6 +8,7 @@ import {
   TextInput,
   Platform,
   StatusBar,
+  Alert,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -55,7 +56,7 @@ const Button = (props) => {
     >
       <TouchableComponent
         onPress={() => {
-          props.onPress();
+          props.press();
         }}
         activeOpacity={0.6}
       >
@@ -189,11 +190,7 @@ const PantallaLogin = (props) => {
       </View>
 
       <View style={styles.contenedor}>
-        <Button
-          color="#fff"
-          style={{ marginBottom: 10 }}
-          onPress={() => props.navigation.navigate("Home")}
-        >
+        <Button press={onLogin} color="#fff" style={{ marginBottom: 10 }}>
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
           </Text>
