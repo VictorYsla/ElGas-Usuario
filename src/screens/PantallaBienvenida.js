@@ -36,7 +36,7 @@ const PantallaBienvenida = (props) => {
 
   const onDone = () => {
     props.setShowRealApp(true);
-    props.navigation.replace("Login");
+    navigation.replace("Login");
   };
 
   return (
