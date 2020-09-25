@@ -14,10 +14,10 @@ import Tarjetas from "./screens/Pago/Tarjetas";
 import SeleccionarTarjeta from "./screens/Pago/SeleccionarTarjeta";
 import PantallaPedidos from "./screens/User/PantallaPedidos";
 import AgregarTarjeta from "./screens/Pago/AgregarTarjeta";
-import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
-import AddressDeliveryFormUser from './screens/AddressDelivery/AddressDeliveryFormUser'
-import AddressDeliveryOptions from './screens/AddressDelivery/AddressDeliveryOptions'
-import AddressDeliveryUsers from './screens/AddressDelivery/AddressDeliveryUsers'
+import AddressDeliveryForm from "./screens/AddressDelivery/AddressDeliveryForm";
+import AddressDeliveryFormUser from "./screens/AddressDelivery/AddressDeliveryFormUser";
+import AddressDeliveryOptions from "./screens/AddressDelivery/AddressDeliveryOptions";
+import AddressDeliveryUsers from "./screens/AddressDelivery/AddressDeliveryUsers";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -57,10 +57,22 @@ const Navegador = (props) => {
         />
 
         {/* AddressDelivery */}
-        <Stack.Screen name="AddressDeliveryForm" component={AddressDeliveryForm} />
-        <Stack.Screen name="AddressDeliveryFormUser" component={AddressDeliveryFormUser} />
-        <Stack.Screen name="AddressDeliveryOptions" component={AddressDeliveryOptions} />
-        <Stack.Screen name="AddressDeliveryUsers" component={AddressDeliveryUsers} />
+        <Stack.Screen
+          name="AddressDeliveryForm"
+          component={AddressDeliveryForm}
+        />
+        <Stack.Screen
+          name="AddressDeliveryFormUser"
+          component={AddressDeliveryFormUser}
+        />
+        <Stack.Screen
+          name="AddressDeliveryOptions"
+          component={AddressDeliveryOptions}
+        />
+        <Stack.Screen
+          name="AddressDeliveryUsers"
+          component={AddressDeliveryUsers}
+        />
 
         {/* Pedidos */}
         <Stack.Screen name="MisPedidos" component={PantallaPedidos} />
@@ -68,16 +80,6 @@ const Navegador = (props) => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    //backgroundColor: '#e1e8f4',
-  },
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,
