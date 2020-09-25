@@ -33,7 +33,7 @@ function App() {
   };
 
   useEffect(() => {
-    persistStore(store).purge();
+    // persistStore(store).purge();
 
     fonts();
   }, []);

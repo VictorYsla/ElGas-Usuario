@@ -59,6 +59,17 @@ const Navegador = (props) => {
     </NavigationContainer>
   );
 };
+
+const EditUserInfoStack = createStackNavigator()
+const EditUserInfo = ({}) => {
+  return(
+    <EditUserInfoStack.Navigator>
+      <EditUserInfoStack.Screen />
+    </EditUserInfoStack.Navigator>
+  )
+}
+
+
 const styles = StyleSheet.create({
   container: {
     height: "100%",

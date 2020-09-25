@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 
-const CustomButton = ({ onPress, children }) => (
+const CustomButton = ({ onPress=()=>{}, children }) => (
   <View style={styles.buttonWrapper}>
-    <TouchableNativeFeedback onPress={() => onPress}>
+    <TouchableNativeFeedback onPress={() => onPress()}>
       <View style={styles.button}>{children}</View>
     </TouchableNativeFeedback>
   </View>
