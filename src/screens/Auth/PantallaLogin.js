@@ -8,7 +8,7 @@ import {
   TextInput,
   Platform,
   StatusBar,
-  Alert,
+  Alert
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -31,6 +31,7 @@ const initialValues = {
 
 const Button = (props) => {
   let TouchableComponent = TouchableOpacity;
+  //const {onPress=()=>{}}= props
 
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableComponent = TouchableNativeFeedback;
@@ -54,12 +55,7 @@ const Button = (props) => {
         props.style,
       ]}
     >
-      <TouchableComponent
-        onPress={() => {
-          props.press();
-        }}
-        activeOpacity={0.6}
-      >
+      <TouchableComponent onPress={() => {props.onPress()}} activeOpacity={0.6}>
         <View
           style={
             !props.horizontal
@@ -190,7 +186,11 @@ const PantallaLogin = (props) => {
       </View>
 
       <View style={styles.contenedor}>
-        <Button press={onLogin} color="#fff" style={{ marginBottom: 10 }}>
+        <Button
+          color="#fff"
+          style={{ marginBottom: 10 }}
+          onPress={onLogin}//() => props.navigation.navigate("Tarjetas")
+        >
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
           </Text>
