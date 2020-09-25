@@ -15,6 +15,10 @@ import Tarjetas from "./screens/Pago/Tarjetas";
 import SeleccionarTarjeta from "./screens/Pago/SeleccionarTarjeta";
 import PantallaPedidos from "./screens/User/PantallaPedidos";
 import AgregarTarjeta from "./screens/Pago/AgregarTarjeta";
+import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
+import AddressDeliveryFormUser from './screens/AddressDelivery/AddressDeliveryFormUser'
+import AddressDeliveryOptions from './screens/AddressDelivery/AddressDeliveryOptions'
+import AddressDeliveryUsers from './screens/AddressDelivery/AddressDeliveryUsers'
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -53,22 +57,18 @@ const Navegador = (props) => {
           component={SeleccionarTarjeta}
         />
 
+        {/* AddressDelivery */}
+        <Stack.Screen name="AddressDeliveryForm" component={AddressDeliveryForm} />
+        <Stack.Screen name="AddressDeliveryFormUser" component={AddressDeliveryFormUser} />
+        <Stack.Screen name="AddressDeliveryOptions" component={AddressDeliveryOptions} />
+        <Stack.Screen name="AddressDeliveryUsers" component={AddressDeliveryUsers} />
+
         {/* Pedidos */}
         <Stack.Screen name="MisPedidos" component={PantallaPedidos} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const EditUserInfoStack = createStackNavigator()
-const EditUserInfo = ({}) => {
-  return(
-    <EditUserInfoStack.Navigator>
-      <EditUserInfoStack.Screen />
-    </EditUserInfoStack.Navigator>
-  )
-}
-
 
 const styles = StyleSheet.create({
   container: {
