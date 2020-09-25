@@ -70,7 +70,7 @@ const Registrarse = ({dispatch}) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <CustomButton onPress={register()} >
+        <CustomButton onPress={register} >
           <Text style={styles.buttonLabel}>Registrarse</Text>
         </CustomButton>
       </View>

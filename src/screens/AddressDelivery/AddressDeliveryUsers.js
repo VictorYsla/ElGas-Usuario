@@ -3,12 +3,11 @@ import { View, Text, StyleSheet, Image, TextInput,TouchableOpacity, Dimensions }
 //importaciones necesarias para redux//
 import { connect } from 'react-redux';
 import Container from '../../generales/Container';
-import BasicHeader from '../../../components/Header/BasicHeader'
+import BasicHeader from '../../components/Header/BasicHeader'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import TextInputBottomBorder from '../../../components/TextInput/TextInputBottomBorder'
-import PlusFloatingButton from '../../../components/PlusFloatingButton'
+import PlusFloatingButton from '../../components/PlusFloatingButton'
 import useForm from '../../hooks/useForm'
 const initialValues={city:'', address:'', addressDetails:''}
 

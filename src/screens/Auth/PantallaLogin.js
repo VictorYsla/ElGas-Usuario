@@ -9,10 +9,7 @@ import {
   TextInput,
   Platform,
   StatusBar,
-<<<<<<< HEAD
-  KeyboardAvoidingView, Alert
-=======
->>>>>>> fe5911712086a7438448db4fe91f8929d30afd82
+  Alert
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colores } from "../../constantes/Temas";
@@ -30,6 +27,7 @@ const initialValues={
 
 const Button = (props) => {
   let TouchableComponent = TouchableOpacity;
+  //const {onPress=()=>{}}= props
 
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableComponent = TouchableNativeFeedback;
@@ -53,16 +51,7 @@ const Button = (props) => {
         props.style,
       ]}
     >
-<<<<<<< HEAD
-      <TouchableComponent onPress={() => {props.press()}} activeOpacity={0.6}>
-=======
-      <TouchableComponent
-        onPress={() => {
-          props.onPress();
-        }}
-        activeOpacity={0.6}
-      >
->>>>>>> fe5911712086a7438448db4fe91f8929d30afd82
+      <TouchableComponent onPress={() => {props.onPress()}} activeOpacity={0.6}>
         <View
           style={
             !props.horizontal
@@ -203,15 +192,11 @@ const PantallaLogin = (props) => {
       </View>
 
       <View style={styles.contenedor}>
-<<<<<<< HEAD
-        <Button press={onLogin} color="#fff" style={{ marginBottom: 10 }}>
-=======
         <Button
           color="#fff"
           style={{ marginBottom: 10 }}
-          onPress={() => props.navigation.navigate("Tarjetas")}
+          onPress={onLogin}//() => props.navigation.navigate("Tarjetas")
         >
->>>>>>> fe5911712086a7438448db4fe91f8929d30afd82
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
           </Text>

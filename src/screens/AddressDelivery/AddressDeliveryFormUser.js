@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TextInput,TouchableOpacity } from 'react-native';
 import Container from '../../generales/Container';
-import BasicHeader from '../../../components/Header/BasicHeader'
+import BasicHeader from '../../components/Header/BasicHeader'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import TextInputBottomBorder from '../../../components/TextInput/TextInputBottomBorder'
+import TextInputBottomBorder from '../../components/TextInput/TextInputBottomBorder'
 import useForm from '../../hooks/useForm'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Selector from '../../../components/Form/Selector'
+import Selector from '../../components/Form/Selector'
 const initialValues={name:'', dni:'', address:'', dniType:'C.I'}
 
 const AddressDeliveryForm = ({}) => {
