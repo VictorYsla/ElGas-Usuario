@@ -26,7 +26,7 @@ const CustomButton = ({image=require('../../../assets/img/CancelButton.png'), ti
             <View style={{flexDirection:'row',  width:wp(60)}} >
                 <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />
                 <View style={{marginLeft:wp(5)}} >
-                    <Text style={{fontSize:RFPercentage(2), textAlign:'left'}} >{title} </Text>
+                    <Text style={{fontSize:RFPercentage(2), textAlign:'left', fontWeight:'bold'}} >{title} </Text>
                     <Text style={{fontSize:RFPercentage(2), }} >{description} </Text>
                 </View>
             </View>

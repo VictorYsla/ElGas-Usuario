@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TextInput,TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import Container from '../../generales/Container';
-import BasicHeader from '../../../components/Header/BasicHeader'
+import BasicHeader from '../../components/Header/BasicHeader'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';

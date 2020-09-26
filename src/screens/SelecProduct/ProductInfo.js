@@ -1,23 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TextInput,TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import Container from '../../generales/Container';
-import BasicHeader from '../../../components/Header/BasicHeader'
+import BasicHeader from '../../components/Header/BasicHeader'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import useForm from '../../hooks/useForm'
+import EditQuantityButtons from '../../components/EditQuantityButtons'
 const initialValues={city:'', address:'', addressDetails:''}
 
-const Product = ({}) => {
+const ProductInfo = ({}) => {
     const form = useForm({initialValues})
-    const [basket, setBasket] = useState(1)
-    const localImagesArray = [
-        {uri:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg', capacity:15, unity:'kg'},
-        {uri:'https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg', capacity:45, unity:'g'}
-    ]
-    const localImagesArrayValvules = [
-        {uri:'https://regaber.com/wp-content/uploads/2019/04/ValvulaCompuerta_AsientoElastico_Gaer_Regaber_01.jpg', name:'Válvulas'}
-    ]
     const localData={
         capacity:15, 
         unity:'kg',
@@ -27,7 +20,8 @@ const Product = ({}) => {
     }
     
     return(
-        <Container>
+        // <Container>
+        <View style={{flex:1}} >
             <BasicHeader title='Producto'  />
             
             <View style={{marginTop:hp(5), }} >
@@ -37,20 +31,26 @@ const Product = ({}) => {
                         <Text style={{textAlign:'center', fontSize:wp(7), marginTop:hp(0.3), fontWeight:'bold'}} >${localData.price.toFixed(2)}</Text>
                     </TouchableOpacity>
             </View>
-            <View style={{flex:1, marginTop:hp(5)}} >
+            <View style={{ marginTop:hp(5)}} >
                 <View style={{backgroundColor:'#eee', width:wp(100), height:hp(5), justifyContent:'center'}} >
-                    <Text style={{textAlign:'center', fontSize:RFPercentage(2.5), fontWeight:'bold'}} >Cilindros de gas</Text>
+                    <Text style={{textAlign:'center', fontSize:RFPercentage(2.5), fontWeight:'bold'}} >Detalles del producto</Text>
                 </View>
                 <View style={{marginTop:hp(2), justifyContent:'center', alignSelf:'center'}} >
                     <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >Peso: {localData.capacity}{localData.unity}</Text>
                     <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{localData.description}</Text>
                 </View>
-                
             </View>
-        </Container>
+            <View style={{top:hp(28), flexDirection:'row', justifyContent:'space-between'}} >
+                <EditQuantityButtons mlef={10} />
+                <TouchableOpacity style={{marginRight:wp(10), backgroundColor:colores.grisClaro, paddingHorizontal:wp(9), justifyContent:'center'}} >
+                    <Text style={{fontSize:RFPercentage(2.3), textTransform:'uppercase', fontWeight:'bold'}} >Agregar</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        // </Container>
     )
 }
 
 
 
-export default Product
+export default ProductInfo
