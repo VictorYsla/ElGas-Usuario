@@ -7,18 +7,15 @@ import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import useForm from '../../hooks/useForm'
 import EditQuantityButtons from '../../components/EditQuantityButtons'
+import { connect } from 'react-redux';
 const initialValues={city:'', address:'', addressDetails:''}
 
-const ProductInfo = ({}) => {
+const ProductInfo = ({route:{params}}) => {
     const form = useForm({initialValues})
-    const localData={
-        capacity:15, 
-        unity:'kg',
-        price:1.60,
-        name:'Gas',
-        description:'Cilindro de gas de 15Kg para el hogar.'
+    const {item} = params
+    const editQty = () =>{
+
     }
-    
     return(
         // <Container>
         <View style={{flex:1}} >
@@ -26,9 +23,9 @@ const ProductInfo = ({}) => {
             
             <View style={{marginTop:hp(5), }} >
                     <TouchableOpacity style={{marginLeft:wp(1), alignSelf:'center'}} >
-                        <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg'}} style={{width:wp(25), height:hp(17)}} />
-                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{localData.capacity}{localData.unity}</Text>
-                        <Text style={{textAlign:'center', fontSize:wp(7), marginTop:hp(0.3), fontWeight:'bold'}} >${localData.price.toFixed(2)}</Text>
+                        <Image source={{uri: item.product.photo_url}} style={{width:wp(25), height:hp(17)}} />
+                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{item.product.descirption.capacity}{item.product.descirption.unity}</Text>
+                        <Text style={{textAlign:'center', fontSize:wp(7), marginTop:hp(0.3), fontWeight:'bold'}} >${item.product.price.toFixed(2)}</Text>
                     </TouchableOpacity>
             </View>
             <View style={{ marginTop:hp(5)}} >
@@ -36,8 +33,8 @@ const ProductInfo = ({}) => {
                     <Text style={{textAlign:'center', fontSize:RFPercentage(2.5), fontWeight:'bold'}} >Detalles del producto</Text>
                 </View>
                 <View style={{marginTop:hp(2), justifyContent:'center', alignSelf:'center'}} >
-                    <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >Peso: {localData.capacity}{localData.unity}</Text>
-                    <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{localData.description}</Text>
+                    <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >Peso: {item.product.descirption.capacity}{item.product.descirption.unity}</Text>
+                    <Text style={{textAlign:'left', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{item.product.descirption.description}</Text>
                 </View>
             </View>
             <View style={{top:hp(28), flexDirection:'row', justifyContent:'space-between'}} >
@@ -51,6 +48,10 @@ const ProductInfo = ({}) => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    login: state.login.login,
+  });
 
 
-export default ProductInfo
+
+export default connect(mapStateToProps)(ProductInfo)

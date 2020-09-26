@@ -1,16 +1,24 @@
 import firebase from 'firebase'
 
-export const getCollection = (setResponse=()=>{}, collectionName='1') => {
-    firebase
+export const getCollection = async(collectionName='1') => {
+    return await firebase
     .firestore()
     .collection(collectionName)
-    .onSnapshot(response =>{
-        const values=[]
-        response.forEach((doc)=>{
+    .get()
+    .then(x=>{
+        const values = []
+        x.docs.forEach((doc)=>{
             values.push(doc.data())
         })
-        setResponse(values)
+        return values
     })
+    // .onSnapshot(response =>{
+    //     const values=[]
+    //     response.forEach((doc)=>{
+    //         values.push(doc.data())
+    //     })
+    //     setResponse(values)
+    // })
 }
 
 export const postCollection = (collectionName='1', body={name:''}) =>{
@@ -20,15 +28,13 @@ export const postCollection = (collectionName='1', body={name:''}) =>{
     .add(body)
 }
 
-export const auth = (email='',userName='', password='', phoneNumberUser='', setResponse=()=>{}) => {
+export const singUp = async(email='',userName='', password='', phoneNumberUser='') => {
     //console.log(email, userName, password, phoneNumberUser);
-    firebase
+    return await firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(res =>{
-        res.user.updateProfile({displayName:userName}).then(x=>{
-            // console.log('updateResposne', x)
-            // console.log('Response: ', res);
+    .then(async(res) =>{
+        return await res.user.updateProfile({displayName:userName}).then(x=>{
             const user={
                 userName: res.user.displayName,
                 token: res.user.l,
@@ -36,22 +42,20 @@ export const auth = (email='',userName='', password='', phoneNumberUser='', setR
                 email: res.user.email,
                 emailVerified: res.user.emailVerified
             }
-            // console.log('obj', user, 'user: ', res.user.displayName);
-            setResponse({type:'sucess', value: user})
+            console.log('user', user);
+            return {type:'sucess', value: user}
         })
-        // res.user.updatePhoneNumber(phoneNumberUser)
-        // res.user.phoneNumber.
-        
     })
-    .catch(e=>{console.log('error: ', e); setResponse({type:'error', value:e})})
+    .catch(e=>{console.log('error: ', e); return {type:'error', value: e}; })
 }
 
-export const logIn = (email='', password='', setResponse=()=>{}) => {
-    firebase
+export const logIn = async(email='', password='') => {
+    
+    return await firebase
     .auth()
     .signInWithEmailAndPassword(email,password)
     .then(res =>{
-        console.log('Login: ',res)
+        // console.log('Login: ',res)
         const user={
             userName: res.user.displayName,
             token: res.user.l,
@@ -59,8 +63,9 @@ export const logIn = (email='', password='', setResponse=()=>{}) => {
             email: res.user.email,
             emailVerified: res.user.emailVerified
         }
+        return {type:'sucess', value: user}
         // console.log('obj', user );
-        setResponse({type:'sucess', value: user})
+        // setResponse({type:'sucess', value: user})
     })
-    .catch(e=>{console.log('error: ', e); setResponse({type:'error', value:e})})
+    .catch(e=>{console.log('error: ', e); return {type:'error', value: e}; })
 }

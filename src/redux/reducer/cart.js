@@ -3,31 +3,42 @@ export const REMOVE_ELEMENT = 'REMOVE_ELEMENT';
 export const DELETE_CART = 'DELETE_CART';
 export const EDIT_CART = 'EDIT_CART';
 
-export const AddElement = (element) => ({
-	type: ADD_ELEMENT,
-	element,
-});
-export const RemoveElement = (element) => ({
-    type:REMOVE_ELEMENT,
-    element
-})
-export const DeleteCart = () => ({
-    type:DELETE_CART
-})
-export const EditCart = (index,element) => ({
-    type:EDIT_CART,
-    index,
-    element
-})
+export const UpdateCart = {
+    AddElement: (element) => ({
+        type: ADD_ELEMENT,
+        element,
+    }),
+    RemoveElement: (element) => ({
+        type:REMOVE_ELEMENT,
+        element
+    }),
+    DeleteCart: () => ({
+        type:DELETE_CART
+    }),
+    EditCart: (index,element) => ({
+        type:EDIT_CART,
+        index,
+        element
+    })
+}
 
 const initialState = {
     Cart:{
         cart: [
             // {
-            //     name:'name',
-            //     id:'id',
-            //     price:0,
-            //     quantity:0,
+            //     product:{
+            //         id:'',
+            //         name:'',
+            //         photo_url:'',
+            //         order_id:0,
+            //         descirption:''
+            //     },
+            //     category:{
+            //         id:'',
+            //         name:'',
+            //         description:'',
+            //         order_id:0
+            //     }
             // }
         ],
         totalPrice:0

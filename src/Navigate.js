@@ -34,7 +34,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="DeliveryDetails"//PantallaBienvenida
+        initialRouteName="Products"//PantallaBienvenida,  DeliveryDetails
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PantallaBienvenida">
@@ -70,7 +70,7 @@ const Navegador = (props) => {
 
         {/* Product */}
         <Stack.Screen name="Products" component={Products} />
-        <Stack.Screen name="ProductInfo" component={ProductInfo} />
+        <Stack.Screen name="ProductInfo" component={ProductInfo} initialParams={{item: null}} />
         <Stack.Screen name="MyCart" component={MyCart} />
         <Stack.Screen name="DeliveryDetails" component={DeliveryDetails} />
         

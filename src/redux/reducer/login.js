@@ -18,7 +18,7 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case ACTUALIZAR_LOGIN:
-			console.log('In redux', state)
+			// console.log('In redux', state)
 			return {
 				...state,
 				login: action.login,

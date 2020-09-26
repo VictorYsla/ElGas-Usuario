@@ -5,18 +5,70 @@ import BasicHeader from '../../components/Header/BasicHeader'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import useForm from '../../hooks/useForm'
-const initialValues={city:'', address:'', addressDetails:''}
+import {useNavigation} from '@react-navigation/native'
 
 const Product = ({}) => {
-    const form = useForm({initialValues})
     const [basket, setBasket] = useState(1)
-    const localImagesArray = [
-        {uri:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg', capacity:15, unity:'kg'},
-        {uri:'https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg', capacity:45, unity:'g'}
-    ]
-    const localImagesArrayValvules = [
-        {uri:'https://regaber.com/wp-content/uploads/2019/04/ValvulaCompuerta_AsientoElastico_Gaer_Regaber_01.jpg', name:'Válvulas'}
+    const navigation = useNavigation()
+    const localApiResponse = [
+        {
+            product:{
+                id:'1',
+                name:'Cilindro Auzul',
+                photo_url:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg',
+                order_id:1,
+                descirption:{
+                    capacity:15, 
+                    unity:'kg',
+                    description:'Cilindro de gas de 15Kg para el hogar.'
+                },
+                price: 1.60
+            },
+            category:{
+                id:'0',
+                name:'Cilindro',
+                description:'',
+                order_id:0
+            }
+        },
+        {
+            product:{
+                id:'1',
+                name:'Cilindro Verde',
+                photo_url:'https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg',
+                order_id:1,
+                descirption:{
+                    capacity:45, 
+                    unity:'g',
+                    description:'Cilindro de gas de 45g para el hogar.'
+                },
+                price: 1.55
+            },
+            category:{
+                id:'0',
+                name:'Cilindro',
+                description:'',
+                order_id:0
+            }
+        },
+        {
+            product:{
+                id:'3',
+                name:'Válvula',
+                photo_url:'https://regaber.com/wp-content/uploads/2019/04/ValvulaCompuerta_AsientoElastico_Gaer_Regaber_01.jpg',
+                order_id:3,
+                descirption:{
+                    description:'Válvula de gran capacidad.'
+                },
+                price: 0.90
+            },
+            category:{
+                id:'1',
+                name:'Accesorio',
+                description:'',
+                order_id:1
+            }
+        }
     ]
     const CenterComponet = () => {
         return(
@@ -53,11 +105,11 @@ const Product = ({}) => {
                 <View style={{marginTop:hp(2)}} >
                     <ScrollView horizontal style={{alignSelf:'center'}} >
                         {
-                            localImagesArray.map((value, index)=>{
+                            localApiResponse.filter(value => value.category.name === 'Cilindro').map((value, index)=>{
                                 return(
-                                    <TouchableOpacity style={{marginLeft:wp(index>0?5:0)}} >
-                                        <Image source={{uri: value.uri}} style={{width:wp(10), height:hp(8)}} />
-                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.capacity}{value.unity}</Text>
+                                    <TouchableOpacity onPress={()=>navigation.navigate('ProductInfo',{item: value})} key={index} style={{marginLeft:wp(index>0?5:0)}} >
+                                        <Image source={{uri: value.product.photo_url}} style={{width:wp(10), height:hp(8)}} />
+                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.product.descirption.capacity}{value.product.descirption.unity}</Text>
                                     </TouchableOpacity>
                                 )
                             })
@@ -70,11 +122,11 @@ const Product = ({}) => {
                 <View style={{marginTop:hp(2)}} >
                     <ScrollView horizontal style={{alignSelf:'center'}} >
                         {
-                            localImagesArrayValvules.map((value, index)=>{
+                            localApiResponse.filter(value => value.category.name === 'Accesorio').map((value, index)=>{
                                 return(
-                                    <TouchableOpacity style={{marginLeft:wp(index>0?5:0)}} >
-                                        <Image source={{uri: value.uri}} style={{width:wp(10), height:hp(8)}} />
-                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.name}</Text>
+                                    <TouchableOpacity onPress={()=>navigation.navigate('ProductInfo',{item: value})} key={index} style={{marginLeft:wp(index>0?5:0)}} >
+                                        <Image source={{uri: value.product.photo_url}} style={{width:wp(10), height:hp(8)}} />
+                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.product.name}</Text>
                                     </TouchableOpacity>
                                 )
                             })
