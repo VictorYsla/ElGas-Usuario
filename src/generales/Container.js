@@ -16,6 +16,7 @@ import SvgProfile from "../components/Icons/ProfileIcon";
 import SvgOrders from "../components/Icons/OrdersIcon";
 import CardIcon from "../components/Icons/CardIcon";
 import SvgLogout from "../components/Icons/LogoutIcon";
+import {useNavigation} from '@react-navigation/native'
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,7 +32,7 @@ function Container({
       <View style={[{ flex: 1, width: "100%" }, styleContainer]}>
         {children}
       </View>
-      {footer && <Footer navigation={navigation.navigation} />}
+      {footer && <Footer navigation={navigation} />}
       {isloading && (
         <Cargando
           style={{
@@ -45,8 +46,9 @@ function Container({
   );
 }
 
-const Footer = ({ navigation }) => {
+const Footer = (/* { navigation } */) => {
   const { screenWidth } = pantalla;
+  const navigation = useNavigation()
 
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
@@ -65,7 +67,7 @@ const Footer = ({ navigation }) => {
       >
         <Item
           navigation={navigation}
-          ruta={"Home"}
+          ruta={"Product"}
           texto="Inicio"
           isActive={() => {
             if (!home) {

@@ -10,6 +10,8 @@ import CancelIcon from '../../components/Icons/CancelIcon'
 import ElGasLogo from '../../components/Icons/ElGasLogo'
 import BasketIcon from '../../components/Icons/BasketIcon'
 import SearchIcon from '../../components/Icons/SearchIcon'
+import ChevronLeftIcon from '../../components/Icons/ChevronLeftIcon'
+import ChevronRightIcon from '../../components/Icons/ChevronRightIcon'
 
 const Product = ({}) => {
     const [basket, setBasket] = useState(1)
@@ -37,7 +39,7 @@ const Product = ({}) => {
         },
         {
             product:{
-                id:'1',
+                id:'2',
                 name:'Cilindro Verde',
                 photo_url:'https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg',
                 order_id:1,
@@ -76,7 +78,9 @@ const Product = ({}) => {
     ]
     const CenterComponet = () => {
         return(
-            <ElGasLogo width={wp(10)} height={hp(5)} />
+            <View style={{alignSelf:'center'}} >  
+                <ElGasLogo width={wp(10)} height={hp(5)} />
+            </View>
         )
     }
     const RightComponent = () => {
@@ -95,7 +99,7 @@ const Product = ({}) => {
     
     return(
         <Container>
-            <BasicHeader title='Direccion de entrga' icon={()=><SearchIcon/>} centerComponent={()=>CenterComponet()} rigthComponent={()=>RightComponent()} />
+            <BasicHeader title='Direccion de entrga' icon={()=><SearchIcon  width={wp(7)} height={hp(5)} />} centerComponent={()=>CenterComponet()} rigthComponent={()=>RightComponent()} />
             <View style={{marginTop:hp(5),   }} >
                 <Text style={{textAlign:'center', fontSize:RFPercentage(3), fontWeight:'bold'}} >¡Hola!</Text>
                 <Text style={{textAlign:'center', fontSize:RFPercentage(2.5)}} >¿Qué deseas comprar hoy?</Text>
@@ -146,16 +150,16 @@ const Product = ({}) => {
 const ImageCarrousel = ({image='', title='tittle', press}) =>{
     return(
         <TouchableOpacity style={{justifyContent:'center', width:wp(18)}} >
-            {/* <ImageBackground source={{uri:'https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png'}} style={{width:wp(100), height:hp(22), justifyContent:'center'}} >
-                <View style={{flexDirection:'row', justifyContent:'space-between', marginHorizontal:wp(9)}} >
-                    <TouchableOpacity>
-                        <Image source={require('../../../assets/img/BackButton.png')} style={{tintColor:'#000', width:wp(6), height:hp(3)}} />
+            <ImageBackground source={{uri:'https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png'}} style={{width:wp(100), height:hp(22), justifyContent:'center', backgroundColor:'#777'}} >
+                <View style={{flexDirection:'row', justifyContent:'space-between', marginHorizontal:wp(5)}} >
+                    <TouchableOpacity style={{justifyContent:'center'}} >
+                        <ChevronLeftIcon width={wp(6)} height={hp(3)} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={require('../../../assets/img/BackButton.png')} style={{tintColor:'#000', width:wp(6), height:hp(3), transform:[{rotate:'180deg'}]}} />
+                    <TouchableOpacity style={{justifyContent:'center', transform:[{rotate:'180deg'}]}} >
+                        <ChevronLeftIcon width={wp(6)} height={hp(3)} />
                     </TouchableOpacity>
                 </View>
-            </ImageBackground> */}
+            </ImageBackground>
         </TouchableOpacity>
     )
     {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />

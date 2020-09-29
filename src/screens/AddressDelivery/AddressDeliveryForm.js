@@ -11,7 +11,7 @@ import TextInputBottomBorder from '../../components/TextInput/TextInputBottomBor
 import useForm from '../../hooks/useForm'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, {Marker} from 'react-native-maps';
-import Marker from '../../components/Icons/Marker'
+import MarkerIcon from '../../components/Icons/Marker'
 import CancelIcon from '../../components/Icons/CancelIcon'
 import * as Location from 'expo-location';
 const initialValues={city:'', address:'', addressDetails:''}
@@ -58,7 +58,7 @@ const AddressDeliveryForm = ({}) => {
                     showsMyLocationButton
                     showsUserLocation
                 >
-                    <Marker coordinate={location} image={()=><Marker />}  />
+                    <Marker coordinate={location} image={()=><MarkerIcon />}  />
                 </MapView>
             </View>
         </Container>

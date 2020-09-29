@@ -37,7 +37,7 @@ const CustomButton = ({image=()=><CancelIcon/>, title='tittle', press,rigthButto
                 </View>
             </View>
             <View style={{justifyContent:'center'}} >
-                {rigthButton && {image()}}
+                {rigthButton && image()}
             </View>
         </TouchableOpacity>
     )

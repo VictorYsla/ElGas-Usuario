@@ -15,11 +15,13 @@ export const UpdateCart = {
     DeleteCart: () => ({
         type:DELETE_CART
     }),
-    EditCart: (index,element) => ({
+    EditQtyCart: (index,element, sum) => ({
         type:EDIT_CART,
         index,
-        element
-    })
+        element,
+        sum
+    }),
+
 }
 
 const initialState = {
@@ -63,8 +65,26 @@ export default (state = initialState, action) => {
             newState.Cart.totalPrice = 0
             return newState;
         case EDIT_CART:
-            newState.Cart.cart[action.index] = action.element
-            newState.Cart.totalPrice = total
+            const {index, element, sum} = action
+            const {id} = element.product
+            if (index === -1){
+                const obj ={...element, quantity:1, price: element.product.price}
+                newState.Cart.cart.push(obj)
+            }else{
+                const suma = newState.Cart.cart[index].quantity + sum
+                if (suma !== 0){
+                    newState.Cart.cart[index].quantity = suma
+                }else{
+                    newState.Cart.cart = newState.Cart.cart.filter(value => value.product.id !== id)
+                }
+            }
+            let t = 0
+            newState.Cart.cart.forEach((value, index)=>{
+                t+=value.price*value.quantity
+            })
+            newState.Cart.totalPrice=t
+            console.log('NewState: ', newState.Cart);
+
 			return newState;
 		default:
 			return state;

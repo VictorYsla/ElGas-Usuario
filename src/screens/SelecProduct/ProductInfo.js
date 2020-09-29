@@ -8,13 +8,17 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import useForm from '../../hooks/useForm'
 import EditQuantityButtons from '../../components/EditQuantityButtons'
 import { connect } from 'react-redux';
+import {actions} from '../../redux/index'
 const initialValues={city:'', address:'', addressDetails:''}
 
-const ProductInfo = ({route:{params}, login}) => {
+const ProductInfo = ({route:{params}, login, editCart, cart}) => {
     const form = useForm({initialValues})
+    console.log('cart In ProductInfo', cart);
     const {item} = params
-    const editQty = () =>{
-        console.log('Login: ', login);
+    const editQty = (suma) =>{
+        const indexInCart = cart.findIndex(obj => obj.product.id == item.product.id);
+        console.log('indxInCart: ', indexInCart);
+        editCart(indexInCart, item, suma)
     }
     return(
         // <Container>
@@ -38,7 +42,7 @@ const ProductInfo = ({route:{params}, login}) => {
                 </View>
             </View>
             <View style={{top:hp(28), flexDirection:'row', justifyContent:'space-between'}} >
-                <EditQuantityButtons mlef={10} />
+                <EditQuantityButtons mlef={10} editQty={editQty} />
                 <TouchableOpacity style={{marginRight:wp(10), backgroundColor:colores.grisClaro, paddingHorizontal:wp(9), justifyContent:'center'}} >
                     <Text style={{fontSize:RFPercentage(2.3), textTransform:'uppercase', fontWeight:'bold'}} >Agregar</Text>
                 </TouchableOpacity>
@@ -50,8 +54,17 @@ const ProductInfo = ({route:{params}, login}) => {
 
 const mapStateToProps = (state) => ({
     login: state.login.login,
+    cart: state.cart.Cart.cart
 });
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editCart: (index, element, sum) => {
+            dispatch(actions.UpdateCart.EditQtyCart(index, element,sum ))
+        },
+    }
+}
 
 
-export default connect(mapStateToProps)(ProductInfo)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductInfo)

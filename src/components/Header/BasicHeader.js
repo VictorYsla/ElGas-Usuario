@@ -19,10 +19,10 @@ const InitalLeftComponent = (icon=()=>{}) => {
     )
 }
 
-const BasicHeader = ({leftWidth=20 , rigthWidth=20, icon=()=><ChevronLeftIcon width={wp(7)} height={hp(5)} />,centerWidth=60,leftComponent=()=>InitalLeftComponent(icon, iconWidth,iconHeight ), headerHeigth=7.5, rigthComponent=()=>{}, centerComponent=()=>{}, title='title'}) => {
+const BasicHeader = ({leftWidth=20 , rigthWidth=20, icon=()=><ChevronLeftIcon width={wp(6)} height={hp(3.5)} />,centerWidth=60,leftComponent=()=>InitalLeftComponent(icon), headerHeigth=9, rigthComponent=()=>{}, centerComponent=()=>{}, title='title'}) => {
     //const navigation = useNavigation()
     return(
-        <View style={{height:`${headerHeigth}%`, flexDirection:'row', width:'100%', backgroundColor:colores.bgOscuro}} >
+        <View style={{height:hp(headerHeigth), flexDirection:'row', width:'100%', backgroundColor:colores.bgOscuro, paddingTop:hp(2)}} >
             <View style={{width:`${leftWidth}%`, justifyContent:'center', }} >
                 {leftComponent(icon())}
             </View>
