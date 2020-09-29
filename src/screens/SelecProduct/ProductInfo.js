@@ -10,11 +10,11 @@ import EditQuantityButtons from '../../components/EditQuantityButtons'
 import { connect } from 'react-redux';
 const initialValues={city:'', address:'', addressDetails:''}
 
-const ProductInfo = ({route:{params}}) => {
+const ProductInfo = ({route:{params}, login}) => {
     const form = useForm({initialValues})
     const {item} = params
     const editQty = () =>{
-
+        console.log('Login: ', login);
     }
     return(
         // <Container>
@@ -50,7 +50,7 @@ const ProductInfo = ({route:{params}}) => {
 
 const mapStateToProps = (state) => ({
     login: state.login.login,
-  });
+});
 
 
 

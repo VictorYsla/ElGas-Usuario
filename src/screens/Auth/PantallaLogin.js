@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   TouchableNativeFeedback,
   TextInput,
@@ -12,18 +11,23 @@ import {
   Alert
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+
+import ElGasLogo from "../../components/Icons/ElGasLogo";
+import EmailIcon from "../../components/Icons/EmailIcon";
+import FbIcon from "../../components/Icons/FbIcon";
+import LockIcon from "../../components/Icons/LockIcon";
 import { colores } from "../../constantes/Temas";
 import Container from "../../generales/Container";
-import useForm from '../../hooks/useForm'
-import {ValidateForm} from '../../functions/ValidateForm'
-import {auth, logIn} from '../../apis/querys'
+import useForm from "../../hooks/useForm";
+import { ValidateForm } from "../../functions/ValidateForm";
+import { auth, logIn } from "../../apis/querys";
 import { connect } from "react-redux";
-import {actions} from '../../redux/index'
+import { actions } from "../../redux/index";
 
-const initialValues={
-  email:'',
-  password:'',
-}
+const initialValues = {
+  email: "",
+  password: "",
+};
 
 const Button = (props) => {
   let TouchableComponent = TouchableOpacity;
@@ -80,7 +84,7 @@ const Button = (props) => {
 };
 
 const PantallaLogin = (props) => {
-  const form = useForm({initialValues})
+  const form = useForm({ initialValues });
   // console.log(form);
 
   const onLogin = () =>{
@@ -101,11 +105,7 @@ const PantallaLogin = (props) => {
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.logo}>
-        <Image
-          source={require("../../../assets/img/logo.png")}
-          style={{ height: "100%", width: "100%" }}
-          resizeMode="contain"
-        />
+        <ElGasLogo height="100%" width="100%" />
       </View>
       <Text style={styles.textoBienvenido}>Bienvenido</Text>
 
@@ -124,11 +124,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <Image
-              source={require("../../../assets/img/envelop.png")}
-              style={{ height: "100%", width: "100%" }}
-              resizeMode="contain"
-            />
+            <EmailIcon width="100%" height="100%" color={colores.amarillo} />
           </View>
           <TextInput
             style={[
@@ -144,8 +140,8 @@ const PantallaLogin = (props) => {
               },
             ]}
             placeholder="E-mail"
-            keyboardType='email-address'
-            {...form.getInput('email')}
+            keyboardType="email-address"
+            {...form.getInput("email")}
           />
         </View>
         <View
@@ -162,11 +158,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <Image
-              source={require("../../../assets/img/lock.png")}
-              style={{ height: "100%", width: "100%" }}
-              resizeMode="contain"
-            />
+            <LockIcon height="100%" width="100%" />
           </View>
           <TextInput
             style={[
@@ -182,7 +174,7 @@ const PantallaLogin = (props) => {
             ]}
             placeholder="Password"
             secureTextEntry
-            {...form.getInput('password')}
+            {...form.getInput("password")}
           />
         </View>
       </View>
@@ -206,11 +198,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <Image
-              source={require("../../../assets/img/fblogo.png")}
-              style={{ height: "40%", width: "100%" }}
-              resizeMode="contain"
-            />
+            <FbIcon height={"35%"} width={"35%"} />
           </View>
           <View style={{ width: "90%", marginLeft: 5 }}>
             <Text style={{ fontSize: RFPercentage(2.2), color: "#fff" }}>

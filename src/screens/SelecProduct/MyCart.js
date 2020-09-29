@@ -7,6 +7,7 @@ import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import useForm from '../../hooks/useForm'
 import EditQuantityButtons from '../../components/EditQuantityButtons'
+import CancelIcon from '../../components/Icons/CancelIcon'
 const initialValues={city:'', address:'', addressDetails:''}
 
 const MyCart = ({}) => {
@@ -34,7 +35,7 @@ const MyCart = ({}) => {
             </View>
             <View style={{marginTop:hp(7), flexDirection:'row', justifyContent:'space-between' }} >
                 <View style={{flexDirection:'row', marginHorizontal:wp(2), justifyContent:'center'}} > 
-                    <Image source={require('../../../assets/img/CancelButton.png')} style={{tintColor:'gray', alignSelf:'center'}} />
+                    <CancelIcon/>
                     <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg'}} style={{width:wp(25), height:hp(17), marginLeft:wp(3)}} />
                     <View style={{marginLeft:wp(5), justifyContent:'center'}} >
                         <Text style={{textAlign:'center', fontSize:wp(4), marginTop:hp(0.3), fontWeight:'bold'}} >{localData.name} {localData.capacity}{localData.unity}</Text>

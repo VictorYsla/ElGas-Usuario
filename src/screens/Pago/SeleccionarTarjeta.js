@@ -12,6 +12,8 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Container from "../../generales/Container";
 import CustomButton from "../../components/CustomButton";
+import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
+import CardIcon from "../../components/Icons/CardIcon";
 
 const SeleccionarTarjeta = (props) => {
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -65,19 +67,16 @@ const SeleccionarTarjeta = (props) => {
         <Text style={[styles.boldText, styles.totalLabel]}> $4.80 </Text>
       </View>
       <View style={styles.listTile}>
-        <Image
-          source={require("../../../assets/img/user.png")}
-          resizeMode="contain"
-          style={{ width: 20, height: 20, marginRight: 15 }}
-        />
+        <View style={[{ marginRight: 15 }]}>
+          <OutlineUserIcon width={20} height={20} />
+        </View>
         <Text style={[styles.boldText, styles.infoText]}>Fernando Carpio </Text>
       </View>
       <View style={styles.listTile}>
-        <Image
-          source={require("../../../assets/img/card.png")}
-          resizeMode="contain"
-          style={{ width: 20, height: 20, marginRight: 15 }}
-        />
+        <View style={[{ marginRight: 10, alignItems: "center" }]}>
+          <CardIcon width={24} height={24} />
+        </View>
+
         <Text style={[styles.boldText, styles.infoText]}>46xxxxxxxxx2589 </Text>
       </View>
 
@@ -128,7 +127,7 @@ const SeleccionarTarjeta = (props) => {
 
 const styles = StyleSheet.create({
   screen: {
-    minHeight: 400,
+    minHeight: 500,
     alignItems: "center",
     backgroundColor: "#fff",
   },
@@ -148,10 +147,11 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 10,
     width: "80%",
+    alignItems: "center",
   },
   boldText: { fontWeight: "bold" },
   infoText: { fontSize: RFPercentage(2.4) },
-  expireTitle: { textAlign: "left" },
+  expireTitle: { marginLeft: 15 },
   row: {
     flexDirection: "row",
     justifyContent: "center",

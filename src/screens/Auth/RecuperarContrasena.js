@@ -1,17 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
+
 import Container from "../../generales/Container";
 import CustomButton from "../../components/CustomButton";
+import QuestionIcon from "../../components/Icons/QuestionIcon";
 
 const RecuperarContrasena = (props) => {
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../../../assets/img/question.png")}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        <QuestionIcon width="100%" height="100%" />
       </View>
 
       <View

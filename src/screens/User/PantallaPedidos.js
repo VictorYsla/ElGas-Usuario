@@ -131,6 +131,7 @@ const PantallaPedidos = (props) => {
           <FlatList
             data={dummy_data}
             renderItem={({ item }) => <ListItem item={item} />}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       ) : (
@@ -145,6 +146,7 @@ const PantallaPedidos = (props) => {
           <FlatList
             data={dummy_data}
             renderItem={({ item }) => <ListItem item={item} />}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       )}

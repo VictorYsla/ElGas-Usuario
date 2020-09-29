@@ -6,6 +6,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native'
+import CancelIcon from '../../components/Icons/CancelIcon'
+import ElGasLogo from '../../components/Icons/ElGasLogo'
+import BasketIcon from '../../components/Icons/BasketIcon'
+import SearchIcon from '../../components/Icons/SearchIcon'
 
 const Product = ({}) => {
     const [basket, setBasket] = useState(1)
@@ -72,7 +76,7 @@ const Product = ({}) => {
     ]
     const CenterComponet = () => {
         return(
-            <Image source={require('../../../assets/img/logo.png')} style={{width:wp(10), height:hp(5), alignSelf:'center'}} />
+            <ElGasLogo width={wp(10)} height={hp(5)} />
         )
     }
     const RightComponent = () => {
@@ -82,7 +86,8 @@ const Product = ({}) => {
                     <View style={{backgroundColor:colores.amarillo, width:wp(3.5), height:hp(1.9), top:hp(0.5), borderRadius:wp(100), justifyContent:'center'}} >
                         <Text style={{textAlign:'center', fontSize:RFPercentage(1.5)}} >{basket}</Text>
                     </View>
-                    <Image source={require('../../../assets/img/Basket.png')} style={{width:wp(7.5), height:hp(3.5), alignSelf:'center'}} />
+                    <BasketIcon width={wp(7.5)} height={hp(3.5)} />
+                    {/* <Image source={require('../../../assets/img/Basket.png')} style={{width:wp(7.5), height:hp(3.5), alignSelf:'center'}} /> */}
                 </View>
             </>
         )
@@ -90,12 +95,12 @@ const Product = ({}) => {
     
     return(
         <Container>
-            <BasicHeader title='Direccion de entrga' icon={require('../../../assets/img/SearchIcon.png')} centerComponent={()=>CenterComponet()} rigthComponent={()=>RightComponent()} />
+            <BasicHeader title='Direccion de entrga' icon={()=><SearchIcon/>} centerComponent={()=>CenterComponet()} rigthComponent={()=>RightComponent()} />
             <View style={{marginTop:hp(5),   }} >
                 <Text style={{textAlign:'center', fontSize:RFPercentage(3), fontWeight:'bold'}} >¡Hola!</Text>
                 <Text style={{textAlign:'center', fontSize:RFPercentage(2.5)}} >¿Qué deseas comprar hoy?</Text>
             </View>
-            <View style={{marginTop:hp(5), }} >
+            <View style={{marginTop:hp(5)}} >
                 <ImageCarrousel/>
             </View>
             <View style={{flex:1, marginTop:hp(5)}} >
@@ -138,10 +143,10 @@ const Product = ({}) => {
     )
 }
 
-const ImageCarrousel = ({image=require('../../../assets/img/CancelButton.png'), title='tittle', press}) =>{
+const ImageCarrousel = ({image='', title='tittle', press}) =>{
     return(
         <TouchableOpacity style={{justifyContent:'center', width:wp(18)}} >
-            <ImageBackground source={{uri:'https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png'}} style={{width:wp(100), height:hp(22), justifyContent:'center'}} >
+            {/* <ImageBackground source={{uri:'https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png'}} style={{width:wp(100), height:hp(22), justifyContent:'center'}} >
                 <View style={{flexDirection:'row', justifyContent:'space-between', marginHorizontal:wp(9)}} >
                     <TouchableOpacity>
                         <Image source={require('../../../assets/img/BackButton.png')} style={{tintColor:'#000', width:wp(6), height:hp(3)}} />
@@ -150,7 +155,7 @@ const ImageCarrousel = ({image=require('../../../assets/img/CancelButton.png'), 
                         <Image source={require('../../../assets/img/BackButton.png')} style={{tintColor:'#000', width:wp(6), height:hp(3), transform:[{rotate:'180deg'}]}} />
                     </TouchableOpacity>
                 </View>
-            </ImageBackground>
+            </ImageBackground> */}
         </TouchableOpacity>
     )
     {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />

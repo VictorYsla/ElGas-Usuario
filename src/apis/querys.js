@@ -50,7 +50,6 @@ export const singUp = async(email='',userName='', password='', phoneNumberUser='
 }
 
 export const logIn = async(email='', password='') => {
-    
     return await firebase
     .auth()
     .signInWithEmailAndPassword(email,password)

@@ -11,6 +11,8 @@ import TextInputBottomBorder from '../../components/TextInput/TextInputBottomBor
 import useForm from '../../hooks/useForm'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, {Marker} from 'react-native-maps';
+import Marker from '../../components/Icons/Marker'
+import CancelIcon from '../../components/Icons/CancelIcon'
 import * as Location from 'expo-location';
 const initialValues={city:'', address:'', addressDetails:''}
 
@@ -37,7 +39,7 @@ const AddressDeliveryForm = ({}) => {
     }
     return(
         <Container>
-            <BasicHeader title='Direccion de entrga' icon={require('../../../assets/img/CancelButton.png')} />
+            <BasicHeader title='Direccion de entrga' icon={()=><CancelIcon/>} />
             <View style={{marginTop:hp(5), flexDirection:'row', justifyContent:'space-between', marginHorizontal:wp(12) }} >
                 <CustomButton title='Domicilio' />
                 <CustomButton title='Oficina' />
@@ -56,17 +58,18 @@ const AddressDeliveryForm = ({}) => {
                     showsMyLocationButton
                     showsUserLocation
                 >
-                    <Marker coordinate={location} image={require('../../../assets/img/MapMarker.png')}  />
+                    <Marker coordinate={location} image={()=><Marker />}  />
                 </MapView>
             </View>
         </Container>
     )
 }
 
-const CustomButton = ({image=require('../../../assets/img/CancelButton.png'), title='tittle', press}) =>{
+const CustomButton = ({image=()=><CancelIcon width={wp(10)} height={hp(5)} />, title='tittle', press}) =>{
     return(
         <TouchableOpacity style={{justifyContent:'center', width:wp(18)}} >
-            <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />
+            {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} /> */}
+            {image()}
             <Text style={{fontSize:RFPercentage(2), textAlign:'center'}} >{title} </Text>
         </TouchableOpacity>
     )

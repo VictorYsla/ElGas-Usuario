@@ -47,8 +47,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
     let newState = { ...state }
-    let total = 0
-    newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
+    let total = newState.Cart.totalPrice
+    //newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
 	switch (action.type) {
 		case ADD_ELEMENT:
             newState.Cart.cart.push(action.element)

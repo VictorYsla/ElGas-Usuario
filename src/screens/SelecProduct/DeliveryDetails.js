@@ -7,6 +7,7 @@ import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import useForm from '../../hooks/useForm'
 import EditQuantityButtons from '../../components/EditQuantityButtons'
+import CancelIcon from '../../components/Icons/CancelIcon'
 const initialValues={city:'', address:'', addressDetails:''}
 
 const DeliveryDetails = ({}) => {
@@ -42,18 +43,20 @@ const DeliveryDetails = ({}) => {
 }
 
 
-const CustomButton = ({image=require('../../../assets/img/CancelButton.png'), title='tittle', press, description='description'}) =>{
+const CustomButton = ({image=()=><CancelIcon/>, title='tittle', press, description='description'}) =>{
     return(
         <TouchableOpacity style={{ width:wp(80), flexDirection:'row', justifyContent:'space-between', marginTop:hp(3)}} >
             <View style={{flexDirection:'row',  width:wp(60)}} >
-                <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />
+                {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} /> */}
+                {image()}
                 <View style={{marginLeft:wp(5)}} >
                     <Text style={{fontSize:RFPercentage(2), textAlign:'left', fontWeight:'bold'}} >{title} </Text>
                     <Text style={{fontSize:RFPercentage(2), }} >{description} </Text>
                 </View>
             </View>
             <View style={{justifyContent:'center'}} >
-                <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(8), height:hp(2.5), alignSelf:'center'}} />
+                {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(8), height:hp(2.5), alignSelf:'center'}} /> */}
+                {image()}
             </View>
         </TouchableOpacity>
     )
