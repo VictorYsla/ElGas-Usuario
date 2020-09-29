@@ -86,28 +86,22 @@ const Button = (props) => {
 const PantallaLogin = (props) => {
   const form = useForm({ initialValues });
   // console.log(form);
-  const [loginResponse, setLoginResponse] = useState(null);
-  const onLogin = () => {
-    if (ValidateForm(form)) {
-      const { email, password } = form.fields;
-      logIn(email, password, setLoginResponse);
-      console.log("Siii");
-    } else {
-      Alert.alert("Todos los campos son requeridos");
+
+  const onLogin = () =>{
+    if(ValidateForm(form)){
+      const {email, password} = form.fields
+      logIn(email,password)
+      .then((x)=>{
+        if(x.type !== 'error'){
+          props.dispatch(actions.actualizarLogin({...x.value, isLoged: true}))
+        }
+      })
+      console.log('state:', props.login)
+    }else{
+      Alert.alert('Todos los campos son requeridos')
     }
-  };
-  useEffect(() => {
-    console.log(form, loginResponse);
-    if (loginResponse) {
-      if (loginResponse.type === "sucess") {
-        // console.log( 'values', loginResponse.value)
-        // console.log('dis:', props.dispatch)
-        props.dispatch(
-          actions.actualizarLogin({ ...loginResponse.value, isLoged: true })
-        );
-      }
-    }
-  }, [loginResponse]);
+  }
+
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.logo}>
@@ -269,4 +263,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default connect()(PantallaLogin);
+
+const mapStateToProps = (state) => ({
+  login: state.login.login,
+});
+
+export default connect(mapStateToProps) (PantallaLogin);

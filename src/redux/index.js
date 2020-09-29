@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import login, { actualizarLogin } from './reducer/login';
 import navigation, { actualizarNavigation } from './reducer/navigation';
-import cart, {AddElement, DeleteCart, EditCart, RemoveElement} from './reducer/cart'
+import cart, {UpdateCart} from './reducer/cart'
 
 export default combineReducers({
 	login,
@@ -13,8 +13,6 @@ export default combineReducers({
 export const actions = {
 	actualizarLogin,
 	actualizarNavigation,
-	AddElement,
-	DeleteCart,
-	EditCart,
-	RemoveElement
+	UpdateCart
 };
+

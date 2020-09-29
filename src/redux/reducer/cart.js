@@ -3,31 +3,44 @@ export const REMOVE_ELEMENT = 'REMOVE_ELEMENT';
 export const DELETE_CART = 'DELETE_CART';
 export const EDIT_CART = 'EDIT_CART';
 
-export const AddElement = (element) => ({
-	type: ADD_ELEMENT,
-	element,
-});
-export const RemoveElement = (element) => ({
-    type:REMOVE_ELEMENT,
-    element
-})
-export const DeleteCart = () => ({
-    type:DELETE_CART
-})
-export const EditCart = (index,element) => ({
-    type:EDIT_CART,
-    index,
-    element
-})
+export const UpdateCart = {
+    AddElement: (element) => ({
+        type: ADD_ELEMENT,
+        element,
+    }),
+    RemoveElement: (element) => ({
+        type:REMOVE_ELEMENT,
+        element
+    }),
+    DeleteCart: () => ({
+        type:DELETE_CART
+    }),
+    EditQtyCart: (index,element, sum) => ({
+        type:EDIT_CART,
+        index,
+        element,
+        sum
+    }),
+
+}
 
 const initialState = {
     Cart:{
         cart: [
             // {
-            //     name:'name',
-            //     id:'id',
-            //     price:0,
-            //     quantity:0,
+            //     product:{
+            //         id:'',
+            //         name:'',
+            //         photo_url:'',
+            //         order_id:0,
+            //         descirption:''
+            //     },
+            //     category:{
+            //         id:'',
+            //         name:'',
+            //         description:'',
+            //         order_id:0
+            //     }
             // }
         ],
         totalPrice:0
@@ -36,8 +49,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
     let newState = { ...state }
-    let total = 0
-    newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
+    let total = newState.Cart.totalPrice
+    //newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
 	switch (action.type) {
 		case ADD_ELEMENT:
             newState.Cart.cart.push(action.element)
@@ -52,8 +65,26 @@ export default (state = initialState, action) => {
             newState.Cart.totalPrice = 0
             return newState;
         case EDIT_CART:
-            newState.Cart.cart[action.index] = action.element
-            newState.Cart.totalPrice = total
+            const {index, element, sum} = action
+            const {id} = element.product
+            if (index === -1){
+                const obj ={...element, quantity:1, price: element.product.price}
+                newState.Cart.cart.push(obj)
+            }else{
+                const suma = newState.Cart.cart[index].quantity + sum
+                if (suma !== 0){
+                    newState.Cart.cart[index].quantity = suma
+                }else{
+                    newState.Cart.cart = newState.Cart.cart.filter(value => value.product.id !== id)
+                }
+            }
+            let t = 0
+            newState.Cart.cart.forEach((value, index)=>{
+                t+=value.price*value.quantity
+            })
+            newState.Cart.totalPrice=t
+            console.log('NewState: ', newState.Cart);
+
 			return newState;
 		default:
 			return state;

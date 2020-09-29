@@ -14,10 +14,14 @@ import Tarjetas from "./screens/Pago/Tarjetas";
 import SeleccionarTarjeta from "./screens/Pago/SeleccionarTarjeta";
 import PantallaPedidos from "./screens/User/PantallaPedidos";
 import AgregarTarjeta from "./screens/Pago/AgregarTarjeta";
-import AddressDeliveryForm from "./screens/AddressDelivery/AddressDeliveryForm";
-import AddressDeliveryFormUser from "./screens/AddressDelivery/AddressDeliveryFormUser";
-import AddressDeliveryOptions from "./screens/AddressDelivery/AddressDeliveryOptions";
-import AddressDeliveryUsers from "./screens/AddressDelivery/AddressDeliveryUsers";
+import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
+import AddressDeliveryFormUser from './screens/AddressDelivery/AddressDeliveryFormUser'
+import AddressDeliveryOptions from './screens/AddressDelivery/AddressDeliveryOptions'
+import AddressDeliveryUsers from './screens/AddressDelivery/AddressDeliveryUsers'
+import Products from './screens/SelecProduct/Products'
+import ProductInfo from './screens/SelecProduct/ProductInfo'
+import MyCart from './screens/SelecProduct/MyCart'
+import DeliveryDetails from './screens/SelecProduct/DeliveryDetails'
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -29,7 +33,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="PantallaBienvenida"
+        initialRouteName="Products"//PantallaBienvenida,  DeliveryDetails
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PantallaBienvenida">
@@ -39,6 +43,7 @@ const Navegador = (props) => {
             );
           }}
         </Stack.Screen>
+
 
         {/* Login Process */}
         <Stack.Screen name="Login" component={PantallaLogin} />
@@ -73,6 +78,13 @@ const Navegador = (props) => {
           name="AddressDeliveryUsers"
           component={AddressDeliveryUsers}
         />
+
+        {/* Product */}
+        <Stack.Screen name="Products" component={Products} />
+        <Stack.Screen name="ProductInfo" component={ProductInfo} initialParams={{item: null}} />
+        <Stack.Screen name="MyCart" component={MyCart} />
+        <Stack.Screen name="DeliveryDetails" component={DeliveryDetails} />
+        
 
         {/* Pedidos */}
         <Stack.Screen name="MisPedidos" component={PantallaPedidos} />

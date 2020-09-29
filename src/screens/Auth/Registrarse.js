@@ -10,45 +10,39 @@ import {
   Alert,
 } from "react-native";
 import Container from "../../generales/Container";
-import useForm from "../../hooks/useForm";
-import { ValidateForm } from "../../functions/ValidateForm";
-import { auth } from "../../apis/querys";
+import useForm from '../../hooks/useForm'
+import {ValidateForm} from '../../functions/ValidateForm'
+import {singUp} from '../../apis/querys'
 import { connect } from "react-redux";
 import { actions } from "../../redux/index";
 import CustomButton from "../../components/CustomButton";
 import RegisterIcon from "../../components/Icons/RegisterIcon";
 
-const initialValues = {
-  name: "",
-  email: "",
-  password: "",
-  phone: "",
-};
-const Registrarse = ({ dispatch }) => {
-  const form = useForm({ initialValues });
-  const [registerResponse, setRegisterResponse] = useState(null);
-  const register = () => {
-    console.log("Press", ValidateForm(form));
-    const { name, email, password, phone } = form.fields;
-    if (ValidateForm(form)) {
-      console.log("Sii");
-      auth(email, name, password, phone, setRegisterResponse);
-    } else {
-      Alert.alert("Todos los campos son obligatorios");
+const initialValues={
+  name:'',
+  email:'',
+  password:'',
+  phone:''
+}
+const Registrarse = ({dispatch}) => {
+  const form = useForm({initialValues})
+  const register = () =>{
+    console.log('Press', ValidateForm(form));
+    const {name, email, password, phone} = form.fields
+    if(ValidateForm(form)){
+      console.log('Sii');
+      singUp(email,name, password, phone,)
+      .then(x=> {
+        console.log('Resposneeee: ', x);
+        if(x.type !=='error'){
+          
+        }
+      })
+    }else{
+      Alert.alert('Todos los campos son obligatorios')
     }
-  };
-  useEffect(() => {
-    console.log(form, registerResponse);
-    if (registerResponse) {
-      if (registerResponse.type === "sucess") {
-        // console.log( 'values', registerResponse.value)
-        // console.log('dis:', dispatch)
-        dispatch(
-          actions.actualizarLogin({ ...registerResponse.value, isLoged: true })
-        );
-      }
-    }
-  }, [registerResponse]);
+  }
+  
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
