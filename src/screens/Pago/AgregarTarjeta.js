@@ -2,26 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import CustomButton from "../../components/CustomButton";
+import BasicHeader from "../../components/Header/BasicHeader";
 import CardsBanner from "../../components/Icons/CardsBanner";
 import Container from "../../generales/Container";
 
 const AgregarTarjeta = (props) => {
   return (
     <Container styleContainer={[styles.screen]}>
-      <View
-        style={[
-          {
-            backgroundColor: "#2E2E2D",
-            flexDirection: "row",
-            width: "100%",
-            height: 50,
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        ]}
-      >
-        <Text style={{ color: "#fff" }}>Mis Tarjetas</Text>
-      </View>
+      <BasicHeader title="Mis Tarjetas" />
 
       <View
         style={[
