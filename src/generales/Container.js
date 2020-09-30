@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Dimensions } from "react-native";
 import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Cargando from "./Cargando";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -16,15 +16,13 @@ import SvgProfile from "../components/Icons/ProfileIcon";
 import SvgOrders from "../components/Icons/OrdersIcon";
 import CardIcon from "../components/Icons/CardIcon";
 import SvgLogout from "../components/Icons/LogoutIcon";
-import {useNavigation} from '@react-navigation/native'
-
-const { width, height } = Dimensions.get("window");
+import { useNavigation } from "@react-navigation/native";
+import { actions } from "../redux";
 
 function Container({
   styleContainer,
   children,
   isloading = false,
-  navigation,
   footer = true,
 }) {
   return (
@@ -32,7 +30,7 @@ function Container({
       <View style={[{ flex: 1, width: "100%" }, styleContainer]}>
         {children}
       </View>
-      {footer && <Footer navigation={navigation} />}
+      {footer && <Footer />}
       {isloading && (
         <Cargando
           style={{
@@ -46,43 +44,32 @@ function Container({
   );
 }
 
-const Footer = (/* { navigation } */) => {
+const Footer = () => {
   const { screenWidth } = pantalla;
-  const navigation = useNavigation()
+  const routeName = useSelector((state) => state.navigation.routeName);
 
-  const [home, setHome] = useState(true);
-  const [profile, setProfile] = useState(false);
-  const [orders, setOrders] = useState(false);
-  const [cards, setCards] = useState(false);
-  const [logout, setLogout] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.footer}>
       <View
         style={{
           width: "20%",
-          borderTopWidth: home ? 1 : 0,
-          borderTopColor: home ? colores.amarillo : "",
+          borderTopWidth: routeName === "Products" ? 1 : 0,
+          borderTopColor: routeName === "Products" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
-          ruta={"Product"}
+          ruta={"Products"}
           texto="Inicio"
-          isActive={() => {
-            if (!home) {
-              setHome(true);
-              setProfile(false);
-              setOrders(false);
-              setCards(false);
-              setLogout(false);
-            }
-          }}
           icon={
             <SvgHome
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={home ? colores.amarillo : colores.bgOscuro}
+              color={
+                routeName === "Products" ? colores.amarillo : colores.bgOscuro
+              }
             />
           }
         />
@@ -90,28 +77,24 @@ const Footer = (/* { navigation } */) => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: profile ? 1 : 0,
-          borderTopColor: profile ? colores.amarillo : "",
+          borderTopWidth: routeName === "AddressDeliveryUsers" ? 1 : 0,
+          borderTopColor:
+            routeName === "AddressDeliveryUsers" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
-          ruta={"Home"}
+          ruta={"AddressDeliveryUsers"}
           texto="Mi Cuenta"
-          isActive={() => {
-            if (!profile) {
-              setProfile(true);
-              setHome(false);
-              setOrders(false);
-              setCards(false);
-              setLogout(false);
-            }
-          }}
           icon={
             <SvgProfile
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={profile ? colores.amarillo : colores.bgOscuro}
+              color={
+                routeName === "AddressDeliveryUsers"
+                  ? colores.amarillo
+                  : colores.bgOscuro
+              }
             />
           }
         />
@@ -119,28 +102,21 @@ const Footer = (/* { navigation } */) => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: orders ? 1 : 0,
-          borderTopColor: orders ? colores.amarillo : "",
+          borderTopWidth: routeName === "MisPedidos" ? 1 : 0,
+          borderTopColor: routeName === "MisPedidos" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
           ruta={"MisPedidos"}
           texto="Mis Pedidos"
-          isActive={() => {
-            if (!orders) {
-              setOrders(true);
-              setProfile(false);
-              setHome(false);
-              setCards(false);
-              setLogout(false);
-            }
-          }}
           icon={
             <SvgOrders
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={orders ? colores.amarillo : colores.bgOscuro}
+              color={
+                routeName === "MisPedidos" ? colores.amarillo : colores.bgOscuro
+              }
             />
           }
         />
@@ -148,28 +124,21 @@ const Footer = (/* { navigation } */) => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: cards ? 1 : 0,
-          borderTopColor: cards ? colores.amarillo : "",
+          borderTopWidth: routeName === "Tarjetas" ? 1 : 0,
+          borderTopColor: routeName === "Tarjetas" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
           ruta={"Tarjetas"}
           texto="Mis Tarjetas"
-          isActive={() => {
-            if (!cards) {
-              setCards(true);
-              setOrders(false);
-              setProfile(false);
-              setHome(false);
-              setLogout(false);
-            }
-          }}
           icon={
             <CardIcon
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={cards ? colores.amarillo : colores.bgOscuro}
+              color={
+                routeName === "Tarjetas" ? colores.amarillo : colores.bgOscuro
+              }
             />
           }
         />
@@ -177,28 +146,19 @@ const Footer = (/* { navigation } */) => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: logout ? 1 : 0,
-          borderTopColor: logout ? colores.amarillo : "",
+          // borderTopWidth: logout ? 1 : 0,
+          // borderTopColor: logout ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
           ruta={"Home"}
           texto="Cerrar Sesión"
-          isActive={() => {
-            if (!logout) {
-              setLogout(true);
-              setCards(false);
-              setOrders(false);
-              setProfile(false);
-              setHome(false);
-            }
-          }}
           icon={
             <SvgLogout
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={logout ? colores.amarillo : colores.bgOscuro}
+              color={routeName === "Home" ? colores.amarillo : colores.bgOscuro}
             />
           }
         />
@@ -207,14 +167,15 @@ const Footer = (/* { navigation } */) => {
   );
 };
 
-const Item = ({ navigation, ruta, texto, icon, isActive }) => {
+const Item = ({ navigation, ruta, texto, icon }) => {
   const { screenWidth } = pantalla;
+  const dispatch = useDispatch();
 
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.navigate(ruta);
-        isActive();
+        ruta !== "Logout" && dispatch(actions.actualizarUbicacion(ruta));
       }}
       style={styles.tabButton}
     >
@@ -245,11 +206,12 @@ const styles = StyleSheet.create({
     height: 60,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    borderTopColor: "rgba(0,0,0,0.1)",
+    // elevation: 30,
+    borderTopColor: "rgba(0,0,0,0.05)",
     borderTopWidth: 2,
-    borderLeftColor: "rgba(0,0,0,0.1)",
+    borderLeftColor: "rgba(0,0,0,0.05)",
     borderLeftWidth: 1,
-    borderRightColor: "rgba(0,0,0,0.1)",
+    borderRightColor: "rgba(0,0,0,0.05)",
     borderRightWidth: 1,
     justifyContent: "space-between",
     overflow: "hidden",
