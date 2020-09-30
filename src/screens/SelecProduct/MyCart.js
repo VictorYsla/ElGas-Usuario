@@ -8,9 +8,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import useForm from '../../hooks/useForm'
 import EditQuantityButtons from '../../components/EditQuantityButtons'
 import CancelIcon from '../../components/Icons/CancelIcon'
+import { connect } from 'react-redux';
+import {actions} from '../../redux/index'
+import ItemCart from '../../components/ItemsList/ItemCart'
 const initialValues={city:'', address:'', addressDetails:''}
 
-const MyCart = ({}) => {
+const MyCart = ({cart, total}) => {
     const form = useForm({initialValues})
     const localData={
         capacity:15, 
@@ -24,37 +27,56 @@ const MyCart = ({}) => {
         subTotal: 2.8,
         delivery: 2
     }
+    console.log('Dta in MyCart: ', cart, total);
     return(
-        // <Container>
         <View style={{flex:1}} >
             <BasicHeader title='Mi carito'  />
             <View style={{backgroundColor:colores.grisClaro}} >
-                <Text style={{textAlign:'center', fontSize:RFPercentage(2.6), marginTop:hp(1), fontWeight:'900'}} >TOTAL:<Text style={{fontWeight:'bold'}} > ${(localCartData.total).toFixed(2)}</Text></Text>
+                <Text style={{textAlign:'center', fontSize:RFPercentage(2.6), marginTop:hp(1), fontWeight:'900'}} >TOTAL:<Text style={{fontWeight:'bold'}} > ${(total).toFixed(2)}</Text></Text>
                 <Text style={{textAlign:'center', fontSize:RFPercentage(2), marginTop:hp(1)}} >Subtotal: ${(localCartData.subTotal).toFixed(2)}</Text>
                 <Text style={{textAlign:'center', fontSize:RFPercentage(2), marginBottom:hp(1)}} >A domicilio: ${(localCartData.delivery).toFixed(2)}</Text>
             </View>
-            <View style={{marginTop:hp(7), flexDirection:'row', justifyContent:'space-between' }} >
-                <View style={{flexDirection:'row', marginHorizontal:wp(2), justifyContent:'center'}} > 
-                    <CancelIcon/>
-                    <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg'}} style={{width:wp(25), height:hp(17), marginLeft:wp(3)}} />
-                    <View style={{marginLeft:wp(5), justifyContent:'center'}} >
-                        <Text style={{textAlign:'center', fontSize:wp(4), marginTop:hp(0.3), fontWeight:'bold'}} >{localData.name} {localData.capacity}{localData.unity}</Text>
-                        <EditQuantityButtons />
-                    </View>
-                </View>
-                <Text style={{textAlign:'center', fontSize:wp(7), marginTop:hp(0.3), fontWeight:'bold', textAlignVertical:'center', marginRight:wp(7)}} >${localData.price.toFixed(2)}</Text>
-                    
-            </View>
+            <ScrollView>
+                {
+                    cart.map((value, index)=>{
+                        const {product:{name,photo_url, description:{capacity, unity},price }} = value
+                        return(
+                            <ItemCart 
+                                image={photo_url}
+                                capacity={capacity}
+                                index={index}
+                                price={price}
+                                item={value}
+                                unity={unity}
+                                name={name} />
+                        )
+                    })
+                }
+            </ScrollView>
             <View style={{top:hp(45), width:wp(55), alignSelf:'center'}} >
                 <TouchableOpacity style={{marginRight:wp(10), backgroundColor:colores.grisClaro, paddingHorizontal:wp(9), justifyContent:'center'}} >
                     <Text style={{fontSize:RFPercentage(2.3), textTransform:'uppercase', fontWeight:'bold', marginVertical:hp(1)}} >Continuar</Text>
                 </TouchableOpacity>
             </View>
         </View>
-        // </Container>
     )
 }
 
 
+const mapStateToProps = (state) => ({
+    login: state.login.login,
+    cart: state.cart.Cart.cart,
+    total: state.cart.Cart.totalPrice
+});
 
-export default MyCart
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editCart: (index, element, sum) => {
+            dispatch(actions.UpdateCart.EditQtyCart(index, element,sum ))
+        },
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (MyCart)

@@ -7,7 +7,6 @@ import { actions } from './redux';
 import { getAllUsers } from './apis/firebase';
 import Container from './generales/Container';
 import {getCollection, postCollection} from './apis/querys'
-import BasicHeader from '../src/screens/Header/BasicHeader'
 
 
 function Home(props) {
