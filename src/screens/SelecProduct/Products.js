@@ -152,28 +152,53 @@ const Product = ({cart}) => {
     )
 }
 
-const ImageCarrousel = ({image='', title='tittle', press}) =>{
-    return(
-        <TouchableOpacity style={{justifyContent:'center', width:wp(18)}} >
-            <ImageBackground source={{uri:'https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png'}} style={{width:wp(100), height:hp(22), justifyContent:'center', backgroundColor:'#777'}} >
-                <View style={{flexDirection:'row', justifyContent:'space-between', marginHorizontal:wp(5)}} >
-                    <TouchableOpacity style={{justifyContent:'center'}} >
-                        <ChevronLeftIcon width={wp(6)} height={hp(3)} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{justifyContent:'center', transform:[{rotate:'180deg'}]}} >
-                        <ChevronLeftIcon width={wp(6)} height={hp(3)} />
-                    </TouchableOpacity>
-                </View>
-            </ImageBackground>
-        </TouchableOpacity>
-    )
-    {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />
-    <Text style={{fontSize:RFPercentage(2), textAlign:'center'}} >{title} </Text> */}
-}
+const ImageCarrousel = ({ image = "", title = "tittle", press }) => {
+  return (
+    <TouchableOpacity style={{ justifyContent: "center", width: wp(18) }}>
+      <ImageBackground
+        source={{
+          uri:
+            "https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png",
+        }}
+        style={{
+          width: wp(100),
+          height: hp(22),
+          justifyContent: "center",
+          backgroundColor: "#777",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: wp(5),
+          }}
+        >
+          <TouchableOpacity style={{ justifyContent: "center" }}>
+            <ChevronLeftIcon width={wp(6)} height={hp(3)} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              transform: [{ rotate: "180deg" }],
+            }}
+          >
+            <ChevronLeftIcon width={wp(6)} height={hp(3)} />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+  {
+    /* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} />
+    <Text style={{fontSize:RFPercentage(2), textAlign:'center'}} >{title} </Text> */
+  }
+};
 
 const mapStateToProps = (state) => ({
-    login: state.login.login,
-    cart: state.cart.Cart.cart
+  login: state.login.login,
+  cart: state.cart.Cart.cart
 });
+
 
 export default connect(mapStateToProps) (Product)
