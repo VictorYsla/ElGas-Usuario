@@ -5,15 +5,16 @@ import BasicHeader from '../../components/Header/BasicHeader'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { colores } from '../../constantes/Temas';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation, useIsFocused} from '@react-navigation/native'
 import CancelIcon from '../../components/Icons/CancelIcon'
 import ElGasLogo from '../../components/Icons/ElGasLogo'
 import BasketIcon from '../../components/Icons/BasketIcon'
 import SearchIcon from '../../components/Icons/SearchIcon'
 import ChevronLeftIcon from '../../components/Icons/ChevronLeftIcon'
 import ChevronRightIcon from '../../components/Icons/ChevronRightIcon'
+import { connect } from 'react-redux';
 
-const Product = ({}) => {
+const Product = ({cart}) => {
     const [basket, setBasket] = useState(1)
     const navigation = useNavigation()
     const localApiResponse = [
@@ -23,7 +24,7 @@ const Product = ({}) => {
                 name:'Cilindro Auzul',
                 photo_url:'https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg',
                 order_id:1,
-                descirption:{
+                description:{
                     capacity:15, 
                     unity:'kg',
                     description:'Cilindro de gas de 15Kg para el hogar.'
@@ -43,7 +44,7 @@ const Product = ({}) => {
                 name:'Cilindro Verde',
                 photo_url:'https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg',
                 order_id:1,
-                descirption:{
+                description:{
                     capacity:45, 
                     unity:'g',
                     description:'Cilindro de gas de 45g para el hogar.'
@@ -63,8 +64,10 @@ const Product = ({}) => {
                 name:'Válvula',
                 photo_url:'https://regaber.com/wp-content/uploads/2019/04/ValvulaCompuerta_AsientoElastico_Gaer_Regaber_01.jpg',
                 order_id:3,
-                descirption:{
-                    description:'Válvula de gran capacidad.'
+                description:{
+                    description:'Válvula de gran capacidad.',
+                    capacity:45, 
+                    unity:'g',
                 },
                 price: 0.90
             },
@@ -83,16 +86,18 @@ const Product = ({}) => {
             </View>
         )
     }
+    if(useIsFocused()){
+        var items=cart.length
+    }
     const RightComponent = () => {
         return(
             <>
-                <View style={{flexDirection:'row'}} >
+                <TouchableOpacity onPress={()=>navigation.navigate('MyCart')} style={{flexDirection:'row'}} >
                     <View style={{backgroundColor:colores.amarillo, width:wp(3.5), height:hp(1.9), top:hp(0.5), borderRadius:wp(100), justifyContent:'center'}} >
-                        <Text style={{textAlign:'center', fontSize:RFPercentage(1.5)}} >{basket}</Text>
+                        <Text style={{textAlign:'center', fontSize:RFPercentage(1.5)}} >{ items}</Text>
                     </View>
                     <BasketIcon width={wp(7.5)} height={hp(3.5)} />
-                    {/* <Image source={require('../../../assets/img/Basket.png')} style={{width:wp(7.5), height:hp(3.5), alignSelf:'center'}} /> */}
-                </View>
+                </TouchableOpacity>
             </>
         )
     }
@@ -118,7 +123,7 @@ const Product = ({}) => {
                                 return(
                                     <TouchableOpacity onPress={()=>navigation.navigate('ProductInfo',{item: value})} key={index} style={{marginLeft:wp(index>0?5:0)}} >
                                         <Image source={{uri: value.product.photo_url}} style={{width:wp(10), height:hp(8)}} />
-                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.product.descirption.capacity}{value.product.descirption.unity}</Text>
+                                        <Text style={{textAlign:'center', fontSize:wp(3.3), marginTop:hp(0.3), fontWeight:'bold'}} >{value.product.description.capacity}{value.product.description.unity}</Text>
                                     </TouchableOpacity>
                                 )
                             })
@@ -166,5 +171,9 @@ const ImageCarrousel = ({image='', title='tittle', press}) =>{
     <Text style={{fontSize:RFPercentage(2), textAlign:'center'}} >{title} </Text> */}
 }
 
+const mapStateToProps = (state) => ({
+    login: state.login.login,
+    cart: state.cart.Cart.cart
+});
 
-export default Product
+export default connect(mapStateToProps) (Product)
