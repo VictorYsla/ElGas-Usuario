@@ -7,10 +7,11 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import BasicHeader from "../../components/Header/BasicHeader";
 
-import AddIcon from "../../components/Icons/AddIcon";
 import CardIcon from "../../components/Icons/CardIcon";
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
+import PlusFloatingButton from "../../components/PlusFloatingButton";
 import { pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 
@@ -47,20 +48,7 @@ const Tarjetas = (props) => {
 
   return (
     <Container styleContainer={styles.screen}>
-      <View
-        style={[
-          {
-            backgroundColor: "#F2f2f2",
-            flexDirection: "row",
-            width: "100%",
-            height: 50,
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        ]}
-      >
-        <Text>Mis Tarjetas</Text>
-      </View>
+      <BasicHeader title="Mis Tarjetas" />
 
       <View style={styles.listContainer}>
         <ScrollView>
@@ -92,27 +80,10 @@ const Tarjetas = (props) => {
           })}
         </ScrollView>
       </View>
-      <FAB
-        style={{
-          height: screenWidth > 360 ? 60 : 40,
-          width: screenWidth > 360 ? 60 : 40,
-          borderRadius: screenWidth > 360 ? 30 : 20,
-        }}
+      <PlusFloatingButton
         onPress={() => props.navigation.navigate("AgregarTarjeta")}
       />
     </Container>
-  );
-};
-
-const FAB = (props) => {
-  return (
-    <View style={[styles.fab, { ...props.style }]}>
-      <TouchableNativeFeedback onPress={props.onPress}>
-        <View style={styles.fabImage}>
-          <AddIcon height={15} width={15} />
-        </View>
-      </TouchableNativeFeedback>
-    </View>
   );
 };
 
@@ -134,18 +105,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   cardNumber: { fontWeight: "bold", fontSize: RFPercentage(2.5) },
-  fab: {
-    position: "absolute",
-    bottom: 20,
-    right: 10,
-    overflow: "hidden",
-    backgroundColor: "#2E2E2D",
-  },
-  fabImage: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
 export default Tarjetas;
