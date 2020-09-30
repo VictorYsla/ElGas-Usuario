@@ -1,18 +1,21 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import login, { actualizarLogin } from './reducer/login';
-import navigation, { actualizarNavigation } from './reducer/navigation';
-import cart, {UpdateCart} from './reducer/cart'
+import login, { actualizarLogin } from "./reducer/login";
+import navigation, {
+  actualizarNavigation,
+  actualizarUbicacion,
+} from "./reducer/navigation";
+import cart, { UpdateCart } from "./reducer/cart";
 
 export default combineReducers({
-	login,
-	navigation,
-	cart
+  login,
+  navigation,
+  cart,
 });
 
 export const actions = {
-	actualizarLogin,
-	actualizarNavigation,
-	UpdateCart
+  actualizarLogin,
+  actualizarNavigation,
+  actualizarUbicacion,
+  UpdateCart,
 };
-

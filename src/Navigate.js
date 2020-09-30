@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
 
 import Home from "./Home";
 import PantallaBienvenida from "./screens/PantallaBienvenida";
@@ -14,14 +17,16 @@ import Tarjetas from "./screens/Pago/Tarjetas";
 import SeleccionarTarjeta from "./screens/Pago/SeleccionarTarjeta";
 import PantallaPedidos from "./screens/User/PantallaPedidos";
 import AgregarTarjeta from "./screens/Pago/AgregarTarjeta";
-import AddressDeliveryForm from './screens/AddressDelivery/AddressDeliveryForm'
-import AddressDeliveryFormUser from './screens/AddressDelivery/AddressDeliveryFormUser'
-import AddressDeliveryOptions from './screens/AddressDelivery/AddressDeliveryOptions'
-import AddressDeliveryUsers from './screens/AddressDelivery/AddressDeliveryUsers'
-import Products from './screens/SelecProduct/Products'
-import ProductInfo from './screens/SelecProduct/ProductInfo'
-import MyCart from './screens/SelecProduct/MyCart'
-import DeliveryDetails from './screens/SelecProduct/DeliveryDetails'
+import AddressDeliveryForm from "./screens/AddressDelivery/AddressDeliveryForm";
+import AddressDeliveryFormUser from "./screens/AddressDelivery/AddressDeliveryFormUser";
+import AddressDeliveryOptions from "./screens/AddressDelivery/AddressDeliveryOptions";
+import AddressDeliveryUsers from "./screens/AddressDelivery/AddressDeliveryUsers";
+import Products from "./screens/SelecProduct/Products";
+import ProductInfo from "./screens/SelecProduct/ProductInfo";
+import MyCart from "./screens/SelecProduct/MyCart";
+import DeliveryDetails from "./screens/SelecProduct/DeliveryDetails";
+import OrderDetails from "./screens/SelecProduct/OrderDetails";
+import { Platform } from "react-native";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -33,7 +38,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Products"//PantallaBienvenida,  DeliveryDetails
+        initialRouteName="Products" //PantallaBienvenida,  DeliveryDetails
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PantallaBienvenida">
@@ -44,7 +49,6 @@ const Navegador = (props) => {
           }}
         </Stack.Screen>
 
-
         {/* Login Process */}
         <Stack.Screen name="Login" component={PantallaLogin} />
         <Stack.Screen name="Registrarse" component={Registrarse} />
@@ -54,7 +58,16 @@ const Navegador = (props) => {
         />
 
         {/* Mis Tarjetas */}
-        <Stack.Screen name="Tarjetas" component={Tarjetas} />
+        <Stack.Screen
+          name="Tarjetas"
+          component={Tarjetas}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
         <Stack.Screen name="AgregarTarjeta" component={AgregarTarjeta} />
         <Stack.Screen
           name="SeleccionarTarjeta"
@@ -77,17 +90,45 @@ const Navegador = (props) => {
         <Stack.Screen
           name="AddressDeliveryUsers"
           component={AddressDeliveryUsers}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
         />
 
         {/* Product */}
-        <Stack.Screen name="Products" component={Products} />
-        <Stack.Screen name="ProductInfo" component={ProductInfo} initialParams={{item: null}} />
+        <Stack.Screen
+          name="Products"
+          component={Products}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
+        <Stack.Screen
+          name="ProductInfo"
+          component={ProductInfo}
+          initialParams={{ item: null }}
+        />
         <Stack.Screen name="MyCart" component={MyCart} />
         <Stack.Screen name="DeliveryDetails" component={DeliveryDetails} />
-        
+        <Stack.Screen name="OrderDetails" component={OrderDetails} />
 
         {/* Pedidos */}
-        <Stack.Screen name="MisPedidos" component={PantallaPedidos} />
+        <Stack.Screen
+          name="MisPedidos"
+          component={OrderDetails}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

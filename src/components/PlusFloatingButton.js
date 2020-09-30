@@ -1,16 +1,42 @@
-import React from 'react';
-import {  Text, TouchableOpacity, Dimensions } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { colores } from '../constantes/Temas';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-const {width, height} = Dimensions.get('window')
+import React from "react";
+import { StyleSheet, View, TouchableNativeFeedback } from "react-native";
+import { pantalla } from "../constantes/Temas";
 
-const PlusFloatingButton = ({press=()=>{}}) => {
-    return(
-        <TouchableOpacity onPress={()=>press()} style={{width:wp(14), height:hp(7), backgroundColor:colores.bgOscuro, position:'absolute', top:height-height/5.5, borderRadius:hp(100), left:wp(80), justifyContent:'center', alignItems:'center'}} >
-            <Text style={{fontSize:RFPercentage(5), color:'#fff',marginBottom:hp(0.5), textAlignVertical:'center'}} >+</Text>
-        </TouchableOpacity>
-    )
-}
+import AddIcon from "./Icons/AddIcon";
+const { screenWidth } = pantalla;
 
-export default PlusFloatingButton
+const PlusFloatingButton = ({ onPress }) => {
+  const customStyle = {
+    height: screenWidth > 360 ? 60 : 40,
+    width: screenWidth > 360 ? 60 : 40,
+    borderRadius: screenWidth > 360 ? 30 : 20,
+  };
+
+  return (
+    <View style={[styles.fab, { ...customStyle }]}>
+      <TouchableNativeFeedback onPress={onPress}>
+        <View style={styles.fabImage}>
+          <AddIcon height={15} width={15} />
+        </View>
+      </TouchableNativeFeedback>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  fab: {
+    position: "absolute",
+    bottom: 20,
+    right: 10,
+    overflow: "hidden",
+    backgroundColor: "#2E2E2D",
+  },
+  fabImage: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+export default PlusFloatingButton;
