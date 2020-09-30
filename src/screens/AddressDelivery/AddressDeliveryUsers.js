@@ -1,46 +1,83 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput,TouchableOpacity, Dimensions } from 'react-native';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 //importaciones necesarias para redux//
-import { connect } from 'react-redux';
-import Container from '../../generales/Container';
-import BasicHeader from '../../components/Header/BasicHeader'
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { colores } from '../../constantes/Temas';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import PlusFloatingButton from '../../components/PlusFloatingButton'
-import useForm from '../../hooks/useForm'
-import CancelIcon from '../../components/Icons/CancelIcon'
-const initialValues={city:'', address:'', addressDetails:''}
+import { connect } from "react-redux";
+import Container from "../../generales/Container";
+import BasicHeader from "../../components/Header/BasicHeader";
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { colores } from "../../constantes/Temas";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import PlusFloatingButton from "../../components/PlusFloatingButton";
+import useForm from "../../hooks/useForm";
+import CancelIcon from "../../components/Icons/CancelIcon";
+import FilledUserIcon from "../../components/Icons/FilledUserIcon";
+import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
+import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
+const initialValues = { city: "", address: "", addressDetails: "" };
 
 const AddressDeliveryForm = ({}) => {
-    const form = useForm({initialValues})
-    return(
-        <Container>
-            <BasicHeader title='Direccion de entrga' />
-            <View style={{marginTop:hp(5),  justifyContent:'space-between', marginHorizontal:wp(10) }} >
-                <CustomButton title='Consumidor final' rigthButton={false} />
-                <CustomButton title='Silverter Stalon' />
-            </View>
-            <PlusFloatingButton/>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <BasicHeader title="Direccion de entrega" />
+      <View
+        style={{
+          marginTop: hp(5),
+          justifyContent: "space-between",
+          marginHorizontal: wp(10),
+        }}
+      >
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              width: "100%",
+              marginVertical: 10,
+              alignItems: "center",
+            },
+          ]}
+        >
+          <View style={[{ width: "20%" }]}>
+            <FilledUserIcon width={20} height={20} />
+          </View>
+          <View style={[{ width: "80%" }]}>
+            <Text>Consumidor final</Text>
+          </View>
+        </View>
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              width: "100%",
+              marginVertical: 10,
+              alignItems: "center",
+            },
+          ]}
+        >
+          <View style={[{ width: "20%" }]}>
+            <OutlineUserIcon width={20} height={20} />
+          </View>
+          <View style={[{ width: "70%" }]}>
+            <Text>Silvester Stalone</Text>
+          </View>
+          <View style={[{ width: "20%" }]}>
+            <ChevronRightIcon width={15} height={15} />
+          </View>
+        </View>
+      </View>
+      <PlusFloatingButton />
+    </Container>
+  );
+};
 
-const CustomButton = ({image=()=><CancelIcon/>, title='tittle', press,rigthButton=true}) =>{
-    return(
-        <TouchableOpacity style={{ width:wp(80), flexDirection:'row', justifyContent:'space-between', marginTop:hp(3)}} >
-            <View style={{flexDirection:'row',  width:wp(60)}} >
-                {/* <Image source={image} style={{overlayColor:'#000', tintColor:'#000', width:wp(10), height:hp(5), alignSelf:'center'}} /> */}
-                {image()}
-                <View style={{marginLeft:wp(5), justifyContent:'center'}} >
-                    <Text style={{fontSize:RFPercentage(2), textAlignVertical:'center'}} >{title} </Text>
-                </View>
-            </View>
-            <View style={{justifyContent:'center'}} >
-                {rigthButton && image()}
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-export default AddressDeliveryForm
+export default AddressDeliveryForm;
