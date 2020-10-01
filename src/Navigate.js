@@ -27,6 +27,7 @@ import MyCart from "./screens/SelecProduct/MyCart";
 import DeliveryDetails from "./screens/SelecProduct/DeliveryDetails";
 import OrderDetails from "./screens/SelecProduct/OrderDetails";
 import { Platform } from "react-native";
+import NotificacionesEjemplo from "./pruebas/NotificacionesEjemplo";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -40,7 +41,13 @@ const Navegador = (props) => {
         }}
         initialRouteName="Products" //PantallaBienvenida,  DeliveryDetails
       >
+        <Stack.Screen
+          name="NotificacionesEjemplo"
+          component={NotificacionesEjemplo}
+        />
+
         <Stack.Screen name="Home" component={Home} />
+
         <Stack.Screen name="PantallaBienvenida">
           {(props) => {
             return (

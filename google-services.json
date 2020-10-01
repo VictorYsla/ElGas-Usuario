@@ -1,34 +1,71 @@
 {
   "project_info": {
-    "project_number": "979738891294",
-    "firebase_url": "https://camp-ebd9b.firebaseio.com",
-    "project_id": "camp-ebd9b",
-    "storage_bucket": "camp-ebd9b.appspot.com"
+    "project_number": "564053304656",
+    "firebase_url": "https://elgas-68c82.firebaseio.com",
+    "project_id": "elgas-68c82",
+    "storage_bucket": "elgas-68c82.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:979738891294:android:4fb0a381432babeebc0a0f",
+        "mobilesdk_app_id": "1:564053304656:android:6aeaf58d5780d7c9cb3855",
         "android_client_info": {
-          "package_name": "com.camp.gestion"
+          "package_name": "com.elgas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "979738891294-ev1rr9n0c0b4kn6n9qaulmoeo12k5hvp.apps.googleusercontent.com",
+          "client_id": "564053304656-2pto8hjdcjo6cmivtsfh6hncbjscp7nk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elgas",
+            "certificate_hash": "bd88c201f4d823b8d3cdbbc79ad2db8bd64bf416"
+          }
+        },
+        {
+          "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyByQH-oeh9J34GY-QQBwiXlIIQkkiNmQM4"
+          "current_key": "AIzaSyBk5ZiEvknFcEYFohScW2l_UER61mXwOIs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "979738891294-ev1rr9n0c0b4kn6n9qaulmoeo12k5hvp.apps.googleusercontent.com",
+              "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564053304656:android:11b8b3ee41069135cb3855",
+        "android_client_info": {
+          "package_name": "com.elgasdriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk5ZiEvknFcEYFohScW2l_UER61mXwOIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

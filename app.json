@@ -20,7 +20,12 @@
     "android": {
       "package": "com.elgas",
       "versionCode": 5,
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "googleServicesFile": "./google-services.json",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "useNextNotificationsApi": true
+    },
+    "notification": {
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/favicon.png"
