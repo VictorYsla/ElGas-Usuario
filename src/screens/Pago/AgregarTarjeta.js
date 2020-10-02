@@ -4,11 +4,19 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import CustomButton from "../../components/CustomButton";
 import BasicHeader from "../../components/Header/BasicHeader";
 import CardsBanner from "../../components/Icons/CardsBanner";
+import { pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 
 const AgregarTarjeta = (props) => {
+  const { screenHeight } = pantalla;
+
   return (
-    <Container styleContainer={[styles.screen]}>
+    <Container
+      styleContainer={[
+        styles.screen,
+        { minHeight: screenHeight <= 592 ? 480 : 700 },
+      ]}
+    >
       <BasicHeader title="Mis Tarjetas" />
 
       <View
@@ -18,6 +26,7 @@ const AgregarTarjeta = (props) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
+            minHeight: 450,
           },
         ]}
       >
