@@ -128,7 +128,7 @@ const Navegador = (props) => {
         {/* Pedidos */}
         <Stack.Screen
           name="MisPedidos"
-          component={OrderDetails}
+          component={PantallaPedidos}
           options={{
             cardStyleInterpolator:
               Platform.OS == "ios"
