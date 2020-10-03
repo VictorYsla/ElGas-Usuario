@@ -18,6 +18,7 @@ import CardIcon from "../components/Icons/CardIcon";
 import SvgLogout from "../components/Icons/LogoutIcon";
 import { useNavigation } from "@react-navigation/native";
 import { actions } from "../redux";
+import { actualizarLogin } from "../redux/reducer/login";
 
 function Container({
   styleContainer,
@@ -152,13 +153,15 @@ const Footer = () => {
       >
         <Item
           navigation={navigation}
-          ruta={"Home"}
+          isLoggingOut
           texto="Cerrar Sesión"
           icon={
             <SvgLogout
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
-              color={routeName === "Home" ? colores.amarillo : colores.bgOscuro}
+              color={
+                routeName === "Logout" ? colores.amarillo : colores.bgOscuro
+              }
             />
           }
         />
@@ -174,8 +177,23 @@ const Item = ({ navigation, ruta, texto, icon }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate(ruta);
-        ruta !== "Logout" && dispatch(actions.actualizarUbicacion(ruta));
+        if (ruta) {
+          navigation.navigate(ruta);
+        }
+        ruta === "Products" ||
+        ruta === "AddressDeliveryUsers" ||
+        ruta === "MisPedidos" ||
+        ruta === "Tarjetas"
+          ? dispatch(actions.actualizarUbicacion(ruta))
+          : dispatch(
+              actualizarLogin({
+                isLogged: false,
+                uid: "",
+                userName: "",
+                email: "",
+                token: "",
+              })
+            );
       }}
       style={styles.tabButton}
     >
