@@ -8,7 +8,7 @@ import {
   TextInput,
   Platform,
   StatusBar,
-  Alert
+  Alert,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -21,7 +21,7 @@ import Container from "../../generales/Container";
 import useForm from "../../hooks/useForm";
 import { ValidateForm } from "../../functions/ValidateForm";
 import { auth, logIn } from "../../apis/querys";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { actions } from "../../redux/index";
 
 const initialValues = {
@@ -29,79 +29,40 @@ const initialValues = {
   password: "",
 };
 
-const Button = (props) => {
-  let TouchableComponent = TouchableOpacity;
-  //const {onPress=()=>{}}= props
-
-  if (Platform.OS === "android" && Platform.Version >= 21) {
-    TouchableComponent = TouchableNativeFeedback;
-  }
-
-  return (
-    <View
-      style={[
-        {
-          height: 40,
-          width: "75%",
-          borderRadius: 30,
-          borderWidth: 1,
-          overflow:
-            Platform.OS === "android" && Platform.Version >= 21
-              ? "hidden"
-              : "visible",
-          backgroundColor: props.color,
-          borderColor: "transparent",
-        },
-        props.style,
-      ]}
-    >
-      <TouchableComponent onPress={() => {props.onPress()}} activeOpacity={0.6}>
-        <View
-          style={
-            !props.horizontal
-              ? {
-                  flex: 1,
-                  height: "100%",
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }
-              : {
-                  flex: 1,
-                  height: "100%",
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }
-          }
-        >
-          {props.children}
-        </View>
-      </TouchableComponent>
-    </View>
-  );
-};
-
 const PantallaLogin = (props) => {
   const form = useForm({ initialValues });
+  const dispatch = useDispatch();
   // console.log(form);
+  const [loginResponse, setLoginResponse] = useState(null);
 
-  const onLogin = () =>{
-    if(ValidateForm(form)){
-      const {email, password} = form.fields
-      logIn(email,password)
-      .then((x)=>{
-        if(x.type !== 'error'){
-          props.dispatch(actions.actualizarLogin({...x.value, isLoged: true}))
+  const onLogin = () => {
+    console.log("Press", ValidateForm(form));
+    const { email, password } = form.fields;
+
+    if (ValidateForm(form)) {
+      console.log("Sii");
+      logIn(email, password).then((x) => {
+        console.log("Responseeee: ", x);
+        if (x.type !== "error") {
+          dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
         }
-      })
-      console.log('state:', props.login)
-    }else{
-      Alert.alert('Todos los campos son requeridos')
+      });
+    } else {
+      Alert.alert("Todos los campos son obligatorios");
     }
-  }
-
+  };
+  useEffect(() => {
+    console.log(form, loginResponse);
+    if (loginResponse) {
+      if (loginResponse.type === "success") {
+        // console.log( 'values', loginResponse.value)
+        // console.log('dis:', props.dispatch)
+        props.dispatch(
+          actions.actualizarLogin({ ...loginResponse.value, isLogged: true })
+        );
+      }
+    }
+  }, [loginResponse]);
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.logo}>
@@ -183,7 +144,7 @@ const PantallaLogin = (props) => {
         <Button
           color="#fff"
           style={{ marginBottom: 10 }}
-          onPress={onLogin}//() => props.navigation.navigate("Tarjetas")
+          onPress={onLogin /* () => props.navigation.navigate("Inicio") */} //() => props.navigation.navigate("Tarjetas")
         >
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
@@ -232,6 +193,65 @@ const PantallaLogin = (props) => {
   );
 };
 
+const Button = (props) => {
+  let TouchableComponent = TouchableOpacity;
+  //const {onPress=()=>{}}= props
+
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    TouchableComponent = TouchableNativeFeedback;
+  }
+
+  return (
+    <View
+      style={[
+        {
+          height: 40,
+          width: "75%",
+          borderRadius: 30,
+          borderWidth: 1,
+          overflow:
+            Platform.OS === "android" && Platform.Version >= 21
+              ? "hidden"
+              : "visible",
+          backgroundColor: props.color,
+          borderColor: "transparent",
+        },
+        props.style,
+      ]}
+    >
+      <TouchableComponent
+        onPress={() => {
+          props.onPress();
+        }}
+        activeOpacity={0.6}
+      >
+        <View
+          style={
+            !props.horizontal
+              ? {
+                  flex: 1,
+                  height: "100%",
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }
+              : {
+                  flex: 1,
+                  height: "100%",
+                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }
+          }
+        >
+          {props.children}
+        </View>
+      </TouchableComponent>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   screen: {
     height: "100%",
@@ -263,9 +283,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-const mapStateToProps = (state) => ({
-  login: state.login.login,
-});
-
-export default connect(mapStateToProps) (PantallaLogin);
+export default connect()(PantallaLogin);

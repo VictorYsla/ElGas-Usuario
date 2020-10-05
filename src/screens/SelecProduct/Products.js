@@ -24,9 +24,20 @@ import BasketIcon from "../../components/Icons/BasketIcon";
 import SearchIcon from "../../components/Icons/SearchIcon";
 import ChevronLeftIcon from "../../components/Icons/ChevronLeftIcon";
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { actualizarUbicacion } from "../../redux/reducer/navigation";
 
-const Product = ({ cart }) => {
+const Product = ({ cart, ...props }) => {
+  const dispatch = useDispatch();
+  console.log(props);
+  const routeName = props.route.name;
+
+  useEffect(() => {
+    const actualizarRuta = (ruta) => dispatch(actualizarUbicacion(ruta));
+
+    actualizarRuta(routeName);
+  }, []);
+
   const [basket, setBasket] = useState(1);
   const navigation = useNavigation();
   const localApiResponse = [

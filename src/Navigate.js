@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -33,6 +33,40 @@ const Navegador = (props) => {
   const Stack = createStackNavigator();
   const [showRealApp, setShowRealApp] = useState(false);
 
+  const isLogged = useSelector((state) => state.login.login?.isLogged);
+
+  if (!isLogged) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="PantallaBienvenida" //PantallaBienvenida,  DeliveryDetails
+        >
+          <Stack.Screen name="PantallaBienvenida">
+            {(props) => {
+              return (
+                <PantallaBienvenida
+                  {...props}
+                  setShowRealApp={setShowRealApp}
+                />
+              );
+            }}
+          </Stack.Screen>
+
+          {/* Login Process */}
+          <Stack.Screen name="Login" component={PantallaLogin} />
+          <Stack.Screen name="Registrarse" component={Registrarse} />
+          <Stack.Screen
+            name="RecuperarContrasena"
+            component={RecuperarContrasena}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -41,28 +75,12 @@ const Navegador = (props) => {
         }}
         initialRouteName="Products" //PantallaBienvenida,  DeliveryDetails
       >
-        <Stack.Screen
+        {/* <Stack.Screen
           name="NotificacionesEjemplo"
           component={NotificacionesEjemplo}
-        />
+        /> */}
 
-        <Stack.Screen name="Home" component={Home} />
-
-        <Stack.Screen name="PantallaBienvenida">
-          {(props) => {
-            return (
-              <PantallaBienvenida {...props} setShowRealApp={setShowRealApp} />
-            );
-          }}
-        </Stack.Screen>
-
-        {/* Login Process */}
-        <Stack.Screen name="Login" component={PantallaLogin} />
-        <Stack.Screen name="Registrarse" component={Registrarse} />
-        <Stack.Screen
-          name="RecuperarContrasena"
-          component={RecuperarContrasena}
-        />
+        {/* <Stack.Screen name="Home" component={Home} /> */}
 
         {/* Mis Tarjetas */}
         <Stack.Screen

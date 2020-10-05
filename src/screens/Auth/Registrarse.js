@@ -10,39 +10,38 @@ import {
   Alert,
 } from "react-native";
 import Container from "../../generales/Container";
-import useForm from '../../hooks/useForm'
-import {ValidateForm} from '../../functions/ValidateForm'
-import {singUp} from '../../apis/querys'
+import useForm from "../../hooks/useForm";
+import { ValidateForm } from "../../functions/ValidateForm";
+import { singUp } from "../../apis/querys";
 import { connect } from "react-redux";
 import { actions } from "../../redux/index";
 import CustomButton from "../../components/CustomButton";
 import RegisterIcon from "../../components/Icons/RegisterIcon";
 
-const initialValues={
-  name:'',
-  email:'',
-  password:'',
-  phone:''
-}
-const Registrarse = ({dispatch}) => {
-  const form = useForm({initialValues})
-  const register = () =>{
-    console.log('Press', ValidateForm(form));
-    const {name, email, password, phone} = form.fields
-    if(ValidateForm(form)){
-      console.log('Sii');
-      singUp(email,name, password, phone,)
-      .then(x=> {
-        console.log('Resposneeee: ', x);
-        if(x.type !=='error'){
-          
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
+  phone: "",
+};
+const Registrarse = ({ dispatch, navigation }) => {
+  const form = useForm({ initialValues });
+  const register = () => {
+    console.log("Press", ValidateForm(form));
+    const { name, email, password, phone } = form.fields;
+    if (ValidateForm(form)) {
+      console.log("Sii");
+      singUp(email, name, password, phone).then((x) => {
+        console.log("Resposneeee: ", x);
+        if (x.type !== "error") {
+          dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
         }
-      })
-    }else{
-      Alert.alert('Todos los campos son obligatorios')
+      });
+    } else {
+      Alert.alert("Todos los campos son obligatorios");
     }
-  }
-  
+  };
+
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
