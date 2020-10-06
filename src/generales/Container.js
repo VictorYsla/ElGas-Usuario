@@ -78,21 +78,21 @@ const Footer = () => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: routeName === "AddressDeliveryFormUser" ? 1 : 0,
+          borderTopWidth: routeName === "MyAccount" ? 1 : 0,
           borderTopColor:
-            routeName === "AddressDeliveryFormUser" ? colores.amarillo : "",
+            routeName === "MyAccount" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
-          ruta={"AddressDeliveryFormUser"}
+          ruta={"MyAccount"}
           texto='Mi Cuenta'
           icon={
             <SvgProfile
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
               color={
-                routeName === "AddressDeliveryFormUser"
+                routeName === "MyAccount"
                   ? colores.amarillo
                   : colores.bgOscuro
               }
@@ -181,7 +181,7 @@ const Item = ({ navigation, ruta, texto, icon }) => {
           navigation.navigate(ruta);
         }
         ruta === "Products" ||
-        ruta === "AddressDeliveryFormUser" ||
+        ruta === "MyAccount" ||
         ruta === "MisPedidos" ||
         ruta === "Tarjetas"
           ? dispatch(actions.actualizarUbicacion(ruta))

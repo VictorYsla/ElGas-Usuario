@@ -68,3 +68,9 @@ export const logIn = async(email='', password='') => {
     })
     .catch(e=>{console.log('error: ', e); return {type:'error', value: e}; })
 }
+export const postDelivery = async(uid, userName, body={}) => {
+    firebase
+    .firestore()
+    .collection('plant_pedidos_en_camino')
+    .add(body)
+}

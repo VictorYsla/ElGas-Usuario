@@ -28,6 +28,8 @@ import DeliveryDetails from "./screens/SelecProduct/DeliveryDetails";
 import OrderDetails from "./screens/SelecProduct/OrderDetails";
 import { Platform } from "react-native";
 import NotificacionesEjemplo from "./pruebas/NotificacionesEjemplo";
+import MyInformation from './screens/MyAccount/MyInformation'
+import MyAccount from './screens/MyAccount/MyAccount'
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -73,7 +75,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName='Products' //PantallaBienvenida,  DeliveryDetails
+        initialRouteName='products' //PantallaBienvenida,  DeliveryDetails 'products'
       >
         {/* <Stack.Screen
           name="NotificacionesEjemplo"
@@ -81,6 +83,8 @@ const Navegador = (props) => {
         /> */}
 
         {/* <Stack.Screen name="Home" component={Home} /> */}
+
+        
 
         {/* Product */}
         <Stack.Screen
@@ -101,6 +105,11 @@ const Navegador = (props) => {
         <Stack.Screen name='MyCart' component={MyCart} />
         <Stack.Screen name='DeliveryDetails' component={DeliveryDetails} />
         <Stack.Screen name='OrderDetails' component={OrderDetails} />
+
+        {/* MyAccount */}
+        <Stack.Screen name="MyInformation" component={MyInformation} />
+        <Stack.Screen name="MyAccount" component={MyAccount} />
+        
 
         {/* Mis Tarjetas */}
         <Stack.Screen
