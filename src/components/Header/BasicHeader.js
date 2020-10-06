@@ -37,7 +37,7 @@ const BasicHeader = ({
   return (
     <View
       style={{
-        // marginTop: StatusBar.currentHeight,
+        marginTop: StatusBar.currentHeight,
         height: hp(headerHeigth),
         flexDirection: "row",
         width: "100%",
