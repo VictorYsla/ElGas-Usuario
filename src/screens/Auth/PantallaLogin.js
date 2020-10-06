@@ -16,7 +16,7 @@ import ElGasLogo from "../../components/Icons/ElGasLogo";
 import EmailIcon from "../../components/Icons/EmailIcon";
 import FbIcon from "../../components/Icons/FbIcon";
 import LockIcon from "../../components/Icons/LockIcon";
-import { colores } from "../../constantes/Temas";
+import { colores, pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 import useForm from "../../hooks/useForm";
 import { ValidateForm } from "../../functions/ValidateForm";
@@ -65,8 +65,13 @@ const PantallaLogin = (props) => {
   }, [loginResponse]);
   return (
     <Container styleContainer={styles.screen} footer={false}>
-      <View style={styles.logo}>
-        <ElGasLogo height="100%" width="100%" />
+      <View
+        style={[
+          styles.logo,
+          { marginTop: pantalla.screenHeight <= 592 ? 50 : 125 },
+        ]}
+      >
+        <ElGasLogo height='100%' width='100%' />
       </View>
       <Text style={styles.textoBienvenido}>Bienvenido</Text>
 
@@ -85,7 +90,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <EmailIcon width="100%" height="100%" color={colores.amarillo} />
+            <EmailIcon width='100%' height='100%' color={colores.amarillo} />
           </View>
           <TextInput
             style={[
@@ -100,8 +105,8 @@ const PantallaLogin = (props) => {
                 fontSize: RFPercentage(2.2),
               },
             ]}
-            placeholder="E-mail"
-            keyboardType="email-address"
+            placeholder='E-mail'
+            keyboardType='email-address'
             {...form.getInput("email")}
           />
         </View>
@@ -119,7 +124,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <LockIcon height="100%" width="100%" />
+            <LockIcon height='100%' width='100%' />
           </View>
           <TextInput
             style={[
@@ -133,7 +138,7 @@ const PantallaLogin = (props) => {
                 fontSize: RFPercentage(2.2),
               },
             ]}
-            placeholder="Password"
+            placeholder='Password'
             secureTextEntry
             {...form.getInput("password")}
           />
@@ -142,7 +147,7 @@ const PantallaLogin = (props) => {
 
       <View style={styles.contenedor}>
         <Button
-          color="#fff"
+          color='#fff'
           style={{ marginBottom: 10 }}
           onPress={onLogin /* () => props.navigation.navigate("Inicio") */} //() => props.navigation.navigate("Tarjetas")
         >
@@ -150,7 +155,7 @@ const PantallaLogin = (props) => {
             Ingresar
           </Text>
         </Button>
-        <Button color="#227BC4" horizontal>
+        <Button color='#227BC4' horizontal>
           <View
             style={{
               width: "10%",
@@ -188,7 +193,7 @@ const PantallaLogin = (props) => {
         </View>
       </View>
 
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle='light-content' />
     </Container>
   );
 };
