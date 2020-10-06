@@ -63,7 +63,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"Products"}
-          texto="Inicio"
+          texto='Inicio'
           icon={
             <SvgHome
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -78,21 +78,21 @@ const Footer = () => {
       <View
         style={{
           width: "20%",
-          borderTopWidth: routeName === "AddressDeliveryUsers" ? 1 : 0,
+          borderTopWidth: routeName === "AddressDeliveryFormUser" ? 1 : 0,
           borderTopColor:
-            routeName === "AddressDeliveryUsers" ? colores.amarillo : "",
+            routeName === "AddressDeliveryFormUser" ? colores.amarillo : "",
         }}
       >
         <Item
           navigation={navigation}
-          ruta={"AddressDeliveryUsers"}
-          texto="Mi Cuenta"
+          ruta={"AddressDeliveryFormUser"}
+          texto='Mi Cuenta'
           icon={
             <SvgProfile
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
               color={
-                routeName === "AddressDeliveryUsers"
+                routeName === "AddressDeliveryFormUser"
                   ? colores.amarillo
                   : colores.bgOscuro
               }
@@ -110,7 +110,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"MisPedidos"}
-          texto="Mis Pedidos"
+          texto='Mis Pedidos'
           icon={
             <SvgOrders
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -132,7 +132,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"Tarjetas"}
-          texto="Mis Tarjetas"
+          texto='Mis Tarjetas'
           icon={
             <CardIcon
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -154,7 +154,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           isLoggingOut
-          texto="Cerrar Sesión"
+          texto='Cerrar Sesión'
           icon={
             <SvgLogout
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -181,7 +181,7 @@ const Item = ({ navigation, ruta, texto, icon }) => {
           navigation.navigate(ruta);
         }
         ruta === "Products" ||
-        ruta === "AddressDeliveryUsers" ||
+        ruta === "AddressDeliveryFormUser" ||
         ruta === "MisPedidos" ||
         ruta === "Tarjetas"
           ? dispatch(actions.actualizarUbicacion(ruta))
