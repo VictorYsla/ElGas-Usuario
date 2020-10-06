@@ -16,7 +16,7 @@ export const colores = {
   gratis: "#c00525",
   bgOscuro: "#2E2E2D",
   amarillo: "#FFB500",
-  grisClaro:'#ddd'
+  grisClaro: "#F2F2F2",
 };
 export const opacidades = {
   bordesInputs: "rgba(52,52,52,0.6)",
