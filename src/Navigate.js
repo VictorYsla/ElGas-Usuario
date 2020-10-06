@@ -42,9 +42,9 @@ const Navegador = (props) => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName="PantallaBienvenida" //PantallaBienvenida,  DeliveryDetails
+          initialRouteName='PantallaBienvenida' //PantallaBienvenida,  DeliveryDetails
         >
-          <Stack.Screen name="PantallaBienvenida">
+          <Stack.Screen name='PantallaBienvenida'>
             {(props) => {
               return (
                 <PantallaBienvenida
@@ -56,10 +56,10 @@ const Navegador = (props) => {
           </Stack.Screen>
 
           {/* Login Process */}
-          <Stack.Screen name="Login" component={PantallaLogin} />
-          <Stack.Screen name="Registrarse" component={Registrarse} />
+          <Stack.Screen name='Login' component={PantallaLogin} />
+          <Stack.Screen name='Registrarse' component={Registrarse} />
           <Stack.Screen
-            name="RecuperarContrasena"
+            name='RecuperarContrasena'
             component={RecuperarContrasena}
           />
         </Stack.Navigator>
@@ -73,7 +73,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Products" //PantallaBienvenida,  DeliveryDetails
+        initialRouteName='Products' //PantallaBienvenida,  DeliveryDetails
       >
         {/* <Stack.Screen
           name="NotificacionesEjemplo"
@@ -82,50 +82,9 @@ const Navegador = (props) => {
 
         {/* <Stack.Screen name="Home" component={Home} /> */}
 
-        {/* Mis Tarjetas */}
-        <Stack.Screen
-          name="Tarjetas"
-          component={Tarjetas}
-          options={{
-            cardStyleInterpolator:
-              Platform.OS == "ios"
-                ? CardStyleInterpolators.forHorizontalIOS
-                : CardStyleInterpolators.forNoAnimation,
-          }}
-        />
-        <Stack.Screen name="AgregarTarjeta" component={AgregarTarjeta} />
-        <Stack.Screen
-          name="SeleccionarTarjeta"
-          component={SeleccionarTarjeta}
-        />
-
-        {/* AddressDelivery */}
-        <Stack.Screen
-          name="AddressDeliveryForm"
-          component={AddressDeliveryForm}
-        />
-        <Stack.Screen
-          name="AddressDeliveryFormUser"
-          component={AddressDeliveryFormUser}
-        />
-        <Stack.Screen
-          name="AddressDeliveryOptions"
-          component={AddressDeliveryOptions}
-        />
-        <Stack.Screen
-          name="AddressDeliveryUsers"
-          component={AddressDeliveryUsers}
-          options={{
-            cardStyleInterpolator:
-              Platform.OS == "ios"
-                ? CardStyleInterpolators.forHorizontalIOS
-                : CardStyleInterpolators.forNoAnimation,
-          }}
-        />
-
         {/* Product */}
         <Stack.Screen
-          name="Products"
+          name='Products'
           component={Products}
           options={{
             cardStyleInterpolator:
@@ -135,17 +94,58 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name="ProductInfo"
+          name='ProductInfo'
           component={ProductInfo}
           initialParams={{ item: null }}
         />
-        <Stack.Screen name="MyCart" component={MyCart} />
-        <Stack.Screen name="DeliveryDetails" component={DeliveryDetails} />
-        <Stack.Screen name="OrderDetails" component={OrderDetails} />
+        <Stack.Screen name='MyCart' component={MyCart} />
+        <Stack.Screen name='DeliveryDetails' component={DeliveryDetails} />
+        <Stack.Screen name='OrderDetails' component={OrderDetails} />
+
+        {/* Mis Tarjetas */}
+        <Stack.Screen
+          name='Tarjetas'
+          component={Tarjetas}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
+        <Stack.Screen name='AgregarTarjeta' component={AgregarTarjeta} />
+        <Stack.Screen
+          name='SeleccionarTarjeta'
+          component={SeleccionarTarjeta}
+        />
+
+        {/* AddressDelivery */}
+        <Stack.Screen
+          name='AddressDeliveryForm'
+          component={AddressDeliveryForm}
+        />
+        <Stack.Screen
+          name='AddressDeliveryFormUser'
+          component={AddressDeliveryFormUser}
+        />
+        <Stack.Screen
+          name='AddressDeliveryOptions'
+          component={AddressDeliveryOptions}
+        />
+        <Stack.Screen
+          name='AddressDeliveryUsers'
+          component={AddressDeliveryUsers}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
 
         {/* Pedidos */}
         <Stack.Screen
-          name="MisPedidos"
+          name='MisPedidos'
           component={PantallaPedidos}
           options={{
             cardStyleInterpolator:
