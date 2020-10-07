@@ -8,13 +8,10 @@ import {
 } from "react-native-responsive-screen";
 import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
 
-const InitalLeftComponent = (icon = () => {}) => {
-  //const navigation = useNavigation()
+const InitalLeftComponent = (icon = () => {}, onPress) => {
   return (
     <TouchableOpacity
-      onPress={() => {
-        /* navigation.goBack() */
-      }}
+      onPress={onPress}
       style={{ flex: 1, justifyContent: "center", marginLeft: "20%" }}
     >
       {icon()}
@@ -26,8 +23,9 @@ const BasicHeader = ({
   leftWidth = 20,
   rigthWidth = 20,
   icon = () => <ChevronLeftIcon width={wp(6)} height={hp(3.5)} />,
+  onPressLeftIcon = () => {},
   centerWidth = 60,
-  leftComponent = () => InitalLeftComponent(icon),
+  leftComponent = () => InitalLeftComponent(icon, onPressLeftIcon),
   headerHeigth = 9,
   rigthComponent = () => {},
   centerComponent = () => {},

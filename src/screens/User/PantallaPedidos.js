@@ -3,8 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableNativeFeedback,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import BasicHeader from "../../components/Header/BasicHeader";
@@ -60,7 +60,7 @@ const PantallaPedidos = (props) => {
 
   return (
     <Container styleContainer={styles.screen}>
-      <BasicHeader title="Mis Pedidos" />
+      <BasicHeader title='Mis Pedidos' />
       <View
         style={{
           height: "10%",
@@ -169,19 +169,18 @@ const ListItem = ({ item }) => {
 
 const HeaderTabButton = (props) => {
   return (
-    <TouchableNativeFeedback onPress={() => props.onPress()}>
-      <View
-        style={[
-          styles.tabButtonContainer,
-          {
-            borderBottomColor: props.active ? "#FFB500" : "transparent",
-            borderBottomWidth: 2,
-          },
-        ]}
-      >
-        {props.children}
-      </View>
-    </TouchableNativeFeedback>
+    <TouchableOpacity
+      onPress={() => props.onPress()}
+      style={[
+        styles.tabButtonContainer,
+        {
+          borderBottomColor: props.active ? "#FFB500" : "transparent",
+          borderBottomWidth: 2,
+        },
+      ]}
+    >
+      {props.children}
+    </TouchableOpacity>
   );
 };
 

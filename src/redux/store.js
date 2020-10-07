@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { applyMiddleware, createStore, compose } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
+import { createLogger } from "redux-logger";
 
 import rootReducer from "./";
 
@@ -16,13 +17,13 @@ const persistConfig = {
 	  ],
 	  */
 };
-/*
-const middlewares = [];
+
+/* const middlewares = [];
 
 if (__DEV__) {
   middlewares.push(createLogger());
-}
-*/
+} */
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = createStore(

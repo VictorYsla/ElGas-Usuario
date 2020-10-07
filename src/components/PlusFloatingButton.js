@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TouchableNativeFeedback } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { pantalla } from "../constantes/Temas";
 
 import AddIcon from "./Icons/AddIcon";
@@ -13,13 +13,15 @@ const PlusFloatingButton = ({ onPress }) => {
   };
 
   return (
-    <View style={[styles.fab, { ...customStyle }]}>
-      <TouchableNativeFeedback onPress={onPress}>
-        <View style={styles.fabImage}>
-          <AddIcon height={15} width={15} />
-        </View>
-      </TouchableNativeFeedback>
-    </View>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.fab, { ...customStyle }]}
+      activeOpacity={0.8}
+    >
+      <View style={styles.fabImage}>
+        <AddIcon height={15} width={15} />
+      </View>
+    </TouchableOpacity>
   );
 };
 

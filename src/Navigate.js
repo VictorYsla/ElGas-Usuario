@@ -28,8 +28,8 @@ import DeliveryDetails from "./screens/SelecProduct/DeliveryDetails";
 import OrderDetails from "./screens/SelecProduct/OrderDetails";
 import { Platform } from "react-native";
 import NotificacionesEjemplo from "./pruebas/NotificacionesEjemplo";
-import MyInformation from './screens/MyAccount/MyInformation'
-import MyAccount from './screens/MyAccount/MyAccount'
+import MyInformation from "./screens/MyAccount/MyInformation";
+import MyAccount from "./screens/MyAccount/MyAccount";
 
 const Navegador = (props) => {
   const Stack = createStackNavigator();
@@ -84,8 +84,6 @@ const Navegador = (props) => {
 
         {/* <Stack.Screen name="Home" component={Home} /> */}
 
-        
-
         {/* Product */}
         <Stack.Screen
           name='Products'
@@ -102,14 +100,58 @@ const Navegador = (props) => {
           component={ProductInfo}
           initialParams={{ item: null }}
         />
-        <Stack.Screen name='MyCart' component={MyCart} />
-        <Stack.Screen name='DeliveryDetails' component={DeliveryDetails} />
-        <Stack.Screen name='OrderDetails' component={OrderDetails} />
+        <Stack.Screen
+          name='MyCart'
+          component={MyCart}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
+        <Stack.Screen
+          name='DeliveryDetails'
+          component={DeliveryDetails}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
+        <Stack.Screen
+          name='OrderDetails'
+          component={OrderDetails}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
 
         {/* MyAccount */}
-        <Stack.Screen name="MyInformation" component={MyInformation} />
-        <Stack.Screen name="MyAccount" component={MyAccount} />
-        
+        <Stack.Screen
+          name='MyInformation'
+          component={MyInformation}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
+        <Stack.Screen
+          name='MyAccount'
+          component={MyAccount}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
 
         {/* Mis Tarjetas */}
         <Stack.Screen
@@ -122,24 +164,57 @@ const Navegador = (props) => {
                 : CardStyleInterpolators.forNoAnimation,
           }}
         />
-        <Stack.Screen name='AgregarTarjeta' component={AgregarTarjeta} />
+        <Stack.Screen
+          name='AgregarTarjeta'
+          component={AgregarTarjeta}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
+        />
         <Stack.Screen
           name='SeleccionarTarjeta'
           component={SeleccionarTarjeta}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
         />
 
         {/* AddressDelivery */}
         <Stack.Screen
           name='AddressDeliveryForm'
           component={AddressDeliveryForm}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
         />
         <Stack.Screen
           name='AddressDeliveryFormUser'
           component={AddressDeliveryFormUser}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
         />
         <Stack.Screen
           name='AddressDeliveryOptions'
           component={AddressDeliveryOptions}
+          options={{
+            cardStyleInterpolator:
+              Platform.OS == "ios"
+                ? CardStyleInterpolators.forHorizontalIOS
+                : CardStyleInterpolators.forNoAnimation,
+          }}
         />
         <Stack.Screen
           name='AddressDeliveryUsers'
