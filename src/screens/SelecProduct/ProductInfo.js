@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 import { actions } from "../../redux/index";
 const initialValues = { city: "", address: "", addressDetails: "" };
 
-const ProductInfo = ({ route: { params }, editCart, cart }) => {
+const ProductInfo = ({ route: { params }, editCart, cart, navigation }) => {
   const form = useForm({ initialValues });
 
   console.log("cart In ProductInfo", cart);
@@ -59,7 +59,10 @@ const ProductInfo = ({ route: { params }, editCart, cart }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      <BasicHeader title='Producto' />
+      <BasicHeader
+        title='Producto'
+        onPressLeftIcon={() => navigation.goBack()}
+      />
       <View style={{ marginTop: hp(5) }}>
         <TouchableOpacity style={{ marginLeft: wp(1), alignSelf: "center" }}>
           <Image

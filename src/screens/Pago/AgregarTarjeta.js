@@ -7,7 +7,7 @@ import CardsBanner from "../../components/Icons/CardsBanner";
 import { pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 
-const AgregarTarjeta = (props) => {
+const AgregarTarjeta = ({ navigation }) => {
   const { screenHeight } = pantalla;
 
   return (
@@ -17,7 +17,10 @@ const AgregarTarjeta = (props) => {
         { minHeight: screenHeight <= 592 ? 480 : 700 },
       ]}
     >
-      <BasicHeader title="Mis Tarjetas" />
+      <BasicHeader
+        title='Mis Tarjetas'
+        onPressLeftIcon={() => navigation.goBack()}
+      />
 
       <View
         style={[
@@ -47,7 +50,7 @@ const AgregarTarjeta = (props) => {
             resizeMode="cover"
             style={{ height: "100%", width: "100%" }}
           /> */}
-          <CardsBanner width="100%" height="100%" />
+          <CardsBanner width='100%' height='100%' />
         </View>
 
         <View
@@ -65,7 +68,7 @@ const AgregarTarjeta = (props) => {
               borderBottomWidth: 1,
               marginVertical: 10,
             }}
-            placeholder="Nombre (Igual que en la tarjeta)"
+            placeholder='Nombre (Igual que en la tarjeta)'
           />
           <TextInput
             style={{
@@ -74,7 +77,7 @@ const AgregarTarjeta = (props) => {
               borderBottomWidth: 1,
               marginVertical: 10,
             }}
-            placeholder="Número de tarjeta"
+            placeholder='Número de tarjeta'
           />
         </View>
 
