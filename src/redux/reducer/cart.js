@@ -47,10 +47,13 @@ export default (state = initialState, action) => {
       newState.Cart.totalPrice = total;
       return newState;
     case REMOVE_ELEMENT:
+      console.log("Element", action.element);
       newState.Cart.cart = newState.Cart.cart.filter(
         (value) => value.product.id !== id
       );
-      newState.Cart.totalPrice = total;
+      newState.Cart.totalPrice =
+        newState.Cart.totalPrice -
+        action.element.price * action.element.quantity;
       return newState;
     case DELETE_CART:
       newState.Cart.cart.slice(0, newState.Cart.cart.length);
