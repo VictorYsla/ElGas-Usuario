@@ -38,7 +38,7 @@ Notifications.setNotificationHandler({
 
 const initialValues = { city: "", address: "", addressDetails: "" };
 
-const MyCart = ({ cart, total }) => {
+const MyCart = ({ cart, total, navigation }) => {
   const form = useForm({ initialValues });
   const localData = {
     capacity: 15,
@@ -53,8 +53,6 @@ const MyCart = ({ cart, total }) => {
     delivery: 2,
   };
   console.log("Dta in MyCart: ", cart, total);
-
-  const cartProducts = useSelector((state) => state.cart.Cart);
 
   const login = useSelector((state) => state.login.login);
 
@@ -76,12 +74,17 @@ const MyCart = ({ cart, total }) => {
     const payload = {
       products: cart,
       orderStatus: "Solicitado",
-      userId: login.uid,
+      id_driver: "",
+      user_id: login.uid,
       userNotificationToken: expoPushToken,
       total,
     };
     postCollection("plant_pedidos_en_camino", payload);
   };
+
+  const orderTotal =
+    parseFloat(total.toFixed(2)) +
+    parseFloat(localCartData.delivery.toFixed(2));
 
   return (
     <View
@@ -91,7 +94,10 @@ const MyCart = ({ cart, total }) => {
         alignItems: "center",
       }}
     >
-      <BasicHeader title='Mi Carrito' />
+      <BasicHeader
+        title='Mi Carrito'
+        onPressLeftIcon={() => navigation.goBack()}
+      />
       <View style={[{ backgroundColor: colores.grisClaro, width: "100%" }]}>
         <Text
           style={{
@@ -101,7 +107,11 @@ const MyCart = ({ cart, total }) => {
             fontWeight: "900",
           }}
         >
-          TOTAL:<Text style={{ fontWeight: "bold" }}> ${total.toFixed(2)}</Text>
+          TOTAL:
+          <Text style={{ fontWeight: "bold" }}>
+            {" "}
+            ${cart.length === 0 ? total.toFixed(2) : orderTotal.toFixed(2)}
+          </Text>
         </Text>
         <Text
           style={{
@@ -110,7 +120,7 @@ const MyCart = ({ cart, total }) => {
             marginTop: hp(1),
           }}
         >
-          Subtotal: ${localCartData.subTotal.toFixed(2)}
+          Subtotal: ${total.toFixed(2)}
         </Text>
         <Text
           style={{
@@ -122,46 +132,80 @@ const MyCart = ({ cart, total }) => {
           A domicilio: ${localCartData.delivery.toFixed(2)}
         </Text>
       </View>
-      <View style={[{ height: "60%", width: "100%" }]}>
-        <ScrollView>
-          {cart.map((value, index) => {
-            const {
-              product: {
-                name,
-                photo_url,
-                description: { capacity, unity },
-                price,
-              },
-            } = value;
-            return (
-              <ItemCart
-                key={index}
-                image={photo_url}
-                capacity={capacity}
-                index={index}
-                price={price}
-                item={value}
-                unity={unity}
-                name={name}
-              />
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View
-        style={[
-          {
-            width: 150,
-            height: 40,
-            marginVertical: 20,
-          },
-        ]}
-      >
-        <CustomButton onPress={onSubmit}>
-          <Text style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}>
-            CONTINUAR
-          </Text>
-        </CustomButton>
+      <View style={[{ height: "60%", width: "100%", alignItems: "center" }]}>
+        {cart.length === 0 ? (
+          <View
+            style={[
+              { flex: 1, justifyContent: "center", alignItems: "center" },
+            ]}
+          >
+            <Text style={[{ fontSize: RFPercentage(2) }]}>
+              No hay productos añadidos. Comienza a agregar!
+            </Text>
+
+            <View
+              style={[
+                {
+                  width: 150,
+                  height: 40,
+                  marginVertical: 20,
+                },
+              ]}
+            >
+              <CustomButton onPress={() => navigation.goBack()}>
+                <Text
+                  style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}
+                >
+                  COMPRAR
+                </Text>
+              </CustomButton>
+            </View>
+          </View>
+        ) : (
+          <>
+            <ScrollView>
+              {cart.map((value, index) => {
+                const {
+                  product: {
+                    name,
+                    photo_url,
+                    description: { capacity, unity },
+                    price,
+                  },
+                } = value;
+                return (
+                  <ItemCart
+                    key={index}
+                    image={photo_url}
+                    capacity={capacity}
+                    index={index}
+                    price={price}
+                    item={value}
+                    unity={unity}
+                    name={name}
+                  />
+                );
+              })}
+            </ScrollView>
+            <View
+              style={[
+                {
+                  width: 150,
+                  height: 40,
+                  marginVertical: 20,
+                },
+              ]}
+            >
+              <CustomButton onPress={onSubmit}>
+                <Text
+                  style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}
+                >
+                  CONTINUAR
+                </Text>
+              </CustomButton>
+            </View>
+          </>
+        )}
       </View>
     </View>
   );
