@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableNativeFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import BasicHeader from "../../components/Header/BasicHeader";
@@ -48,7 +48,7 @@ const Tarjetas = (props) => {
 
   return (
     <Container styleContainer={styles.screen}>
-      <BasicHeader title="Mis Tarjetas" />
+      <BasicHeader title='Mis Tarjetas' />
 
       <View style={styles.listContainer}>
         <ScrollView>
@@ -58,7 +58,7 @@ const Tarjetas = (props) => {
               cardNumber[3]
             }`;
             return (
-              <TouchableNativeFeedback key={card.id}>
+              <TouchableOpacity key={card.id} onPress={() => {}}>
                 <View style={styles.listTile}>
                   <View
                     style={[
@@ -75,7 +75,7 @@ const Tarjetas = (props) => {
                   </View>
                   <ChevronRightIcon height={12} width={12} />
                 </View>
-              </TouchableNativeFeedback>
+              </TouchableOpacity>
             );
           })}
         </ScrollView>
