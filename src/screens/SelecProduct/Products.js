@@ -158,7 +158,7 @@ const Product = ({ cart, ...props }) => {
   return (
     <Container>
       <BasicHeader
-        title="Direccion de entrga"
+        title='Direccion de entrega'
         icon={() => <SearchIcon width={wp(7)} height={hp(5)} />}
         centerComponent={() => CenterComponet()}
         rigthComponent={() => RightComponent()}
