@@ -18,8 +18,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.elgas",
-      "versionCode": 5,
+      "package": "com.elgascliente",
+      "versionCode": 6,
       "googleServicesFile": "./google-services.json",
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
       "useNextNotificationsApi": true

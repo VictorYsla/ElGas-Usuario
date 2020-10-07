@@ -45,12 +45,57 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:564053304656:android:50030c81c3c3bb8fcb3855",
+        "android_client_info": {
+          "package_name": "com.elgascliente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564053304656-vn9ua9msn5d7pq5ibjf3jjbepqg2s8me.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elgascliente",
+            "certificate_hash": "bd88c201f4d823b8d3cdbbc79ad2db8bd64bf416"
+          }
+        },
+        {
+          "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk5ZiEvknFcEYFohScW2l_UER61mXwOIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:564053304656:android:11b8b3ee41069135cb3855",
         "android_client_info": {
           "package_name": "com.elgasdriver"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "564053304656-i5sv4cki4p44d6r3svd8d4cl9tpk3d2u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elgasdriver",
+            "certificate_hash": "155f89dbc9132555aaa8e8aefcee812b0ed3cab6"
+          }
+        },
         {
           "client_id": "564053304656-lp0ork7jq524c4b8gmfgtimojrlt6v84.apps.googleusercontent.com",
           "client_type": 3
