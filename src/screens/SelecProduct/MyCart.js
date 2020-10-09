@@ -17,42 +17,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import useForm from "../../hooks/useForm";
-import EditQuantityButtons from "../../components/EditQuantityButtons";
-import CancelIcon from "../../components/Icons/CancelIcon";
 import { connect, useSelector } from "react-redux";
 import { actions } from "../../redux/index";
 import ItemCart from "../../components/ItemsList/ItemCart";
 import CustomButton from "../../components/CustomButton";
 import { postCollection } from "../../apis/querys";
-import * as Notifications from "expo-notifications";
 import { registerForPushNotificationsAsync } from "../../functions/Notificaciones";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
-
-const initialValues = { city: "", address: "", addressDetails: "" };
-
 const MyCart = ({ cart, total, navigation }) => {
-  const form = useForm({ initialValues });
-  const localData = {
-    capacity: 15,
-    unity: "kg",
-    price: 1.6,
-    name: "Gas",
-    description: "Cilindro de gas de 15Kg para el hogar.",
-  };
   const localCartData = {
-    total: 4.8,
-    subTotal: 2.8,
     delivery: 2,
   };
-  console.log("Dta in MyCart: ", cart, total);
 
   const login = useSelector((state) => state.login.login);
 
@@ -132,7 +107,16 @@ const MyCart = ({ cart, total, navigation }) => {
           A domicilio: ${localCartData.delivery.toFixed(2)}
         </Text>
       </View>
-      <View style={[{ height: "60%", width: "100%", alignItems: "center" }]}>
+      <View
+        style={[
+          {
+            height: "70%",
+            width: "100%",
+            alignItems: "center",
+            marginVertical: 20,
+          },
+        ]}
+      >
         {cart.length === 0 ? (
           <View
             style={[
@@ -213,8 +197,8 @@ const MyCart = ({ cart, total, navigation }) => {
 
 const mapStateToProps = (state) => ({
   login: state.login.login,
-  cart: state.cart.Cart.cart,
-  total: state.cart.Cart.totalPrice,
+  cart: state.cart.cart,
+  total: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = (dispatch) => {
