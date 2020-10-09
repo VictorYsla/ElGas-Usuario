@@ -6,11 +6,13 @@ import navigation, {
   actualizarUbicacion,
 } from "./reducer/navigation";
 import cart, { UpdateCart } from "./reducer/cart";
+import products, { fetchProducts } from "./reducer/products";
 
 export default combineReducers({
   login,
   navigation,
   cart,
+  products,
 });
 
 export const actions = {
@@ -18,4 +20,5 @@ export const actions = {
   actualizarNavigation,
   actualizarUbicacion,
   UpdateCart,
+  fetchProducts,
 };

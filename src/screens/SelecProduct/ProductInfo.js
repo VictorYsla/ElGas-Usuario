@@ -1,61 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
-  ScrollView,
-} from "react-native";
-import Container from "../../generales/Container";
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import BasicHeader from "../../components/Header/BasicHeader";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colores } from "../../constantes/Temas";
+import { colores, pantalla } from "../../constantes/Temas";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import useForm from "../../hooks/useForm";
-import EditQuantityButtons from "../../components/EditQuantityButtons";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { actions } from "../../redux/index";
-const initialValues = { city: "", address: "", addressDetails: "" };
+import CustomButton from "../../components/CustomButton";
+import { UpdateCart } from "../../redux/reducer/cart";
 
-const ProductInfo = ({ route: { params }, editCart, cart, navigation }) => {
-  const form = useForm({ initialValues });
-
-  console.log("cart In ProductInfo", cart);
+const ProductInfo = ({ route: { params }, navigation }) => {
   const { item } = params;
-  const [quantity, setQuantity] = useState(
-    cart.findIndex((obj) => obj.product.id == item.product.id) !== -1
-      ? cart[cart.findIndex((obj) => obj.product.id == item.product.id)]
-          .quantity
-      : 0
-  );
-  const editQty = (suma) => {
-    const indxInCart = cart.findIndex(
-      (obj) => obj.product.id == item.product.id
-    );
-    console.log("FindexAntes: ", indxInCart);
-    editCart(indxInCart, item, suma);
-    if (cart.findIndex((obj) => obj.product.id == item.product.id) !== -1) {
-      console.log(
-        "Qty",
-        cart[cart.findIndex((obj) => obj.product.id == item.product.id)]
-          .quantity
-      );
-      setQuantity(
-        cart[cart.findIndex((obj) => obj.product.id == item.product.id)]
-          .quantity
-      );
-    }
-    console.log(
-      "FindexDespues: ",
-      cart.findIndex((obj) => obj.product.id == item.product.id)
-    );
-  };
+
+  const [quantity, setQuantity] = useState(0);
+
+  const dispatch = useDispatch();
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -68,6 +30,7 @@ const ProductInfo = ({ route: { params }, editCart, cart, navigation }) => {
           <Image
             source={{ uri: item.product.photo_url }}
             style={{ width: wp(25), height: hp(17) }}
+            resizeMode='contain'
           />
           <Text
             style={{
@@ -97,7 +60,7 @@ const ProductInfo = ({ route: { params }, editCart, cart, navigation }) => {
           style={{
             backgroundColor: "#F2F2F2",
             width: wp(100),
-            height: hp(5),
+            height: hp(8),
             justifyContent: "center",
           }}
         >
@@ -143,47 +106,137 @@ const ProductInfo = ({ route: { params }, editCart, cart, navigation }) => {
       </View>
       <View
         style={{
-          top: hp(28),
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "flex-end",
+          flex: 1,
+          marginTop: 10,
+          marginBottom: 20,
+          height: 250,
         }}
       >
-        <EditQuantityButtons
-          mlef={10}
-          editQty={editQty}
-          quantity={
-            cart.findIndex((obj) => obj.product.id == item.product.id) !== -1
-              ? quantity
-              : 0
-          }
-        />
-        <TouchableOpacity
+        <View
           style={{
+            width: wp(22),
+            marginLeft: wp(10),
             marginRight: wp(10),
-            backgroundColor: colores.grisClaro,
-            paddingHorizontal: wp(9),
-            borderRadius: 10,
-            justifyContent: "center",
+            height: hp(5),
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
-          <Text
+          <TouchableOpacity
+            onPress={() =>
+              setQuantity((prevState) => (prevState > 0 ? prevState - 1 : 0))
+            }
             style={{
-              fontSize: RFPercentage(2.3),
-              textTransform: "uppercase",
-              fontWeight: "bold",
+              width: pantalla.screenHeight <= 592 ? 20 : 30,
+              height: pantalla.screenHeight <= 592 ? 20 : 30,
+              borderRadius: pantalla.screenHeight <= 592 ? 10 : 15,
+              backgroundColor: colores.bgOscuro,
+              alignSelf: "center",
+              justifyContent: "center",
             }}
           >
-            Agregar
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "#fff",
+                textAlign: "center",
+                fontSize: RFPercentage(3),
+                textAlignVertical: "center",
+                marginBottom: wp(0.9),
+              }}
+            >
+              -
+            </Text>
+          </TouchableOpacity>
+          <View style={{ justifyContent: "center" }}>
+            <Text
+              style={{
+                color: "#000",
+                fontSize: RFPercentage(2.6),
+                marginHorizontal: 10,
+              }}
+            >
+              {quantity}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => setQuantity((prevState) => prevState + 1)}
+            style={{
+              width: pantalla.screenHeight <= 592 ? 20 : 30,
+              height: pantalla.screenHeight <= 592 ? 20 : 30,
+              borderRadius: pantalla.screenHeight <= 592 ? 10 : 15,
+              backgroundColor: colores.bgOscuro,
+              alignSelf: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "#fff",
+                textAlign: "center",
+                fontSize: RFPercentage(3),
+                textAlignVertical: "center",
+                marginBottom: wp(0.9),
+              }}
+            >
+              +
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "flex-end",
+            height: pantalla.screenHeight <= 592 ? 20 : 40,
+            width: 150,
+            marginRight: 20,
+          }}
+        >
+          <CustomButton
+            disabled={quantity === 0}
+            onPress={() =>
+              dispatch(
+                UpdateCart.AddElement({
+                  ...item,
+                  quantity,
+                  total: item.product.price * quantity,
+                })
+              )
+            }
+          >
+            <Text
+              style={{
+                fontSize: RFPercentage(2.2),
+                textTransform: "uppercase",
+                fontWeight: "bold",
+                color: quantity === 0 ? "#fff" : "#000",
+              }}
+            >
+              Agregar
+            </Text>
+          </CustomButton>
+        </View>
+      </View>
+
+      <View
+        style={{
+          backgroundColor: colores.grisClaro,
+          height: 75,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={[{ fontWeight: "bold" }]}>PUBLICIDAD</Text>
       </View>
     </View>
   );
 };
 
 const mapStateToProps = (state) => ({
-  login: state.login.login,
-  cart: state.cart.Cart.cart,
+  cart: state.cart.cart,
 });
 
 const mapDispatchToProps = (dispatch) => {

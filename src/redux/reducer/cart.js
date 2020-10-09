@@ -24,15 +24,13 @@ export const UpdateCart = {
 };
 
 const initialState = {
-  Cart: {
-    cart: [],
-    totalPrice: 0,
-  },
+  cart: [],
+  totalPrice: 0,
 };
 
 export default (state = initialState, action) => {
   let newState = { ...state };
-  let total = newState.Cart.totalPrice;
+  let total = newState.totalPrice;
   if (action.element) {
     var {
       element: {
@@ -43,43 +41,45 @@ export default (state = initialState, action) => {
   //newState.Cart.cart.map((value)=>{total+= value.price*value.quantity})
   switch (action.type) {
     case ADD_ELEMENT:
-      newState.Cart.cart.push(action.element);
-      newState.Cart.totalPrice = total;
+      // console.log("Product", action.element);
+      newState.cart.push(action.element);
+      const newTotal = newState.totalPrice + action.element.total;
+      newState.totalPrice = parseFloat(newTotal.toFixed(2));
       return newState;
     case REMOVE_ELEMENT:
-      console.log("Element", action.element);
-      newState.Cart.cart = newState.Cart.cart.filter(
-        (value) => value.product.id !== id
-      );
-      newState.Cart.totalPrice =
-        newState.Cart.totalPrice -
-        action.element.price * action.element.quantity;
+      // console.log("Element", action.element);
+      newState.cart = newState.cart.filter((value) => value.product.id !== id);
+      const newTotalPrice =
+        newState.totalPrice -
+        action.element.product.price * action.element.quantity;
+      newState.totalPrice = parseFloat(newTotalPrice.toFixed(2));
       return newState;
     case DELETE_CART:
-      newState.Cart.cart.slice(0, newState.Cart.cart.length);
-      newState.Cart.totalPrice = 0;
+      newState.cart.slice(0, newState.cart.length);
+      newState.totalPrice = 0;
       return newState;
     case EDIT_CART:
       const { index, element, sum } = action;
-      if (index === -1) {
-        const obj = { ...element, quantity: 1, price: element.product.price };
-        newState.Cart.cart.push(obj);
+
+      const suma = newState.cart[index].quantity + sum;
+      if (suma > 0) {
+        newState.cart[index].quantity = suma;
+        newState.cart[index].total =
+          newState.cart[index].quantity * newState.cart[index].product.price;
       } else {
-        const suma = newState.Cart.cart[index].quantity + sum;
-        if (suma > 0) {
-          newState.Cart.cart[index].quantity = suma;
-        } else {
-          newState.Cart.cart = newState.Cart.cart.filter(
-            (value) => value.product.id !== id
-          );
-        }
+        newState.cart = newState.cart.filter(
+          (value) => value.product.id !== id
+        );
+        newState.totalPrice = newState.totalPrice;
       }
-      let t = 0;
-      newState.Cart.cart.forEach((value, index) => {
-        t += value.price * value.quantity;
-      });
-      newState.Cart.totalPrice = t;
-      console.log("NewState: ", newState.Cart);
+
+      const t =
+        sum == -1
+          ? (newState.totalPrice -= element.product.price)
+          : (newState.totalPrice += element.product.price);
+
+      newState.totalPrice = parseFloat(t.toFixed(2));
+      // console.log("NewState: ", newState);
 
       return newState;
     default:
