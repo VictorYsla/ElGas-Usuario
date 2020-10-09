@@ -1,110 +1,55 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Image,
-  TextInput,
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import Container from "../../generales/Container";
-import BasicHeader from "../../components/Header/BasicHeader";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colores } from "../../constantes/Temas";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import CancelIcon from "../../components/Icons/CancelIcon";
+import { useDispatch, useSelector } from "react-redux";
+
+import Container from "../../generales/Container";
+import BasicHeader from "../../components/Header/BasicHeader";
 import ElGasLogo from "../../components/Icons/ElGasLogo";
 import BasketIcon from "../../components/Icons/BasketIcon";
 import SearchIcon from "../../components/Icons/SearchIcon";
 import ChevronLeftIcon from "../../components/Icons/ChevronLeftIcon";
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
-import { connect, useDispatch } from "react-redux";
-import { actualizarUbicacion } from "../../redux/reducer/navigation";
+import { colores, pantalla } from "../../constantes/Temas";
+import { getCollection } from "../../apis/querys";
+import { actions } from "../../redux";
 
-const Product = ({ cart, ...props }) => {
+const Product = (props) => {
   const dispatch = useDispatch();
-  console.log(props);
   const routeName = props.route.name;
+  const cart = useSelector((state) => state.cart.cart);
+  const products = useSelector((state) => state.products.products);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const actualizarRuta = (ruta) => dispatch(actualizarUbicacion(ruta));
-
+    const actualizarRuta = (ruta) =>
+      dispatch(actions.actualizarUbicacion(ruta));
     actualizarRuta(routeName);
+
+    setLoading(true);
+    const getProducts = async () =>
+      await getCollection("plant_productos").then((response) =>
+        dispatch(actions.fetchProducts(response))
+      );
+
+    getProducts().then(() => setLoading(false));
   }, []);
 
-  const [basket, setBasket] = useState(1);
   const navigation = useNavigation();
-  const localApiResponse = [
-    {
-      product: {
-        id: "1",
-        name: "Cilindro Auzul",
-        photo_url:
-          "https://static.vecteezy.com/system/resources/previews/000/681/883/non_2x/3d-gas-or-propane-tank.jpg",
-        order_id: 1,
-        description: {
-          capacity: 15,
-          unity: "kg",
-          description: "Cilindro de gas de 15Kg para el hogar.",
-        },
-        price: 1.6,
-      },
-      category: {
-        id: "0",
-        name: "Cilindro",
-        description: "",
-        order_id: 0,
-      },
-    },
-    {
-      product: {
-        id: "2",
-        name: "Cilindro Verde",
-        photo_url:
-          "https://thumbs.dreamstime.com/b/un-cilindro-de-gas-37071083.jpg",
-        order_id: 1,
-        description: {
-          capacity: 45,
-          unity: "g",
-          description: "Cilindro de gas de 45g para el hogar.",
-        },
-        price: 1.55,
-      },
-      category: {
-        id: "0",
-        name: "Cilindro",
-        description: "",
-        order_id: 0,
-      },
-    },
-    {
-      product: {
-        id: "3",
-        name: "Válvula",
-        photo_url:
-          "https://regaber.com/wp-content/uploads/2019/04/ValvulaCompuerta_AsientoElastico_Gaer_Regaber_01.jpg",
-        order_id: 3,
-        description: {
-          description: "Válvula de gran capacidad.",
-          capacity: 45,
-          unity: "g",
-        },
-        price: 0.9,
-      },
-      category: {
-        id: "1",
-        name: "Accesorio",
-        description: "",
-        order_id: 1,
-      },
-    },
-  ];
+
   const CenterComponet = () => {
     return (
       <View style={{ alignSelf: "center" }}>
@@ -204,37 +149,46 @@ const Product = ({ cart, ...props }) => {
             </Text>
           </View>
           <View style={{ marginTop: hp(2) }}>
-            <ScrollView horizontal style={{ alignSelf: "center" }}>
-              {localApiResponse
-                .filter((value) => value.category.name === "Cilindro")
-                .map((value, index) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("ProductInfo", { item: value })
-                      }
-                      key={index}
-                      style={{ marginLeft: wp(index > 0 ? 5 : 0) }}
-                    >
-                      <Image
-                        source={{ uri: value.product.photo_url }}
-                        style={{ width: wp(10), height: hp(8) }}
-                      />
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          fontSize: wp(3.3),
-                          marginTop: hp(0.3),
-                          fontWeight: "bold",
-                        }}
+            {loading ? (
+              <View
+                style={[{ width: "100%", height: 50, alignItems: "center" }]}
+              >
+                <ActivityIndicator size='large' color={colores.amarillo} />
+              </View>
+            ) : (
+              <ScrollView horizontal style={{ alignSelf: "center" }}>
+                {products
+                  .filter((value) => value.category.name === "Cilindro")
+                  .map((value, index) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ProductInfo", { item: value })
+                        }
+                        key={index}
+                        style={{ marginLeft: wp(index > 0 ? 5 : 0) }}
                       >
-                        {value.product.description.capacity}
-                        {value.product.description.unity}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-            </ScrollView>
+                        <Image
+                          source={{ uri: value.product.photo_url }}
+                          style={{ width: wp(10), height: hp(10) }}
+                          resizeMode='contain'
+                        />
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: wp(3.3),
+                            marginTop: hp(0.3),
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {value.product.description.capacity}
+                          {value.product.description.unity}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </ScrollView>
+            )}
           </View>
           <View
             style={{
@@ -256,36 +210,52 @@ const Product = ({ cart, ...props }) => {
             </Text>
           </View>
           <View style={{ marginTop: hp(2) }}>
-            <ScrollView horizontal style={{ alignSelf: "center" }}>
-              {localApiResponse
-                .filter((value) => value.category.name === "Accesorio")
-                .map((value, index) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("ProductInfo", { item: value })
-                      }
-                      key={index}
-                      style={{ marginLeft: wp(index > 0 ? 5 : 0) }}
-                    >
-                      <Image
-                        source={{ uri: value.product.photo_url }}
-                        style={{ width: wp(10), height: hp(8) }}
-                      />
-                      <Text
+            {loading ? (
+              <View
+                style={[{ width: "100%", height: 50, alignItems: "center" }]}
+              >
+                <ActivityIndicator size='large' color={colores.amarillo} />
+              </View>
+            ) : (
+              <ScrollView horizontal style={{ alignSelf: "center" }}>
+                {products
+                  .filter((value) => value.category.name === "Accesorio")
+                  .map((value, index) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ProductInfo", { item: value })
+                        }
+                        key={index}
                         style={{
-                          textAlign: "center",
-                          fontSize: wp(3.3),
-                          marginTop: hp(0.3),
-                          fontWeight: "bold",
+                          marginLeft: wp(index > 0 ? 5 : 0),
                         }}
                       >
-                        {value.product.name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-            </ScrollView>
+                        <Image
+                          source={{ uri: value.product.photo_url }}
+                          style={{
+                            width:
+                              pantalla.screenHeight <= 592 ? wp(15) : wp(18),
+                            height: hp(8),
+                          }}
+                          resizeMode='cover'
+                        />
+
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: wp(3.3),
+                            marginTop: hp(0.3),
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {value.product.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </ScrollView>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -299,7 +269,7 @@ const ImageCarrousel = ({ image = "", title = "tittle", press }) => {
       <ImageBackground
         source={{
           uri:
-            "https://i.pinimg.com/originals/61/56/21/615621dc25f20260922e993d6bfac872.png",
+            "https://firebasestorage.googleapis.com/v0/b/elgas-68c82.appspot.com/o/carrousel-1.png?alt=media&token=546634ff-2dc3-4b79-a34a-550244de854d",
         }}
         style={{
           width: wp(100),
@@ -318,13 +288,8 @@ const ImageCarrousel = ({ image = "", title = "tittle", press }) => {
           <TouchableOpacity style={{ justifyContent: "center" }}>
             <ChevronLeftIcon width={wp(6)} height={hp(3)} />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: "center",
-              transform: [{ rotate: "180deg" }],
-            }}
-          >
-            <ChevronLeftIcon width={wp(6)} height={hp(3)} />
+          <TouchableOpacity style={{ justifyContent: "center" }}>
+            <ChevronRightIcon width={wp(6)} height={hp(3)} color='#fff' />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -336,9 +301,4 @@ const ImageCarrousel = ({ image = "", title = "tittle", press }) => {
   }
 };
 
-const mapStateToProps = (state) => ({
-  login: state.login.login,
-  cart: state.cart.Cart.cart,
-});
-
-export default connect(mapStateToProps)(Product);
+export default Product;
