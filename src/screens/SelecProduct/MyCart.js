@@ -22,7 +22,6 @@ import { actions } from "../../redux/index";
 import ItemCart from "../../components/ItemsList/ItemCart";
 import CustomButton from "../../components/CustomButton";
 import { postCollection } from "../../apis/querys";
-import { registerForPushNotificationsAsync } from "../../functions/Notificaciones";
 
 const MyCart = ({ cart, total, navigation }) => {
   const localCartData = {
@@ -30,14 +29,7 @@ const MyCart = ({ cart, total, navigation }) => {
   };
 
   const login = useSelector((state) => state.login.login);
-
-  const [expoPushToken, setExpoPushToken] = useState("");
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-  }, []);
+  const expoPushToken = useSelector((state) => state.pushToken.pushToken);
 
   const onSubmit = () => {
     // console.log("MyCart", {
@@ -49,7 +41,6 @@ const MyCart = ({ cart, total, navigation }) => {
     const payload = {
       products: cart,
       orderStatus: "Solicitado",
-      id_driver: "",
       user_id: login.uid,
       userNotificationToken: expoPushToken,
       total,
