@@ -19,6 +19,18 @@ const ProductInfo = ({ route: { params }, navigation }) => {
 
   const dispatch = useDispatch();
 
+  const onAddElementHandler = () => {
+    dispatch(
+      UpdateCart.AddElement({
+        ...item,
+        quantity,
+        total: item.product.price * quantity,
+      })
+    );
+
+    setQuantity(0);
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <BasicHeader
@@ -194,18 +206,7 @@ const ProductInfo = ({ route: { params }, navigation }) => {
             marginRight: 20,
           }}
         >
-          <CustomButton
-            disabled={quantity === 0}
-            onPress={() =>
-              dispatch(
-                UpdateCart.AddElement({
-                  ...item,
-                  quantity,
-                  total: item.product.price * quantity,
-                })
-              )
-            }
-          >
+          <CustomButton disabled={quantity === 0} onPress={onAddElementHandler}>
             <Text
               style={{
                 fontSize: RFPercentage(2.2),

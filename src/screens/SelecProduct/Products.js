@@ -26,6 +26,7 @@ import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
 import { colores, pantalla } from "../../constantes/Temas";
 import { getCollection } from "../../apis/querys";
 import { actions } from "../../redux";
+import { registerForPushNotificationsAsync } from "../../functions/Notificaciones";
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -46,6 +47,10 @@ const Product = (props) => {
       );
 
     getProducts().then(() => setLoading(false));
+
+    registerForPushNotificationsAsync().then((token) =>
+      dispatch(actions.setPushToken(token))
+    );
   }, []);
 
   const navigation = useNavigation();
