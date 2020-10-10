@@ -20,7 +20,7 @@ import { colores, pantalla } from "../../constantes/Temas";
 import Container from "../../generales/Container";
 import useForm from "../../hooks/useForm";
 import { ValidateForm } from "../../functions/ValidateForm";
-import { auth, logIn } from "../../apis/querys";
+import { getCollection, logIn } from "../../apis/querys";
 import { connect, useDispatch } from "react-redux";
 import { actions } from "../../redux/index";
 
@@ -40,11 +40,20 @@ const PantallaLogin = (props) => {
     const { email, password } = form.fields;
 
     if (ValidateForm(form)) {
-      console.log("Sii");
-      logIn(email, password).then((x) => {
-        console.log("Responseeee: ", x);
+      logIn(email, password).then(async (x) => {
         if (x.type !== "error") {
           dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
+
+          // Fetching logged user from 'Usuarios' collection
+          const userData = getCollection("plant_usuarios").then(
+            (response) => response
+          );
+
+          const usersResponse = await userData;
+
+          const foundUser = usersResponse.find((us) => us.uid === x.value.uid);
+
+          dispatch(actions.setUser(foundUser));
         }
       });
     } else {

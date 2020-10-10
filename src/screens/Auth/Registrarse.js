@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  Button,
-  TouchableNativeFeedback,
-  Alert,
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import Container from "../../generales/Container";
 import useForm from "../../hooks/useForm";
 import { ValidateForm } from "../../functions/ValidateForm";
-import { singUp } from "../../apis/querys";
+import { postCollection, singUp } from "../../apis/querys";
 import { connect } from "react-redux";
 import { actions } from "../../redux/index";
 import CustomButton from "../../components/CustomButton";
@@ -30,11 +21,14 @@ const Registrarse = ({ dispatch, navigation }) => {
     console.log("Press", ValidateForm(form));
     const { name, email, password, phone } = form.fields;
     if (ValidateForm(form)) {
-      console.log("Sii");
-      singUp(email, name, password, phone).then((x) => {
-        console.log("Resposneeee: ", x);
-        if (x.type !== "error") {
-          dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
+      singUp(email, name, password, phone).then((resp) => {
+        if (resp.type !== "error") {
+          postCollection("plant_usuarios", {
+            ...resp.value,
+            phoneNumber: phone,
+          });
+          dispatch(actions.setUser({ ...resp.value, phoneNumber: phone }));
+          dispatch(actions.actualizarLogin({ ...resp.value, isLogged: true }));
         }
       });
     } else {
@@ -45,7 +39,7 @@ const Registrarse = ({ dispatch, navigation }) => {
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
-        <RegisterIcon height="100%" width="100%" />
+        <RegisterIcon height='100%' width='100%' />
       </View>
 
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Registrarse</Text>
@@ -53,25 +47,25 @@ const Registrarse = ({ dispatch, navigation }) => {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Nombre"
+          placeholder='Nombre'
           {...form.getInput("name")}
         />
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
-          keyboardType="email-address"
+          placeholder='E-mail'
+          keyboardType='email-address'
           {...form.getInput("email")}
         />
         <TextInput
           style={styles.input}
-          placeholder="Contraseña"
+          placeholder='Contraseña'
           secureTextEntry
           {...form.getInput("password")}
         />
         <TextInput
           style={styles.input}
-          placeholder="Teléfono"
-          keyboardType="number-pad"
+          placeholder='Teléfono'
+          keyboardType='number-pad'
           {...form.getInput("phone")}
         />
       </View>
