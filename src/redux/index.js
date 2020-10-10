@@ -7,12 +7,16 @@ import navigation, {
 } from "./reducer/navigation";
 import cart, { UpdateCart } from "./reducer/cart";
 import products, { fetchProducts } from "./reducer/products";
+import pushToken, { setPushToken } from "./reducer/pushToken";
+import user, { setUser, clearUser } from "./reducer/user";
 
 export default combineReducers({
   login,
+  user,
   navigation,
   cart,
   products,
+  pushToken,
 });
 
 export const actions = {
@@ -21,4 +25,7 @@ export const actions = {
   actualizarUbicacion,
   UpdateCart,
   fetchProducts,
+  setPushToken,
+  setUser,
+  clearUser,
 };
