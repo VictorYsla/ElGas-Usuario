@@ -18,7 +18,6 @@ import CardIcon from "../components/Icons/CardIcon";
 import SvgLogout from "../components/Icons/LogoutIcon";
 import { useNavigation } from "@react-navigation/native";
 import { actions } from "../redux";
-import { actualizarLogin } from "../redux/reducer/login";
 
 function Container({
   styleContainer,
@@ -79,8 +78,7 @@ const Footer = () => {
         style={{
           width: "20%",
           borderTopWidth: routeName === "MyAccount" ? 1 : 0,
-          borderTopColor:
-            routeName === "MyAccount" ? colores.amarillo : "",
+          borderTopColor: routeName === "MyAccount" ? colores.amarillo : "",
         }}
       >
         <Item
@@ -92,9 +90,7 @@ const Footer = () => {
               height={screenWidth <= 360 ? "30%" : "40%"}
               width={screenWidth <= 360 ? "30%" : "40%"}
               color={
-                routeName === "MyAccount"
-                  ? colores.amarillo
-                  : colores.bgOscuro
+                routeName === "MyAccount" ? colores.amarillo : colores.bgOscuro
               }
             />
           }
@@ -180,20 +176,26 @@ const Item = ({ navigation, ruta, texto, icon }) => {
         if (ruta) {
           navigation.navigate(ruta);
         }
-        ruta === "Products" ||
-        ruta === "MyAccount" ||
-        ruta === "MisPedidos" ||
-        ruta === "Tarjetas"
-          ? dispatch(actions.actualizarUbicacion(ruta))
-          : dispatch(
-              actualizarLogin({
-                isLogged: false,
-                uid: "",
-                userName: "",
-                email: "",
-                token: "",
-              })
-            );
+        if (
+          ruta === "Products" ||
+          ruta === "MyAccount" ||
+          ruta === "MisPedidos" ||
+          ruta === "Tarjetas"
+        ) {
+          dispatch(actions.actualizarUbicacion(ruta));
+        } else {
+          dispatch(
+            actions.actualizarLogin({
+              isLogged: false,
+              uid: "",
+              userName: "",
+              email: "",
+              token: "",
+            })
+          );
+
+          dispatch(actions.clearUser());
+        }
       }}
       style={styles.tabButton}
     >
