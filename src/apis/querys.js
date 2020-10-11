@@ -74,3 +74,10 @@ export const postDelivery = async(uid, userName, body={}) => {
     .collection('plant_pedidos_en_camino')
     .add(body)
 }
+
+export const addAditionalUserInfo = (body={}) =>{
+    firebase
+    .firestore()
+    .collection('plant_usuarios')
+    .add(body)
+}

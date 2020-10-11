@@ -40,7 +40,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
-    "expo-notifications": "~0.3.3"
+    "expo-notifications": "~0.3.3",
+    "expo-facebook": "~8.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
