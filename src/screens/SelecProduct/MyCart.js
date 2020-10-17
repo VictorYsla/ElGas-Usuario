@@ -46,6 +46,8 @@ const MyCart = ({ cart, total, navigation }) => {
       total,
     };
     postCollection("plant_pedidos_en_camino", payload);
+    console.log('payload', payload)
+    //navigation.navigate('OrderDetails')
   };
 
   const orderTotal =

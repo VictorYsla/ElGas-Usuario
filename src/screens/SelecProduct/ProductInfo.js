@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Button, Platform } from "react-native";
 import BasicHeader from "../../components/Header/BasicHeader";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colores, pantalla } from "../../constantes/Temas";
@@ -11,6 +11,14 @@ import { connect, useDispatch } from "react-redux";
 import { actions } from "../../redux/index";
 import CustomButton from "../../components/CustomButton";
 import { UpdateCart } from "../../redux/reducer/cart";
+
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync
+} from 'expo-ads-admob'
 
 const ProductInfo = ({ route: { params }, navigation }) => {
   const { item } = params;
@@ -30,6 +38,30 @@ const ProductInfo = ({ route: { params }, navigation }) => {
 
     setQuantity(0);
   };
+
+  const showInterstitial = async () => {
+    AdMobInterstitial.setAdUnitID('ca-app-pub-7420512792244597~6210925254');
+
+    try {
+      await AdMobInterstitial.requestAdAsync();
+      await AdMobInterstitial.showAdAsync();
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  const showRewarded = async () => {
+    AdMobRewarded.setAdUnitID('ca-app-pub-7420512792244597~6210925254'); // Test ID, Replace with your-admob-unit-id
+
+    try {
+      await AdMobRewarded.requestAdAsync();
+      await AdMobRewarded.showAdAsync();
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -230,7 +262,14 @@ const ProductInfo = ({ route: { params }, navigation }) => {
           justifyContent: "center",
         }}
       >
-        <Text style={[{ fontWeight: "bold" }]}>PUBLICIDAD</Text>
+        {/**<Text style={[{ fontWeight: "bold" }]}>PUBLICIDAD</Text> */}
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-7420512792244597~6210925254"}
+          onDidFailToReceiveAdWithError={(err) => console.log('banner ad not loading', err)}
+          onAdViewDidReceiveAd={() => console.log('banner ad received')} />
+        {/** PRODUCTIONAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-7420512792244597~6210925254"}*/}
+        {/** TESTAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-3940256099942544/6300978111"} */}
       </View>
     </View>
   );
