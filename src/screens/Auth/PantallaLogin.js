@@ -36,11 +36,12 @@ const PantallaLogin = (props) => {
   const [loginResponse, setLoginResponse] = useState(null);
 
   const onLogin = () => {
-    console.log("Press", ValidateForm(form));
     const { email, password } = form.fields;
 
     if (ValidateForm(form)) {
       logIn(email, password).then(async (x) => {
+        console.log("Press", x);
+
         if (x.type !== "error") {
           dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
 
@@ -64,8 +65,6 @@ const PantallaLogin = (props) => {
     console.log(form, loginResponse);
     if (loginResponse) {
       if (loginResponse.type === "success") {
-        // console.log( 'values', loginResponse.value)
-        // console.log('dis:', props.dispatch)
         props.dispatch(
           actions.actualizarLogin({ ...loginResponse.value, isLogged: true })
         );
@@ -80,7 +79,7 @@ const PantallaLogin = (props) => {
           { marginTop: pantalla.screenHeight <= 592 ? 50 : 125 },
         ]}
       >
-        <ElGasLogo height='100%' width='100%' />
+        <ElGasLogo height="100%" width="100%" />
       </View>
       <Text style={styles.textoBienvenido}>Bienvenido</Text>
 
@@ -99,7 +98,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <EmailIcon width='100%' height='100%' color={colores.amarillo} />
+            <EmailIcon width="100%" height="100%" color={colores.amarillo} />
           </View>
           <TextInput
             style={[
@@ -114,8 +113,8 @@ const PantallaLogin = (props) => {
                 fontSize: RFPercentage(2.2),
               },
             ]}
-            placeholder='E-mail'
-            keyboardType='email-address'
+            placeholder="E-mail"
+            keyboardType="email-address"
             {...form.getInput("email")}
           />
         </View>
@@ -133,7 +132,7 @@ const PantallaLogin = (props) => {
               justifyContent: "center",
             }}
           >
-            <LockIcon height='100%' width='100%' />
+            <LockIcon height="100%" width="100%" />
           </View>
           <TextInput
             style={[
@@ -147,7 +146,7 @@ const PantallaLogin = (props) => {
                 fontSize: RFPercentage(2.2),
               },
             ]}
-            placeholder='Password'
+            placeholder="Password"
             secureTextEntry
             {...form.getInput("password")}
           />
@@ -155,16 +154,12 @@ const PantallaLogin = (props) => {
       </View>
 
       <View style={styles.contenedor}>
-        <Button
-          color='#fff'
-          style={{ marginBottom: 10 }}
-          onPress={onLogin /* () => props.navigation.navigate("Inicio") */} //() => props.navigation.navigate("Tarjetas")
-        >
+        <Button color="#fff" style={{ marginBottom: 10 }} onPress={onLogin}>
           <Text style={{ textTransform: "uppercase", fontWeight: "bold" }}>
             Ingresar
           </Text>
         </Button>
-        <Button color='#227BC4' horizontal>
+        <Button color="#227BC4" horizontal>
           <View
             style={{
               width: "10%",
@@ -202,7 +197,7 @@ const PantallaLogin = (props) => {
         </View>
       </View>
 
-      <StatusBar barStyle='light-content' />
+      <StatusBar barStyle="light-content" />
     </Container>
   );
 };

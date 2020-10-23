@@ -14,7 +14,7 @@ const MyAccount = ({}) => {
   const [current, setCurrent] = useState("MyInformation");
   return (
     <Container>
-      <BasicHeader title='Mi cuenta' />
+      <BasicHeader title="Mi cuenta" />
       <View
         style={{
           backgroundColor: colores.bgOscuro,
