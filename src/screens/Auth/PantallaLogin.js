@@ -23,6 +23,7 @@ import { ValidateForm } from "../../functions/ValidateForm";
 import { getCollection, logIn } from "../../apis/querys";
 import { connect, useDispatch } from "react-redux";
 import { actions } from "../../redux/index";
+import { facebookLogIn } from "../../apis/AccountsLogin";
 
 const initialValues = {
   email: "",
@@ -34,6 +35,15 @@ const PantallaLogin = (props) => {
   const dispatch = useDispatch();
   // console.log(form);
   const [loginResponse, setLoginResponse] = useState(null);
+
+  const fbLogin = async () => {
+    const response = await facebookLogIn();
+    if (response) {
+      console.log("Resp", response);
+      dispatch(actions.actualizarLogin(response.user));
+    }
+    console.log("Facebook", response);
+  };
 
   const onLogin = () => {
     const { email, password } = form.fields;
@@ -71,6 +81,7 @@ const PantallaLogin = (props) => {
       }
     }
   }, [loginResponse]);
+
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View
@@ -159,7 +170,7 @@ const PantallaLogin = (props) => {
             Ingresar
           </Text>
         </Button>
-        <Button color="#227BC4" horizontal>
+        <Button color="#227BC4" horizontal onPress={fbLogin}>
           <View
             style={{
               width: "10%",
