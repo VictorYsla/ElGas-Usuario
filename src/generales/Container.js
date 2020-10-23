@@ -62,7 +62,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"Products"}
-          texto='Inicio'
+          texto="Inicio"
           icon={
             <SvgHome
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -84,7 +84,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"MyAccount"}
-          texto='Mi Cuenta'
+          texto="Mi Cuenta"
           icon={
             <SvgProfile
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -106,7 +106,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"MisPedidos"}
-          texto='Mis Pedidos'
+          texto="Mis Pedidos"
           icon={
             <SvgOrders
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -128,7 +128,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           ruta={"Tarjetas"}
-          texto='Mis Tarjetas'
+          texto="Mis Tarjetas"
           icon={
             <CardIcon
               height={screenWidth <= 360 ? "30%" : "40%"}
@@ -150,7 +150,7 @@ const Footer = () => {
         <Item
           navigation={navigation}
           isLoggingOut
-          texto='Cerrar Sesión'
+          texto="Cerrar Sesión"
           icon={
             <SvgLogout
               height={screenWidth <= 360 ? "30%" : "40%"}

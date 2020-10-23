@@ -51,34 +51,34 @@ const MyInformation = ({}) => {
       <View>
         <Item
           icon={() => <OutlineUserIcon width={wp(6)} height={hp(4)} />}
-          title='Nombre y Apellido'
-          description={user.userName}
+          title="Nombre y Apellido"
+          description={user?.userName}
           mTop={5}
           isEditable
           form={form}
-          field='name'
+          field="name"
         />
         <Item
-          icon={() => <EmailIcon width={wp(6)} height={hp(4)} color='#000' />}
-          title='Email'
-          description={user.email}
+          icon={() => <EmailIcon width={wp(6)} height={hp(4)} color="#000" />}
+          title="Email"
+          description={user?.email}
         />
         <Item
           icon={() => <CalendarIcon width={wp(6)} height={hp(4)} />}
-          title='Fecha de nacimiento'
+          title="Fecha de nacimiento"
           description={formattedDate}
           isBirthdate
           onShowCalendar={onShowCalendar}
           form={form}
-          field='birthDate'
+          field="birthDate"
         />
         <Item
           icon={() => <PhoneIcon width={wp(6)} height={hp(4)} />}
-          title='Numero de celular'
-          description={user.phoneNumber}
+          title="Numero de celular"
+          description={user?.phoneNumber}
           isEditable
           form={form}
-          field='phoneNumber'
+          field="phoneNumber"
         />
       </View>
       <TouchableOpacity
@@ -99,12 +99,12 @@ const MyInformation = ({}) => {
 
       {showCalendar && (
         <DateTimePicker
-          testID='dateTimePicker'
+          testID="dateTimePicker"
           value={date}
-          mode='date'
-          display='calendar'
+          mode="date"
+          display="calendar"
           onChange={onChangeDate}
-          locale='es-ES'
+          locale="es-ES"
         />
       )}
     </View>
@@ -146,7 +146,7 @@ const Item = ({
             placeholder={
               field === "name" ? "Nombre y Apellido" : "Numero de celular"
             }
-            keyboardType='default'
+            keyboardType="default"
             {...form.getInput(field)}
             value={description}
           />

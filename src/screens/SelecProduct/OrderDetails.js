@@ -10,6 +10,11 @@ import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
 import Container from "../../generales/Container";
 
 const OrderDetails = (props) => {
+
+  const methodPreparePayPhone = async () => {
+    
+  }
+  
   return (
     <Container>
       <BasicHeader title="Revisar datos del pedido" />

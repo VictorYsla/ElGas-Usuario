@@ -44,9 +44,9 @@ const Navegador = (props) => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName='PantallaBienvenida' //PantallaBienvenida,  DeliveryDetails
+          initialRouteName="PantallaBienvenida" //PantallaBienvenida,  DeliveryDetails
         >
-          <Stack.Screen name='PantallaBienvenida'>
+          <Stack.Screen name="PantallaBienvenida">
             {(props) => {
               return (
                 <PantallaBienvenida
@@ -58,10 +58,10 @@ const Navegador = (props) => {
           </Stack.Screen>
 
           {/* Login Process */}
-          <Stack.Screen name='Login' component={PantallaLogin} />
-          <Stack.Screen name='Registrarse' component={Registrarse} />
+          <Stack.Screen name="Login" component={PantallaLogin} />
+          <Stack.Screen name="Registrarse" component={Registrarse} />
           <Stack.Screen
-            name='RecuperarContrasena'
+            name="RecuperarContrasena"
             component={RecuperarContrasena}
           />
         </Stack.Navigator>
@@ -75,7 +75,7 @@ const Navegador = (props) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName='products' //PantallaBienvenida,  DeliveryDetails 'products'
+        initialRouteName="products" //PantallaBienvenida,  DeliveryDetails 'products'
       >
         {/* <Stack.Screen
           name="NotificacionesEjemplo"
@@ -86,7 +86,7 @@ const Navegador = (props) => {
 
         {/* Product */}
         <Stack.Screen
-          name='Products'
+          name="Products"
           component={Products}
           options={{
             cardStyleInterpolator:
@@ -96,12 +96,12 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='ProductInfo'
+          name="ProductInfo"
           component={ProductInfo}
           initialParams={{ item: null }}
         />
         <Stack.Screen
-          name='MyCart'
+          name="MyCart"
           component={MyCart}
           options={{
             cardStyleInterpolator:
@@ -111,7 +111,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='DeliveryDetails'
+          name="DeliveryDetails"
           component={DeliveryDetails}
           options={{
             cardStyleInterpolator:
@@ -121,7 +121,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='OrderDetails'
+          name="OrderDetails"
           component={OrderDetails}
           options={{
             cardStyleInterpolator:
@@ -133,7 +133,7 @@ const Navegador = (props) => {
 
         {/* MyAccount */}
         <Stack.Screen
-          name='MyInformation'
+          name="MyInformation"
           component={MyInformation}
           options={{
             cardStyleInterpolator:
@@ -143,7 +143,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='MyAccount'
+          name="MyAccount"
           component={MyAccount}
           options={{
             cardStyleInterpolator:
@@ -155,7 +155,7 @@ const Navegador = (props) => {
 
         {/* Mis Tarjetas */}
         <Stack.Screen
-          name='Tarjetas'
+          name="Tarjetas"
           component={Tarjetas}
           options={{
             cardStyleInterpolator:
@@ -165,7 +165,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='AgregarTarjeta'
+          name="AgregarTarjeta"
           component={AgregarTarjeta}
           options={{
             cardStyleInterpolator:
@@ -175,7 +175,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='SeleccionarTarjeta'
+          name="SeleccionarTarjeta"
           component={SeleccionarTarjeta}
           options={{
             cardStyleInterpolator:
@@ -187,7 +187,7 @@ const Navegador = (props) => {
 
         {/* AddressDelivery */}
         <Stack.Screen
-          name='AddressDeliveryForm'
+          name="AddressDeliveryForm"
           component={AddressDeliveryForm}
           options={{
             cardStyleInterpolator:
@@ -197,7 +197,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='AddressDeliveryFormUser'
+          name="AddressDeliveryFormUser"
           component={AddressDeliveryFormUser}
           options={{
             cardStyleInterpolator:
@@ -207,7 +207,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='AddressDeliveryOptions'
+          name="AddressDeliveryOptions"
           component={AddressDeliveryOptions}
           options={{
             cardStyleInterpolator:
@@ -217,7 +217,7 @@ const Navegador = (props) => {
           }}
         />
         <Stack.Screen
-          name='AddressDeliveryUsers'
+          name="AddressDeliveryUsers"
           component={AddressDeliveryUsers}
           options={{
             cardStyleInterpolator:
@@ -229,7 +229,7 @@ const Navegador = (props) => {
 
         {/* Pedidos */}
         <Stack.Screen
-          name='MisPedidos'
+          name="MisPedidos"
           component={PantallaPedidos}
           options={{
             cardStyleInterpolator:

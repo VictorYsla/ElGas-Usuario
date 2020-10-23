@@ -15,14 +15,21 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+        "config": {
+          "googleMobileAdsAppId": "ca-app-pub-7420512792244597~6210925254"
+        }
+      
     },
     "android": {
       "package": "com.elgascliente",
       "versionCode": 6,
       "googleServicesFile": "./google-services.json",
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7420512792244597~6210925254"
+      }
     },
     "notification": {
       "icon": "./assets/icon.png"
