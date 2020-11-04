@@ -9,9 +9,12 @@ export const facebookLogIn = async () => {
       expires,
       permissions,
       declinedPermissions,
-    } = await Facebook.logInWithReadPermissionsAsync("612901659586794", {
-      permissions: ["public_profile"],
-    });
+    } = await Facebook.logInWithReadPermissionsAsync(
+      //"612901659586794",
+      {
+        permissions: ["public_profile"],
+      }
+    );
 
     if (type === "success") {
       const response = await fetch(

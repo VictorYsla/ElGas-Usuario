@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Button, Platform } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
+  Platform,
+} from "react-native";
 import BasicHeader from "../../components/Header/BasicHeader";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colores, pantalla } from "../../constantes/Temas";
@@ -17,8 +25,8 @@ import {
   AdMobInterstitial,
   PublisherBanner,
   AdMobRewarded,
-  setTestDeviceIDAsync
-} from 'expo-ads-admob'
+  setTestDeviceIDAsync,
+} from "expo-ads-admob";
 
 const ProductInfo = ({ route: { params }, navigation }) => {
   const { item } = params;
@@ -40,33 +48,31 @@ const ProductInfo = ({ route: { params }, navigation }) => {
   };
 
   const showInterstitial = async () => {
-    AdMobInterstitial.setAdUnitID('ca-app-pub-7420512792244597~6210925254');
+    AdMobInterstitial.setAdUnitID("ca-app-pub-7420512792244597~6210925254");
 
     try {
       await AdMobInterstitial.requestAdAsync();
       await AdMobInterstitial.showAdAsync();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const showRewarded = async () => {
-    AdMobRewarded.setAdUnitID('ca-app-pub-7420512792244597~6210925254'); // Test ID, Replace with your-admob-unit-id
+    AdMobRewarded.setAdUnitID("ca-app-pub-7420512792244597~6210925254"); // Test ID, Replace with your-admob-unit-id
 
     try {
       await AdMobRewarded.requestAdAsync();
       await AdMobRewarded.showAdAsync();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <BasicHeader
-        title='Producto'
+        title="Producto"
         onPressLeftIcon={() => navigation.goBack()}
       />
       <View style={{ marginTop: hp(5) }}>
@@ -74,7 +80,7 @@ const ProductInfo = ({ route: { params }, navigation }) => {
           <Image
             source={{ uri: item.product.photo_url }}
             style={{ width: wp(25), height: hp(17) }}
-            resizeMode='contain'
+            resizeMode="contain"
           />
           <Text
             style={{
@@ -265,9 +271,16 @@ const ProductInfo = ({ route: { params }, navigation }) => {
         {/**<Text style={[{ fontWeight: "bold" }]}>PUBLICIDAD</Text> */}
         <AdMobBanner
           bannerSize="fullBanner"
-          adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-7420512792244597~6210925254"}
-          onDidFailToReceiveAdWithError={(err) => console.log('banner ad not loading', err)}
-          onAdViewDidReceiveAd={() => console.log('banner ad received')} />
+          adUnitID={
+            Platform.OS === "ios"
+              ? "ca-app-pub...ios"
+              : "ca-app-pub-7420512792244597~6210925254"
+          }
+          onDidFailToReceiveAdWithError={(err) =>
+            console.log("banner ad not loading", err)
+          }
+          onAdViewDidReceiveAd={() => console.log("banner ad received")}
+        />
         {/** PRODUCTIONAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-7420512792244597~6210925254"}*/}
         {/** TESTAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-3940256099942544/6300978111"} */}
       </View>

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import {
@@ -27,8 +27,6 @@ import { colores, pantalla } from "../../constantes/Temas";
 import { getCollection } from "../../apis/querys";
 import { actions } from "../../redux";
 import { registerForPushNotificationsAsync } from "../../functions/Notificaciones";
-
-
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -67,7 +65,6 @@ const Product = (props) => {
   if (useIsFocused()) {
     var items = cart.length;
   }
-
 
   const RightComponent = () => {
     return (
@@ -109,20 +106,19 @@ const Product = (props) => {
     );
   };
 
-
   return (
     <Container>
       <BasicHeader
-        title='Direccion de entrega'
+        title="Direccion de entrega"
         icon={() => <SearchIcon width={wp(7)} height={hp(5)} />}
         centerComponent={() => CenterComponet()}
         rigthComponent={() => RightComponent()}
       />
       <ScrollView
         style={{ height: "100%", width: "100%" }}
-        contentContainerStyle={[{ paddingVertical: 10 }]}
+        contentContainerStyle={[{ paddingVertical: 5 }]}
       >
-        <View style={{ marginTop: hp(5) }}>
+        <View style={{ marginTop: hp(2) }}>
           <Text
             style={{
               textAlign: "center",
@@ -136,10 +132,10 @@ const Product = (props) => {
             ¿Qué deseas comprar hoy?
           </Text>
         </View>
-        <View style={{ marginTop: hp(5) }}>
+        {/* <View style={{ marginTop: hp(5) }}>
           <ImageCarrousel />
-        </View>
-        <View style={{ flex: 1, marginTop: hp(5) }}>
+        </View> */}
+        <View style={{ flex: 1, marginTop: hp(2) }}>
           <View
             style={{
               backgroundColor: "#eee",
@@ -163,42 +159,42 @@ const Product = (props) => {
               <View
                 style={[{ width: "100%", height: 50, alignItems: "center" }]}
               >
-                <ActivityIndicator size='large' color={colores.amarillo} />
+                <ActivityIndicator size="large" color={colores.amarillo} />
               </View>
             ) : (
-                <ScrollView horizontal style={{ alignSelf: "center" }}>
-                  {products
-                    .filter((value) => value.category.name === "Cilindro")
-                    .map((value, index) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate("ProductInfo", { item: value })
-                          }
-                          key={index}
-                          style={{ marginLeft: wp(index > 0 ? 5 : 0) }}
+              <ScrollView horizontal style={{ alignSelf: "center" }}>
+                {products
+                  .filter((value) => value.category.name === "Cilindro")
+                  .map((value, index) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ProductInfo", { item: value })
+                        }
+                        key={index}
+                        style={{ marginLeft: wp(index > 0 ? 5 : 0) }}
+                      >
+                        <Image
+                          source={{ uri: value.product.photo_url }}
+                          style={{ width: wp(22), height: hp(22) }}
+                          resizeMode="contain"
+                        />
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: wp(3.3),
+                            marginTop: hp(0.3),
+                            fontWeight: "bold",
+                          }}
                         >
-                          <Image
-                            source={{ uri: value.product.photo_url }}
-                            style={{ width: wp(10), height: hp(10) }}
-                            resizeMode='contain'
-                          />
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              fontSize: wp(3.3),
-                              marginTop: hp(0.3),
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {value.product.description.capacity}
-                            {value.product.description.unity}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                </ScrollView>
-              )}
+                          {value.product.description.capacity}
+                          {value.product.description.unity}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </ScrollView>
+            )}
           </View>
           <View
             style={{
@@ -216,7 +212,7 @@ const Product = (props) => {
                 fontWeight: "bold",
               }}
             >
-              Accesorios
+              Agua
             </Text>
           </View>
           <View style={{ marginTop: hp(2) }}>
@@ -224,48 +220,48 @@ const Product = (props) => {
               <View
                 style={[{ width: "100%", height: 50, alignItems: "center" }]}
               >
-                <ActivityIndicator size='large' color={colores.amarillo} />
+                <ActivityIndicator size="large" color={colores.amarillo} />
               </View>
             ) : (
-                <ScrollView horizontal style={{ alignSelf: "center" }}>
-                  {products
-                    .filter((value) => value.category.name === "Accesorio")
-                    .map((value, index) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate("ProductInfo", { item: value })
-                          }
-                          key={index}
+              <ScrollView horizontal style={{ alignSelf: "center" }}>
+                {products
+                  .filter((value) => value.category.name === "Agua")
+                  .map((value, index) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ProductInfo", { item: value })
+                        }
+                        key={index}
+                        style={{
+                          marginLeft: wp(index > 0 ? 5 : 0),
+                        }}
+                      >
+                        <Image
+                          source={{ uri: value.product.photo_url }}
                           style={{
-                            marginLeft: wp(index > 0 ? 5 : 0),
+                            width:
+                              pantalla.screenHeight <= 592 ? wp(15) : wp(18),
+                            height: hp(22),
+                          }}
+                          resizeMode="contain"
+                        />
+
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: wp(3.3),
+                            marginTop: hp(0.3),
+                            fontWeight: "bold",
                           }}
                         >
-                          <Image
-                            source={{ uri: value.product.photo_url }}
-                            style={{
-                              width:
-                                pantalla.screenHeight <= 592 ? wp(15) : wp(18),
-                              height: hp(8),
-                            }}
-                            resizeMode='cover'
-                          />
-
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              fontSize: wp(3.3),
-                              marginTop: hp(0.3),
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {value.product.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                </ScrollView>
-              )}
+                          {value.product.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </ScrollView>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -299,7 +295,7 @@ const ImageCarrousel = ({ image = "", title = "tittle", press }) => {
             <ChevronLeftIcon width={wp(6)} height={hp(3)} />
           </TouchableOpacity>
           <TouchableOpacity style={{ justifyContent: "center" }}>
-            <ChevronRightIcon width={wp(6)} height={hp(3)} color='#fff' />
+            <ChevronRightIcon width={wp(6)} height={hp(3)} color="#fff" />
           </TouchableOpacity>
         </View>
       </ImageBackground>
