@@ -68,7 +68,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		const firestore = firebase.firestore(firebaseApp);
+		// const firestore = firebase.firestore(firebaseApp);
 		// persistStore(store).purge();
 
 		fonts();

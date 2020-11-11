@@ -24,12 +24,7 @@ if (!global.atob) {
 	global.atob = decode;
 }
 
-// firebase.signInWithCustomToken(custom_token).then(() => {
-// 	firebase_app.setPersistence(firebase.auth.Auth.Persistence.NONE);
-// });
-
 let firestore = firebase.firestore(firebaseApp);
-firestore = firebase.firestore(firebaseApp);
 
 // console.log('firebasejs', firestore);
 
