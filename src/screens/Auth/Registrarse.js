@@ -39,7 +39,7 @@ const Registrarse = ({ dispatch, navigation }) => {
   return (
     <Container footer={false} styleContainer={styles.screen}>
       <View style={styles.imageContainer}>
-        <RegisterIcon height='100%' width='100%' />
+        <RegisterIcon height="100%" width="100%" />
       </View>
 
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Registrarse</Text>
@@ -47,25 +47,25 @@ const Registrarse = ({ dispatch, navigation }) => {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder='Nombre'
+          placeholder="Nombre"
           {...form.getInput("name")}
         />
         <TextInput
           style={styles.input}
-          placeholder='E-mail'
-          keyboardType='email-address'
+          placeholder="E-mail"
+          keyboardType="email-address"
           {...form.getInput("email")}
         />
         <TextInput
           style={styles.input}
-          placeholder='Contraseña'
+          placeholder="Contraseña"
           secureTextEntry
           {...form.getInput("password")}
         />
         <TextInput
           style={styles.input}
-          placeholder='Teléfono'
-          keyboardType='number-pad'
+          placeholder="Teléfono"
+          keyboardType="number-pad"
           {...form.getInput("phone")}
         />
       </View>

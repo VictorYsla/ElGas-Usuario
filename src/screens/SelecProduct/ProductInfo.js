@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -20,6 +20,11 @@ import { actions } from "../../redux/index";
 import CustomButton from "../../components/CustomButton";
 import { UpdateCart } from "../../redux/reducer/cart";
 
+import Constants from "expo-constants";
+
+const testID = "ca-app-pub-3940256099942544/6300978111";
+const productionID = "ca-app-pub-9288524222459638/7135820654";
+
 import {
   AdMobBanner,
   AdMobInterstitial,
@@ -27,6 +32,8 @@ import {
   AdMobRewarded,
   setTestDeviceIDAsync,
 } from "expo-ads-admob";
+
+const adUnitID = "ca-app-pub-3940256099942544/6300978111";
 
 const ProductInfo = ({ route: { params }, navigation }) => {
   const { item } = params;
@@ -45,29 +52,13 @@ const ProductInfo = ({ route: { params }, navigation }) => {
     );
 
     setQuantity(0);
+
+    navigation.navigate("MyCart");
   };
 
-  const showInterstitial = async () => {
-    AdMobInterstitial.setAdUnitID("ca-app-pub-7420512792244597~6210925254");
-
-    try {
-      await AdMobInterstitial.requestAdAsync();
-      await AdMobInterstitial.showAdAsync();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const showRewarded = async () => {
-    AdMobRewarded.setAdUnitID("ca-app-pub-7420512792244597~6210925254"); // Test ID, Replace with your-admob-unit-id
-
-    try {
-      await AdMobRewarded.requestAdAsync();
-      await AdMobRewarded.showAdAsync();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  useEffect(() => {
+    const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -259,7 +250,7 @@ const ProductInfo = ({ route: { params }, navigation }) => {
         </View>
       </View>
 
-      <View
+      {/* <View
         style={{
           backgroundColor: colores.grisClaro,
           height: 75,
@@ -268,22 +259,19 @@ const ProductInfo = ({ route: { params }, navigation }) => {
           justifyContent: "center",
         }}
       >
-        {/**<Text style={[{ fontWeight: "bold" }]}>PUBLICIDAD</Text> */}
         <AdMobBanner
           bannerSize="fullBanner"
           adUnitID={
             Platform.OS === "ios"
-              ? "ca-app-pub...ios"
-              : "ca-app-pub-7420512792244597~6210925254"
+              ? "ca-app-pub-3940256099942544/6300978111"
+              : adUnitID
           }
           onDidFailToReceiveAdWithError={(err) =>
             console.log("banner ad not loading", err)
           }
           onAdViewDidReceiveAd={() => console.log("banner ad received")}
         />
-        {/** PRODUCTIONAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-7420512792244597~6210925254"}*/}
-        {/** TESTAD = adUnitID={Platform.OS === "ios" ? "ca-app-pub...ios" : "ca-app-pub-3940256099942544/6300978111"} */}
-      </View>
+     </View> */}
     </View>
   );
 };

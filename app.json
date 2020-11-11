@@ -16,10 +16,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-        "config": {
-          "googleMobileAdsAppId": "ca-app-pub-7420512792244597~6210925254"
-        }
-      
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-9288524222459638~7308384509"
+      }
     },
     "android": {
       "package": "com.elgascliente",
@@ -28,7 +27,7 @@
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
       "useNextNotificationsApi": true,
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-7420512792244597~6210925254"
+        "googleMobileAdsAppId": "ca-app-pub-9288524222459638~7308384509"
       }
     },
     "notification": {
