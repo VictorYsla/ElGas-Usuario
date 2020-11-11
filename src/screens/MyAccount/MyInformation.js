@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -12,19 +12,17 @@ import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
 import EmailIcon from "../../components/Icons/EmailIcon";
 import CalendarIcon from "../../components/Icons/CalendarIcon";
 import PhoneIcon from "../../components/Icons/PhoneIcon";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import useForm from "../../hooks/useForm";
+import { colores } from "../../constantes/Temas";
+import { actions } from "../../redux";
+import { updateCollection } from "../../apis/querys";
 
-const initialValues = {
-  name: "",
-  birthDate: "",
-  phoneNumber: "",
-};
-
-const MyInformation = ({}) => {
+const MyInformation = ({ dispatch }) => {
   const user = useSelector((state) => state.user.user);
 
-  const form = useForm({ initialValues });
+  const [newuser, setnewuser] = useState({ ...user });
+
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -34,67 +32,74 @@ const MyInformation = ({}) => {
     setDate(currentDate);
   };
 
-  const onShowCalendar = () => {
-    setShowCalendar(true);
+  const updateUser = () => {
+    updateCollection("plant_usuarios", newuser.id, newuser).then((r) => {
+      r
+        ? alert("Cambios realizados con éxito")
+        : alert("Ups, sucedió un error");
+    });
+    dispatch(actions.setUser({ ...user, ...newuser }));
   };
 
-  const { name, password, phoneNumber } = form.fields;
+  useEffect(() => {
+    const formattedDate = `${date.getDate()}-${
+      date.getMonth() + 1
+    }-${date.getFullYear()}`;
 
-  console.log(form);
+    setnewuser({ birthDate: formattedDate, ...user });
+  }, [date]);
 
-  const formattedDate = `${date.getDate()}-${
-    date.getMonth() + 1
-  }-${date.getFullYear()}`;
+  // console.log("MyInformation", newuser);
 
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
-      <View>
+      <View style={{ flex: 1, minHeight: 500 }}>
         <Item
           icon={() => <OutlineUserIcon width={wp(6)} height={hp(4)} />}
           title="Nombre y Apellido"
-          description={user?.userName}
-          mTop={5}
           isEditable
-          form={form}
-          field="name"
+          form={newuser}
+          field="userName"
+          onChange={setnewuser}
         />
         <Item
           icon={() => <EmailIcon width={wp(6)} height={hp(4)} color="#000" />}
           title="Email"
-          description={user?.email}
+          form={newuser}
+          field="email"
+          onChange={setnewuser}
         />
         <Item
           icon={() => <CalendarIcon width={wp(6)} height={hp(4)} />}
           title="Fecha de nacimiento"
-          description={formattedDate}
           isBirthdate
-          onShowCalendar={onShowCalendar}
-          form={form}
+          onShowCalendar={() => setShowCalendar(true)}
+          form={newuser}
           field="birthDate"
+          onChange={setnewuser}
         />
         <Item
           icon={() => <PhoneIcon width={wp(6)} height={hp(4)} />}
           title="Numero de celular"
-          description={user?.phoneNumber}
           isEditable
-          form={form}
+          form={newuser}
           field="phoneNumber"
+          onChange={setnewuser}
         />
       </View>
       <TouchableOpacity
+        onPress={updateUser}
         style={{
           width: wp(50),
           height: hp(7),
-          backgroundColor: "#ddd",
+          backgroundColor: colores.amarillo,
           alignSelf: "center",
           marginBottom: hp(3),
           borderRadius: wp(2),
           justifyContent: "center",
         }}
       >
-        <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-          CAMBIAR CONTRASEÑA
-        </Text>
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>GUARDAR</Text>
       </TouchableOpacity>
 
       {showCalendar && (
@@ -120,8 +125,9 @@ const Item = ({
   isEditable,
   isBirthdate,
   onShowCalendar,
-  form = {},
   field,
+  form,
+  onChange,
 }) => {
   return (
     <TouchableOpacity
@@ -142,20 +148,29 @@ const Item = ({
         </Text>
         {isEditable ? (
           <TextInput
-            // style={styles.input}
+            style={{
+              borderBottomWidth: 0.5,
+              borderColor: "rgba(52,52,52,05)",
+              // borderRadius: 5,
+              padding: 0,
+            }}
             placeholder={
               field === "name" ? "Nombre y Apellido" : "Numero de celular"
             }
             keyboardType="default"
-            {...form.getInput(field)}
-            value={description}
+            onChangeText={(text) => onChange({ ...form, [field]: text })}
+            value={form[field]}
           />
         ) : isBirthdate ? (
           <Text
-            style={{ fontSize: RFPercentage(1.9) }}
+            style={{
+              fontSize: RFPercentage(1.9),
+              borderBottomWidth: 0.5,
+              borderColor: "rgba(52,52,52,05)",
+            }}
             onPress={onShowCalendar}
           >
-            {description}
+            {form[field]}
           </Text>
         ) : (
           title === "Email" && (
@@ -163,15 +178,22 @@ const Item = ({
               style={{ fontSize: RFPercentage(1.9) }}
               onPress={onShowCalendar}
             >
-              {description}
+              {form[field]}
             </Text>
           )
         )}
       </View>
       <View style={{ justifyContent: "center", flex: 1 }}>
-        <ChevronRightIcon width={wp(5)} height={hp(3)} />
+        {/* <ChevronRightIcon width={wp(5)} height={hp(3)} /> */}
       </View>
     </TouchableOpacity>
   );
 };
-export default MyInformation;
+
+const mapStateToProps = (state) => ({
+  login: state.login.login,
+  cart: state.cart.cart,
+  total: state.cart.totalPrice,
+});
+
+export default connect(mapStateToProps)(MyInformation);

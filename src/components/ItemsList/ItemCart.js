@@ -9,37 +9,21 @@ import CancelIcon from "../Icons/CancelIcon";
 import { actions } from "../../redux/index";
 import { connect } from "react-redux";
 
-const Item = ({
-  name,
-  index,
-  capacity,
-  unity,
-  price,
-  image,
-  item,
-  cart,
-  editCart,
-  deleteItemFronCart,
-}) => {
-  const [quantity, setQuantity] = useState(
-    cart.findIndex((obj) => obj.product.id == item.product.id) !== -1
-      ? cart[cart.findIndex((obj) => obj.product.id == item.product.id)]
-          .quantity
-      : 0
-  );
-  const editQty = (suma) => {
-    const indxInCart = cart.findIndex(
-      (obj) => obj.product.id == item.product.id
-    );
+const Item = (props) => {
+  const { name, item, cart, dispatch, navigation } = props;
 
-    editCart(indxInCart, item, suma);
-    if (cart.findIndex((obj) => obj.product.id == item.product.id) !== -1) {
-      setQuantity(
-        cart[cart.findIndex((obj) => obj.product.id == item.product.id)]
-          .quantity
-      );
-    }
+  const { index } = item;
+  const { product, quantity } = item.item;
+  const { photo_url, price } = item.item.product;
+  const { capacity, description, unity } = item.item.product.description;
+
+  const deleteItem = () => {
+    let newcart = cart.filter((c, index) => index !== item.index);
+    dispatch(actions.UpdateCart.actualizarCarro([...newcart]));
   };
+
+  console.log("EditQuantityButtons cart", item);
+
   return (
     <View
       key={index}
@@ -51,6 +35,7 @@ const Item = ({
         padding: 5,
         borderBottomColor: "#F2F2F2",
         borderBottomWidth: 1,
+        paddingHorizontal: 20,
       }}
     >
       <View
@@ -61,15 +46,15 @@ const Item = ({
         }}
       >
         <TouchableOpacity
-          onPress={() => deleteItemFronCart(item)}
+          onPress={deleteItem}
           style={{ justifyContent: "center" }}
         >
           <CancelIcon width={wp(3)} height={hp(2)} />
         </TouchableOpacity>
         <Image
-          source={{ uri: image }}
-          style={{ width: wp(25), height: hp(17), marginLeft: wp(3) }}
-          resizeMode='center'
+          source={{ uri: photo_url }}
+          style={{ width: wp(17), height: hp(17), marginLeft: wp(3) }}
+          resizeMode="center"
         />
         <View style={{ marginLeft: wp(5), justifyContent: "center" }}>
           <Text
@@ -80,16 +65,14 @@ const Item = ({
               fontWeight: "bold",
             }}
           >
-            {name} {capacity}
+            {name}
+            {capacity}
             {unity}
           </Text>
           <EditQuantityButtons
-            editQty={editQty}
-            quantity={
-              cart.findIndex((obj) => obj.product.id == item.product.id) !== -1
-                ? quantity
-                : 0
-            }
+            //  editQty={editQty}
+            item={item}
+            quantity={quantity}
           />
         </View>
         <Text
@@ -115,15 +98,15 @@ const mapStateToProps = (state) => ({
   total: state.cart.totalPrice,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    editCart: (index, element, sum) => {
-      dispatch(actions.UpdateCart.EditQtyCart(index, element, sum));
-    },
-    deleteItemFronCart: (element) => {
-      dispatch(actions.UpdateCart.RemoveElement(element));
-    },
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     editCart: (index, element, sum) => {
+//       dispatch(actions.UpdateCart.EditQtyCart(index, element, sum));
+//     },
+//     // deleteItemFronCart: (element) => {
+//     //   dispatch(actions.UpdateCart.RemoveElement(element));
+//     // },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapStateToProps)(Item);

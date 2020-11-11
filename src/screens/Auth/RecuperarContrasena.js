@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
 import Container from "../../generales/Container";
 import CustomButton from "../../components/CustomButton";
 import QuestionIcon from "../../components/Icons/QuestionIcon";
+import { sendPassword } from "../../apis/querys";
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { colores } from "../../constantes/Temas";
 
 const RecuperarContrasena = (props) => {
+  const [email, setemail] = useState("");
+  const [loading, setloading] = useState(false);
+  const [result, setresult] = useState({ error: false, mensaje: "" });
+
   return (
     <Container styleContainer={styles.screen} footer={false}>
       <View style={styles.imageContainer}>
@@ -30,11 +37,40 @@ const RecuperarContrasena = (props) => {
       </View>
 
       <View style={styles.form}>
-        <TextInput style={styles.input} placeholder="E-mail" />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          onChangeText={setemail}
+        />
+        {result.error && (
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: RFPercentage(1.8),
+              color: colores.amarillo,
+              marginTop: 5,
+            }}
+          >
+            {"Email no registrado"}
+          </Text>
+        )}
       </View>
 
       <View style={styles.buttonContainer}>
-        <CustomButton>
+        <CustomButton
+          disabled={loading}
+          onPress={() => {
+            setloading(true);
+            sendPassword(email).then((r) => {
+              // console.log("RecuperarContraseña", r);
+              setloading(false);
+              setresult(r);
+
+              !r.error && alert("Por favor revise su bandeja de entrada");
+              !r.error && props.navigation.navigate("Login");
+            });
+          }}
+        >
           <Text style={styles.buttonLabel}>ENVIAR MAIL</Text>
         </CustomButton>
       </View>
@@ -68,7 +104,8 @@ const styles = StyleSheet.create({
     width: "100%",
     borderBottomColor: "#000",
     borderBottomWidth: 1,
-    marginVertical: 10,
+    marginTop: 10,
+    textAlign: "center",
   },
   buttonContainer: {
     width: 150,

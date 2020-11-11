@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  FlatList,
 } from "react-native";
 import Container from "../../generales/Container";
 import BasicHeader from "../../components/Header/BasicHeader";
@@ -22,6 +23,7 @@ import { actions } from "../../redux/index";
 import ItemCart from "../../components/ItemsList/ItemCart";
 import CustomButton from "../../components/CustomButton";
 import { postCollection } from "../../apis/querys";
+// import { FlatList } from "react-native-gesture-handler";
 
 const MyCart = ({ cart, total, navigation }) => {
   const localCartData = {
@@ -31,13 +33,9 @@ const MyCart = ({ cart, total, navigation }) => {
   const login = useSelector((state) => state.login.login);
   const expoPushToken = useSelector((state) => state.pushToken.pushToken);
 
+  // console.log("MayCart.js navigation", navigation);
+
   const onSubmit = () => {
-    // console.log("MyCart", {
-    //   products: cart,
-    //   orderStatus: "Solicitado",
-    //   userNotificationToken: expoPushToken,
-    //   total,
-    // });
     const payload = {
       products: cart,
       orderStatus: "Solicitado",
@@ -45,8 +43,12 @@ const MyCart = ({ cart, total, navigation }) => {
       userNotificationToken: expoPushToken,
       total,
     };
-    postCollection("plant_pedidos_en_camino", payload);
-    console.log('payload', payload)
+
+    // console.log("MayCart.js payload", payload);
+
+    postCollection("plant_pedidos_en_camino", payload).then((r) => {
+      r ? navigation.navigate("OrderDetails") : alert("Ups, sucedió un error");
+    });
     //navigation.navigate('OrderDetails')
   };
 
@@ -63,7 +65,7 @@ const MyCart = ({ cart, total, navigation }) => {
       }}
     >
       <BasicHeader
-        title='Mi Carrito'
+        title="Mi Carrito"
         onPressLeftIcon={() => navigation.goBack()}
       />
       <View style={[{ backgroundColor: colores.grisClaro, width: "100%" }]}>
@@ -106,83 +108,78 @@ const MyCart = ({ cart, total, navigation }) => {
             height: "70%",
             width: "100%",
             alignItems: "center",
+            justifyContent: "center",
             marginVertical: 20,
           },
         ]}
       >
-        {cart.length === 0 ? (
+        <View
+          style={{
+            width: "100%",
+            flex: 1,
+            justifyContent: "center",
+            // backgroundColor: "red",
+          }}
+        >
+          <FlatList
+            data={cart}
+            ListEmptyComponent={() => <Vacio navigation={navigation} />}
+            renderItem={(item, index) => <ItemCart key={index} item={item} />}
+            // ListFooterComponent={}
+          />
+        </View>
+        {cart.length != 0 && (
           <View
             style={[
-              { flex: 1, justifyContent: "center", alignItems: "center" },
+              {
+                width: 150,
+                height: 40,
+                marginVertical: 20,
+              },
             ]}
           >
-            <Text style={[{ fontSize: RFPercentage(2) }]}>
-              No hay productos añadidos. Comienza a agregar!
-            </Text>
-
-            <View
-              style={[
-                {
-                  width: 150,
-                  height: 40,
-                  marginVertical: 20,
-                },
-              ]}
-            >
-              <CustomButton onPress={() => navigation.goBack()}>
-                <Text
-                  style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}
-                >
-                  COMPRAR
-                </Text>
-              </CustomButton>
-            </View>
+            <CustomButton onPress={onSubmit}>
+              <Text
+                style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}
+              >
+                CONTINUAR
+              </Text>
+            </CustomButton>
           </View>
-        ) : (
-          <>
-            <ScrollView>
-              {cart.map((value, index) => {
-                const {
-                  product: {
-                    name,
-                    photo_url,
-                    description: { capacity, unity },
-                    price,
-                  },
-                } = value;
-                return (
-                  <ItemCart
-                    key={index}
-                    image={photo_url}
-                    capacity={capacity}
-                    index={index}
-                    price={price}
-                    item={value}
-                    unity={unity}
-                    name={name}
-                  />
-                );
-              })}
-            </ScrollView>
-            <View
-              style={[
-                {
-                  width: 150,
-                  height: 40,
-                  marginVertical: 20,
-                },
-              ]}
-            >
-              <CustomButton onPress={onSubmit}>
-                <Text
-                  style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}
-                >
-                  CONTINUAR
-                </Text>
-              </CustomButton>
-            </View>
-          </>
         )}
+      </View>
+    </View>
+  );
+};
+
+const Vacio = ({ navigation }) => {
+  return (
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 200,
+        // backgroundColor: "green",
+      }}
+    >
+      <Text style={[{ fontSize: RFPercentage(2) }]}>
+        No hay productos añadidos. Comienza a agregar!
+      </Text>
+
+      <View
+        style={[
+          {
+            width: 150,
+            height: 40,
+            marginVertical: 20,
+          },
+        ]}
+      >
+        <CustomButton onPress={() => navigation.goBack()}>
+          <Text style={[{ fontWeight: "bold", fontSize: RFPercentage(2.4) }]}>
+            COMPRAR
+          </Text>
+        </CustomButton>
       </View>
     </View>
   );

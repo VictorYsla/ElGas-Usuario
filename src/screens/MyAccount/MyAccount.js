@@ -9,8 +9,9 @@ import {
 import { colores } from "../../constantes/Temas";
 import MyInformation from "./MyInformation";
 import MyFactudata from "./MyFactudata";
+import MyAddress from "./MyAddress";
 
-const MyAccount = ({}) => {
+const MyAccount = ({ navigation }) => {
   const [current, setCurrent] = useState("MyInformation");
   return (
     <Container>
@@ -85,7 +86,9 @@ const MyAccount = ({}) => {
         <MyInformation />
       ) : current === "MyFacturData" ? (
         <MyFactudata />
-      ) : null}
+      ) : (
+        <MyAddress navigation={navigation} />
+      )}
     </Container>
   );
 };
