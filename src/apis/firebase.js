@@ -23,7 +23,16 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-const firestore = firebase.firestore(firebaseApp);
+// firebase.signInWithCustomToken(custom_token).then(() => {
+// 	firebase_app.setPersistence(firebase.auth.Auth.Persistence.NONE);
+// });
+
+let firestore = firebase.firestore(firebaseApp);
+firestore = firebase.firestore(firebaseApp);
+
+// console.log('firebasejs', firestore);
+
+firestore.settings({ experimentalForceLongPolling: true });
 
 export const getAllUsers = async (funcion = () => {}) => {
   try {
