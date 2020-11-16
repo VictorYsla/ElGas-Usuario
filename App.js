@@ -19,6 +19,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
 import { firebaseApp } from './src/apis/firebase';
+import { getCollection, logIn, logout } from './src/apis/querys';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -68,8 +69,20 @@ function App() {
 	};
 
 	useEffect(() => {
-		// const firestore = firebase.firestore(firebaseApp);
+		const firestore = firebase.firestore(firebaseApp);
 		// persistStore(store).purge();
+
+		// getCollection('plant_productos').then((response) => {
+		// 	console.log('Appjs', response);
+
+		// 	logout().then(() => {
+		// 		logIn('ll@gmail.com', '123456').then(async (x) => {
+		// 			x.type == 'error';
+		// 			console.log('PantallaLogin', x.type);
+		// 			getCollection('plant_productos').then((response) => console.log('PantallaLogin', response));
+		// 		});
+		// 	});
+		// });
 
 		fonts();
 	}, []);

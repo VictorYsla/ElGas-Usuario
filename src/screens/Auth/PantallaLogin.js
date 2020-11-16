@@ -20,10 +20,11 @@ import { colores, pantalla } from '../../constantes/Temas';
 import Container from '../../generales/Container';
 import useForm from '../../hooks/useForm';
 import { ValidateForm } from '../../functions/ValidateForm';
-import { getCollection, logIn } from '../../apis/querys';
+import { getCollection, logIn, loginState, logout } from '../../apis/querys';
 import { connect, useDispatch } from 'react-redux';
 import { actions } from '../../redux/index';
 import { facebookLogIn } from '../../apis/AccountsLogin';
+import { firebaseApp } from '../../apis/firebase';
 
 const initialValues = {
 	email: '',
@@ -33,14 +34,11 @@ const initialValues = {
 const PantallaLogin = (props) => {
 	const form = useForm({ initialValues });
 	const dispatch = useDispatch();
-	// console.log(form);
-	const [loginResponse, setLoginResponse] = useState(null);
+	const [loading, setloading] = useState(false);
 
 	const fbLogin = async () => {
 		const response = await facebookLogIn();
 		if (response) {
-			console.log('Resp', response);
-			dispatch(actions.actualizarLogin(response.user));
 		}
 		console.log('Facebook', response);
 	};
@@ -48,38 +46,60 @@ const PantallaLogin = (props) => {
 	const onLogin = () => {
 		const { email, password } = form.fields;
 
+		setloading(true);
+		console.log('PantallaLogin', 'Iniciando Login');
+
 		if (ValidateForm(form)) {
-			logIn(email, password).then(async (x) => {
-				console.log('Press', x);
-
-				if (x.type !== 'error') {
-					dispatch(actions.actualizarLogin({ ...x.value, isLogged: true }));
-
-					// Fetching logged user from 'Usuarios' collection
-					const userData = getCollection('plant_usuarios').then((response) => response);
-
-					const usersResponse = await userData;
-
-					const foundUser = usersResponse.find((us) => us.uid === x.value.uid);
-
-					dispatch(actions.setUser(foundUser));
-				}
-			});
+			logout().then(
+				getCollection('plant_usuarios').then((r) => {
+					console.log('PantallaLogin', r);
+					() => {
+						logIn('ll@gmail.com', '123456').then(async (x) => {
+							x.type == 'error';
+							console.log('PantallaLogin x.type', x.type);
+							setloading(false);
+						});
+					};
+				})
+			);
 		} else {
+			setloading(false);
+
 			Alert.alert('Todos los campos son obligatorios');
 		}
 	};
-	useEffect(() => {
-		console.log(form, loginResponse);
-		if (loginResponse) {
-			if (loginResponse.type === 'success') {
-				props.dispatch(actions.actualizarLogin({ ...loginResponse.value, isLogged: true }));
-			}
+
+	const [initializing, setInitializing] = useState(true);
+	const [user, setUser] = useState();
+
+	// Handle user state changes
+	const onAuthStateChanged = async (user) => {
+		if (user) {
+			const userData = await getCollection('plant_usuarios');
+			const foundUser = userData.filter((us) => {
+				return us.uid === user.uid;
+			});
+
+			console.log('PantallaLogin userData', userData);
+
+			dispatch(actions.actualizarLogin({ ...user, isLogged: true }));
+			dispatch(actions.setUser(foundUser[0]));
+
+			setloading(false);
+			setUser(user);
+			if (initializing) setInitializing(false);
 		}
-	}, [loginResponse]);
+	};
+
+	useEffect(() => {
+		const subscriber = firebaseApp.auth().onAuthStateChanged(onAuthStateChanged);
+		return subscriber; // unsubscribe on unmount
+	}, []);
+
+	console.log('PantallaLogin', initializing);
 
 	return (
-		<Container styleContainer={styles.screen} footer={false}>
+		<Container isloading={loading} styleContainer={styles.screen} footer={false}>
 			<View style={[styles.logo, { marginTop: pantalla.screenHeight <= 592 ? 50 : 125 }]}>
 				<ElGasLogo height="100%" width="100%" />
 			</View>
