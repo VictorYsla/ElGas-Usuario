@@ -16,7 +16,13 @@ import { useFocusEffect } from "@react-navigation/native";
 import { actions } from "../../redux";
 import CancelIcon from "../../components/Icons/CancelIcon";
 
-function MyAddress({ user, prePedido, dispatch, navigation }) {
+function MyAddress({
+  user,
+  prePedido,
+  dispatch,
+  navigation,
+  miCuenta = false,
+}) {
   useFocusEffect(
     React.useCallback(() => {
       const userData = getCollection("plant_usuarios").then((response) => {
@@ -37,8 +43,13 @@ function MyAddress({ user, prePedido, dispatch, navigation }) {
             item={item}
             prePedido={prePedido}
             elegir={() => {
-              dispatch(actions.actualizarPrePedido(item.item));
-              navigation.goBack();
+              dispatch(
+                actions.actualizarPrePedido({
+                  ...prePedido,
+                  direccion: item.item,
+                })
+              );
+              !miCuenta && navigation.goBack();
             }}
           />
         )}
@@ -75,7 +86,7 @@ const Item = ({
   prePedido,
   image = () => <CancelIcon width={wp(10)} height={hp(5)} />,
 }) => {
-  console.log("MyAddress", item);
+  // console.log("MyAddress", item);
 
   return (
     <TouchableOpacity
@@ -91,9 +102,8 @@ const Item = ({
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "row",
-        // borderRadius: 10,
         backgroundColor:
-          prePedido.address == item.item.address
+          prePedido.direccion.address == item.item.address
             ? "rgba(52,52,52,0.1)"
             : "white",
       }}

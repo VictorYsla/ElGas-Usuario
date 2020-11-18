@@ -5,6 +5,7 @@ import {
   Text,
   Dimensions,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -191,19 +192,27 @@ const Item = ({ navigation, ruta, texto, icon }) => {
         ) {
           dispatch(actions.actualizarUbicacion(ruta));
         } else {
-          logout().then(() => {
-            dispatch(
-              actions.actualizarLogin({
-                isLogged: false,
-                uid: "",
-                userName: "",
-                email: "",
-                token: "",
-              })
-            );
+          Alert.alert("Atención!", "¿Seguro de cerrar sesión?", [
+            {
+              text: "Si",
+              onPress: () => {
+                logout().then(() => {
+                  dispatch(
+                    actions.actualizarLogin({
+                      isLogged: false,
+                      uid: "",
+                      userName: "",
+                      email: "",
+                      token: "",
+                    })
+                  );
 
-            dispatch(actions.clearUser());
-          });
+                  dispatch(actions.clearUser());
+                });
+              },
+            },
+            { text: "Cancelar", onPress: () => {} },
+          ]);
         }
       }}
       style={styles.tabButton}

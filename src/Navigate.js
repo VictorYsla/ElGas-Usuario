@@ -30,7 +30,7 @@ import { Platform } from "react-native";
 import NotificacionesEjemplo from "./pruebas/NotificacionesEjemplo";
 import MyInformation from "./screens/MyAccount/MyInformation";
 import MyAccount from "./screens/MyAccount/MyAccount";
-import MyFactudata from "./screens/MyAccount/MyFactudata";
+import MyFactudata from "./screens/Facturaciones/MyFactudata";
 
 import * as firebase from "firebase";
 import "@firebase/auth";
@@ -38,6 +38,7 @@ import "@firebase/auth";
 import { actions } from "./redux";
 import { getCollection } from "./apis/querys";
 import FactuForm from "./screens/Facturaciones/FactuForm";
+import FactuList from "./screens/Facturaciones/FactuList";
 
 const Navegador = ({ dispatch }) => {
   const Stack = createStackNavigator();
@@ -164,8 +165,8 @@ const Navegador = ({ dispatch }) => {
         {/* Factur Data */}
 
         <Stack.Screen
-          name="MyFactudata"
-          component={MyFactudata}
+          name="FactuList"
+          component={FactuList}
           options={options}
         />
 

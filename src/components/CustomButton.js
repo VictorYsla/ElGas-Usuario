@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { colores } from "../constantes/Temas";
 
 const CustomButton = ({ onPress = () => {}, children, disabled }) => {
   return (
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   buttonWrapper: { overflow: "hidden", borderRadius: 5, height: 50 },
   button: {
     padding: 15,
-    backgroundColor: "#F2F2F2",
+    backgroundColor: colores.amarillo,
     height: "100%",
     width: "100%",
     alignItems: "center",

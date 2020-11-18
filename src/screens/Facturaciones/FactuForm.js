@@ -1,20 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { connect } from "react-redux";
+import { updateCollectionArray } from "../../apis/querys";
 import CustomButton from "../../components/CustomButton";
 import CustomSelector from "../../components/Form/Selector";
 import BasicHeader from "../../components/Header/BasicHeader";
 
 import Container from "../../generales/Container";
 
-const FactuForm = (props) => {
-  const [form, setform] = useState({});
+const FactuForm = ({ navigation, user }) => {
+  const [form, setform] = useState({
+    nombre: "",
+    tipo: "",
+    numero: "",
+    direccion: "",
+    telefono: "",
+  });
+  const [loading, setloading] = useState(false);
 
-  console.log("FactuForms", form);
+  const agregarDatosDeFacturación = () => {
+    if (validateForm()) {
+      setloading(true);
+      updateCollectionArray("plant_usuarios", user.id, "facturacion", {
+        ...form,
+      }).then((r) => {
+        setloading(false);
+
+        r
+          ? navigation.goBack()
+          : alert("Sucedió un error desconocido, lo sentimos!");
+      });
+    }
+  };
+
+  const validateForm = () => {
+    return (
+      form.nombre != "undefined" &&
+      form.tipo != "undefined" &&
+      form.numero != "undefined" &&
+      form.direccion != "undefined" &&
+      form.telefono != "undefined"
+    );
+  };
+
+  // console.log("FactuForms", form);
 
   return (
-    <Container styleContainer={[styles.screen]} navigation={props.navigation}>
-      <BasicHeader title="Mi Cuenta" />
+    <Container
+      isloading={loading}
+      styleContainer={[styles.screen]}
+      navigation={navigation}
+    >
+      <BasicHeader
+        onPressLeftIcon={() => {
+          navigation.goBack();
+        }}
+        title="Mi Cuenta"
+      />
 
       <View
         style={[
@@ -87,27 +130,14 @@ const FactuForm = (props) => {
       </View>
       <View
         style={{
-          height: 120,
+          height: 60,
+          width: "80%",
           justifyContent: "space-between",
           position: "absolute",
           bottom: 20,
         }}
       >
-        <CustomButton
-          onPress={() => props.navigation.navigate("CambiarContrasena")}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              textTransform: "uppercase",
-              fontSize: RFPercentage(2.2),
-            }}
-          >
-            Cambiar Contraseña
-          </Text>
-        </CustomButton>
-
-        <CustomButton onPress={() => {}}>
+        <CustomButton onPress={agregarDatosDeFacturación}>
           <Text
             style={{
               fontWeight: "bold",
@@ -138,4 +168,10 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
   },
 });
-export default FactuForm;
+
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+  prePedido: state.prePedido.prePedido,
+});
+
+export default connect(mapStateToProps)(FactuForm);

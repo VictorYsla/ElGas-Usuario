@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { connect } from "react-redux";
+import CustomButton from "../../components/CustomButton";
 
 import BasicHeader from "../../components/Header/BasicHeader";
 import AddressIcon from "../../components/Icons/AddressIcon";
@@ -13,7 +15,7 @@ import Container from "../../generales/Container";
 const OrderDetails = ({ cart, navigation, prePedido }) => {
   const [metodo, setmetodo] = useState("Efectivo");
 
-  console.log("OrderDetails", prePedido);
+  // console.log("OrderDetails", prePedido);
 
   let total = 0;
   let domicilio = 2;
@@ -44,13 +46,13 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
           <AddressIcon height={30} width={30} />
           <View style={{ flex: 1, paddingLeft: 10 }}>
             <Text>
-              {prePedido.address != undefined
-                ? prePedido.address
+              {prePedido.direccion.address != undefined
+                ? prePedido.direccion.address
                 : "Direccion de entrega"}
             </Text>
             <Text>
-              {prePedido.addressDetails != undefined
-                ? prePedido.addressDetails
+              {prePedido.direccion.addressDetails != undefined
+                ? prePedido.direccion.addressDetails
                 : "Elige una dirección"}
             </Text>
           </View>
@@ -58,7 +60,7 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("MyFactudata")}
+          onPress={() => navigation.navigate("FactuList")}
           style={[
             {
               flexDirection: "row",
@@ -74,12 +76,12 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
           <View style={{ flex: 1, paddingLeft: 10 }}>
             <Text>
               {prePedido.facturacion != undefined
-                ? prePedido.facturacion.facturacion
+                ? prePedido.facturacion.nombre
                 : "Datos de facturación"}
             </Text>
             <Text>
               {prePedido.facturacion != undefined
-                ? prePedido.facturacion.facturacion
+                ? prePedido.facturacion.numero
                 : "Elige una opción"}
             </Text>
           </View>
@@ -174,6 +176,27 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
               Efectivo
             </Text>
           </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: 60,
+            width: "80%",
+            justifyContent: "space-between",
+            position: "absolute",
+            bottom: 20,
+          }}
+        >
+          <CustomButton onPress={() => {}}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                textTransform: "uppercase",
+                fontSize: RFPercentage(2.2),
+              }}
+            >
+              Confirmar compra
+            </Text>
+          </CustomButton>
         </View>
       </View>
     </Container>

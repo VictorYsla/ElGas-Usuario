@@ -8,7 +8,7 @@ import {
 } from "react-native-responsive-screen";
 import { colores } from "../../constantes/Temas";
 import MyInformation from "./MyInformation";
-import MyFactudata from "./MyFactudata";
+import MyFactudata from "../Facturaciones/MyFactudata";
 import MyAddress from "./MyAddress";
 
 const MyAccount = ({ navigation }) => {
@@ -83,11 +83,11 @@ const MyAccount = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {current === "MyInformation" ? (
-        <MyInformation navigation={navigation} />
+        <MyInformation navigation={navigation} miCuenta={true} />
       ) : current === "MyFacturData" ? (
-        <MyFactudata navigation={navigation} />
+        <MyFactudata navigation={navigation} miCuenta={true} />
       ) : (
-        <MyAddress navigation={navigation} />
+        <MyAddress navigation={navigation} miCuenta={true} />
       )}
     </Container>
   );

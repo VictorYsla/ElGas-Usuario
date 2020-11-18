@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import Container from "../../generales/Container";
@@ -22,12 +21,18 @@ import { colores } from "../../constantes/Temas";
 import PlusFloatingButton from "../../components/PlusFloatingButton";
 import { actions } from "../../redux";
 import { connect } from "react-redux";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { useFocusEffect } from "@react-navigation/native";
 import { getCollection } from "../../apis/querys";
 
-const MyFactuData = ({ dispatch, prePedido, user, navigation }) => {
+const MyFactuData = ({
+  dispatch,
+  prePedido,
+  user,
+  navigation,
+  miCuenta = false,
+}) => {
   useFocusEffect(
     React.useCallback(() => {
       getCollection("plant_usuarios").then((response) => {
@@ -55,8 +60,13 @@ const MyFactuData = ({ dispatch, prePedido, user, navigation }) => {
             icon={() => <OutlineUserIcon width={wp(6)} height={hp(4)} />}
             prePedido={prePedido}
             elegir={() => {
-              dispatch(actions.actualizarPrePedido(item.item));
-              navigation.goBack();
+              dispatch(
+                actions.actualizarPrePedido({
+                  ...prePedido,
+                  facturacion: item.item,
+                })
+              );
+              !miCuenta && navigation.goBack();
             }}
           />
         )}
@@ -83,23 +93,32 @@ const Empty = () => {
   );
 };
 
-const Item = ({ icon = () => <View />, title = "Titulo", style, mTop = 1 }) => {
+const Item = ({ icon = () => <View />, item, style, elegir, prePedido }) => {
   return (
     <TouchableOpacity
+      onPress={elegir}
       style={{
-        ...style,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        height: 80,
+        width: "100%",
+        paddingHorizontal: "10%",
+        marginTop: 10,
+        borderBottomWidth: 0.5,
+        borderColor: "rgba(52,52,52,0.5)",
         alignSelf: "center",
-        width: wp(85),
-        height: hp(10),
-        marginTop: hp(mTop),
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
+        // borderRadius: 10,
+        backgroundColor:
+          prePedido.facturacion.nombre == item.item.nombre
+            ? "rgba(52,52,52,0.1)"
+            : "white",
       }}
     >
       <View style={{ justifyContent: "center", flex: 1 }}>{icon()}</View>
       <View style={{ justifyContent: "center", flex: 5 }}>
         <Text style={{ fontWeight: "bold", fontSize: RFPercentage(2.1) }}>
-          {title}
+          {item.item.nombre}
         </Text>
       </View>
       <View style={{ justifyContent: "center", flex: 1 }}>
