@@ -10,7 +10,7 @@ const persistConfig = {
   key: "root2",
   keyPrefix: "",
   storage: AsyncStorage,
-  whitelist: ["login", "cart", "user"],
+  whitelist: ["login", "cart", "user", "prePedido"],
   /*
 	blacklist: [
 		'productos',

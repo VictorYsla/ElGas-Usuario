@@ -24,58 +24,19 @@ import CancelIcon from "../../components/Icons/CancelIcon";
 import FilledUserIcon from "../../components/Icons/FilledUserIcon";
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
 import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
+import MyAddress from "../MyAccount/MyAddress";
 const initialValues = { city: "", address: "", addressDetails: "" };
 
-const AddressDeliveryForm = ({}) => {
+const AddressDeliveryForm = ({ navigation }) => {
   return (
     <Container>
-      <BasicHeader title="Direccion de entrega" />
-      <View
-        style={{
-          marginTop: hp(5),
-          justifyContent: "space-between",
-          marginHorizontal: wp(10),
+      <BasicHeader
+        title="Direccion de entrega"
+        onPressLeftIcon={() => {
+          navigation.goBack();
         }}
-      >
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              width: "100%",
-              marginVertical: 10,
-              alignItems: "center",
-            },
-          ]}
-        >
-          <View style={[{ width: "20%" }]}>
-            <FilledUserIcon width={20} height={20} />
-          </View>
-          <View style={[{ width: "80%" }]}>
-            <Text>Consumidor final</Text>
-          </View>
-        </View>
-        <View
-          style={[
-            {
-              flexDirection: "row",
-              width: "100%",
-              marginVertical: 10,
-              alignItems: "center",
-            },
-          ]}
-        >
-          <View style={[{ width: "20%" }]}>
-            <OutlineUserIcon width={20} height={20} />
-          </View>
-          <View style={[{ width: "70%" }]}>
-            <Text>Silvester Stalone</Text>
-          </View>
-          <View style={[{ width: "20%" }]}>
-            <ChevronRightIcon width={15} height={15} />
-          </View>
-        </View>
-      </View>
-      <PlusFloatingButton />
+      />
+      <MyAddress navigation={navigation} />
     </Container>
   );
 };

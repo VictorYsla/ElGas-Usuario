@@ -9,6 +9,7 @@ import cart, { UpdateCart } from "./reducer/cart";
 import products, { fetchProducts } from "./reducer/products";
 import pushToken, { setPushToken } from "./reducer/pushToken";
 import user, { setUser, clearUser } from "./reducer/user";
+import prePedido, { actualizarPrePedido } from "./reducer/prePedido";
 
 export default combineReducers({
   login,
@@ -17,6 +18,7 @@ export default combineReducers({
   cart,
   products,
   pushToken,
+  prePedido,
 });
 
 export const actions = {
@@ -28,4 +30,5 @@ export const actions = {
   setPushToken,
   setUser,
   clearUser,
+  actualizarPrePedido,
 };

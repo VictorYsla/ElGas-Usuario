@@ -83,9 +83,9 @@ const MyAccount = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {current === "MyInformation" ? (
-        <MyInformation />
+        <MyInformation navigation={navigation} />
       ) : current === "MyFacturData" ? (
-        <MyFactudata />
+        <MyFactudata navigation={navigation} />
       ) : (
         <MyAddress navigation={navigation} />
       )}

@@ -27,7 +27,7 @@ const CustomButton = ({ onPress = () => {}, children, disabled }) => {
 };
 
 const styles = StyleSheet.create({
-  buttonWrapper: { overflow: "hidden", borderRadius: 5 },
+  buttonWrapper: { overflow: "hidden", borderRadius: 5, height: 50 },
   button: {
     padding: 15,
     backgroundColor: "#F2F2F2",

@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 //importaciones necesarias para redux//
 import { connect } from "react-redux";
@@ -34,10 +34,9 @@ const AddressDeliveryForm = ({ user, navigation }) => {
   const [tipo, settipo] = useState("Domicilio");
   const [loading, setloading] = useState(false);
 
-  const [location, setLocation] = useState({
-    latitude: 74.0,
-    longitude: -4.0,
-  });
+  const [location, setLocation] = useState(false);
+
+  const [marker, setmarker] = useState(true);
 
   useEffect(() => {
     GetCurrentLocation();
@@ -50,11 +49,22 @@ const AddressDeliveryForm = ({ user, navigation }) => {
     }
     let location = await Location.getCurrentPositionAsync({});
 
+    // console.log("AddressDeliveryForm", {
+    //   latitude: location.coords.latitude,
+    //   longitude: location.coords.longitude,
+    // });
+
     setLocation({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
     });
   }
+
+  // console.log("AddresDeliveryForm", {
+  //   location: location,
+  //   tipo: tipo,
+  //   ...form.fields,
+  // });
 
   const agregarDireccion = () => {
     setloading(true);
@@ -71,7 +81,24 @@ const AddressDeliveryForm = ({ user, navigation }) => {
     });
   };
 
-  //   console.log("AddressDeliveryForm", form);
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setmarker(false);
+  };
+
+  const _keyboardDidHide = () => {
+    setmarker(true);
+  };
 
   return (
     <Container isloading={loading}>
@@ -89,43 +116,43 @@ const AddressDeliveryForm = ({ user, navigation }) => {
         <CustomButton tipo={tipo} settipo={settipo} title="Otro" />
       </View>
       <View style={{ marginTop: hp(2) }}>
-        <KeyboardAwareScrollView>
-          <TextInputBottomBorder form={form.getInput("city")} title="Ciudad" />
-          <TextInputBottomBorder
-            form={form.getInput("address")}
-            title="Dirección completa y numeración"
-          />
-          <TextInputBottomBorder
-            form={form.getInput("addressDetails")}
-            title="Edificio/torre/departamento"
-          />
-        </KeyboardAwareScrollView>
+        <TextInputBottomBorder form={form.getInput("city")} title="Ciudad" />
+        <TextInputBottomBorder
+          form={form.getInput("address")}
+          title="Dirección completa y numeración"
+        />
+        <TextInputBottomBorder
+          form={form.getInput("addressDetails")}
+          title="Edificio/torre/departamento"
+        />
       </View>
       <View style={{ flex: 1, marginTop: hp(5), justifyContent: "center" }}>
-        <MapView
-          style={{ flex: 1 }}
-          onRegionChangeComplete={setLocation}
-          initialRegion={{
-            ...location,
-            latitudeDelta: 0.2,
-            longitudeDelta: 0.2,
-          }}
-          showsMyLocationButton
-          showsUserLocation
-        ></MapView>
-        <View
-          style={{
-            position: "absolute",
-            // backgroundColor: "red",
-            alignSelf: "center",
-
-            width: 50,
-            height: 100,
-            paddingBottom: 60,
-          }}
-        >
-          <MarkerIcon />
-        </View>
+        {location && (
+          <MapView
+            style={{ flex: 1 }}
+            onRegionChangeComplete={setLocation}
+            initialRegion={{
+              ...location,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}
+            showsMyLocationButton
+            showsUserLocation
+          ></MapView>
+        )}
+        {marker && (
+          <View
+            style={{
+              position: "absolute",
+              alignSelf: "center",
+              width: 50,
+              height: hp(15),
+              paddingBottom: 60,
+            }}
+          >
+            <MarkerIcon />
+          </View>
+        )}
         <TouchableOpacity
           onPress={agregarDireccion}
           style={{

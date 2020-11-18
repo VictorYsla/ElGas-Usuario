@@ -8,7 +8,7 @@ import {
 } from "react-native-responsive-screen";
 import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
 
-const InitalLeftComponent = (icon = () => {}, onPress) => {
+const InitalLeftComponent = (icon = () => <View />, onPress) => {
   return (
     <TouchableOpacity
       onPress={onPress}

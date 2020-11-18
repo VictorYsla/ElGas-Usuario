@@ -17,29 +17,73 @@ import {
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
-import EmailIcon from "../../components/Icons/EmailIcon";
-import CalendarIcon from "../../components/Icons/CalendarIcon";
-import PhoneIcon from "../../components/Icons/PhoneIcon";
+
 import { colores } from "../../constantes/Temas";
 import PlusFloatingButton from "../../components/PlusFloatingButton";
-const initialValues = { name: "", dni: "", address: "", dniType: "C.I" };
+import { actions } from "../../redux";
+import { connect } from "react-redux";
+import { FlatList } from "react-native-gesture-handler";
 
-const MyInformation = ({}) => {
+import { useFocusEffect } from "@react-navigation/native";
+import { getCollection } from "../../apis/querys";
+
+const MyFactuData = ({ dispatch, prePedido, user, navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      getCollection("plant_usuarios").then((response) => {
+        const foundUser = response.filter((us) => us.uid === user.uid);
+        dispatch(actions.setUser(foundUser[0]));
+      });
+    }, [])
+  );
+
+  console.log("MyAdress", user);
+
   return (
     <View style={{ flex: 1 }}>
-      <View>
-        <Item
-          icon={() => <OutlineUserIcon width={wp(6)} height={hp(4)} />}
-          title="Manolo Romero"
-          mTop={5}
-        />
-      </View>
-      <PlusFloatingButton />
+      {/* <BasicHeader
+        title="Datos de facturación"
+        onPressLeftIcon={() => {
+          navigation.goBack();
+        }}
+      /> */}
+      <FlatList
+        data={user.facturacion ? user.facturacion : []}
+        renderItem={(item) => (
+          <Item
+            item={item}
+            icon={() => <OutlineUserIcon width={wp(6)} height={hp(4)} />}
+            prePedido={prePedido}
+            elegir={() => {
+              dispatch(actions.actualizarPrePedido(item.item));
+              navigation.goBack();
+            }}
+          />
+        )}
+        ListEmptyComponent={<Empty />}
+      />
+      <PlusFloatingButton onPress={() => navigation.navigate("FactuForm")} />
     </View>
   );
 };
 
-const Item = ({ icon = () => {}, title = "Titulo", style, mTop = 1 }) => {
+const Empty = () => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 300,
+      }}
+    >
+      <Text>Aún no agregaste una dirección</Text>
+    </View>
+  );
+};
+
+const Item = ({ icon = () => <View />, title = "Titulo", style, mTop = 1 }) => {
   return (
     <TouchableOpacity
       style={{
@@ -64,4 +108,10 @@ const Item = ({ icon = () => {}, title = "Titulo", style, mTop = 1 }) => {
     </TouchableOpacity>
   );
 };
-export default MyInformation;
+
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+  prePedido: state.prePedido.prePedido,
+});
+
+export default connect(mapStateToProps)(MyFactuData);
