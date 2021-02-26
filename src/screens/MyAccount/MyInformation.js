@@ -18,7 +18,7 @@ import { colores } from "../../constantes/Temas";
 import { actions } from "../../redux";
 import { updateCollection } from "../../apis/querys";
 
-const MyInformation = ({ dispatch }) => {
+const MyInformation = ({ dispatch, navigation }) => {
   const user = useSelector((state) => state.user.user);
 
   const [newuser, setnewuser] = useState({ ...user });
@@ -41,6 +41,8 @@ const MyInformation = ({ dispatch }) => {
     dispatch(actions.setUser({ ...user, ...newuser }));
   };
 
+  // console.log("navigation:", navigation);
+
   useEffect(() => {
     const formattedDate = `${date.getDate()}-${
       date.getMonth() + 1
@@ -49,7 +51,7 @@ const MyInformation = ({ dispatch }) => {
     setnewuser({ birthDate: formattedDate, ...user });
   }, [date]);
 
-  // console.log("MyInformation", newuser);
+  console.log("user", user);
 
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -86,21 +88,42 @@ const MyInformation = ({ dispatch }) => {
           field="phoneNumber"
           onChange={setnewuser}
         />
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("RecuperarContrasena", "reset")}
+          style={{
+            width: wp(50),
+            height: hp(7),
+            backgroundColor: colores.grisClaro,
+            alignSelf: "center",
+            marginBottom: hp(3),
+            marginTop: hp(3),
+            borderRadius: wp(2),
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+            Cambiar Contraseña
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={updateUser}
+          style={{
+            width: wp(50),
+            height: hp(7),
+            backgroundColor: colores.amarillo,
+            alignSelf: "center",
+            // marginTop: hp(3),
+            borderRadius: wp(2),
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+            GUARDAR
+          </Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={updateUser}
-        style={{
-          width: wp(50),
-          height: hp(7),
-          backgroundColor: colores.amarillo,
-          alignSelf: "center",
-          marginBottom: hp(3),
-          borderRadius: wp(2),
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ textAlign: "center", fontWeight: "bold" }}>GUARDAR</Text>
-      </TouchableOpacity>
 
       {showCalendar && (
         <DateTimePicker

@@ -34,6 +34,10 @@ function MyAddress({
 
   // console.log("MyAdress", navigation);
 
+  {
+    console.log("user::", user);
+  }
+
   return (
     <View style={{ width: "100%", flex: 1, justifyContent: "center" }}>
       <FlatList
@@ -103,9 +107,16 @@ const Item = ({
         alignItems: "center",
         flexDirection: "row",
         backgroundColor:
-          prePedido.direccion.address == item.item.address
-            ? "rgba(52,52,52,0.1)"
+          // prePedido.direccion.address == item.item.address
+
+          //   ? "rgba(52,52,52,0.1)"
+          //   : "white"
+          prePedido.direccion
+            ? prePedido.direccion.address == item.item.address
+              ? "rgba(52,52,52,0.1)"
+              : "white"
             : "white",
+        // "rgba(52,52,52,0.1)",
       }}
     >
       {image()}

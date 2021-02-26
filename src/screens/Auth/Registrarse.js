@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import Container from "../../generales/Container";
 import useForm from "../../hooks/useForm";
@@ -16,7 +16,7 @@ const initialValues = {
   phone: "",
 };
 const Registrarse = ({ dispatch, navigation }) => {
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
 
   const form = useForm({ initialValues });
   const register = () => {

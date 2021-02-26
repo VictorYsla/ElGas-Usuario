@@ -22,7 +22,7 @@ const Item = (props) => {
     dispatch(actions.UpdateCart.actualizarCarro([...newcart]));
   };
 
-  console.log("EditQuantityButtons cart", item);
+  console.log("item", item);
 
   return (
     <View

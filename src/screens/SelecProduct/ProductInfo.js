@@ -250,10 +250,10 @@ const ProductInfo = ({ route: { params }, navigation }) => {
         </View>
       </View>
 
-      {/* <View
+      <View
         style={{
           backgroundColor: colores.grisClaro,
-          height: 75,
+          height: hp(7),
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
@@ -271,7 +271,7 @@ const ProductInfo = ({ route: { params }, navigation }) => {
           }
           onAdViewDidReceiveAd={() => console.log("banner ad received")}
         />
-     </View> */}
+      </View>
     </View>
   );
 };

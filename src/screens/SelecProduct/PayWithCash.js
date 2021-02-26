@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, Image } from "react-native";
 
 import Container from "../../generales/Container";
 import CustomButton from "../../components/CustomButton";
@@ -8,18 +8,26 @@ import { sendPassword } from "../../apis/querys";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colores } from "../../constantes/Temas";
 
-const RecuperarContrasena = (props) => {
-  const [email, setemail] = useState("");
+const PayWithCash = (props) => {
+  const [monto, setMonto] = useState("");
   const [loading, setloading] = useState(false);
-  const [result, setresult] = useState({ error: false, mensaje: "" });
-  const cambiarContraseña = props.route.params;
-  console.log("cambiarContraseña:", cambiarContraseña);
+
+  const handleNavigateOrderDetails = () => {
+    props.navigation.navigate("OrderDetails", { payWith: parseFloat(monto) });
+  };
 
   return (
     <Container styleContainer={styles.screen} footer={false}>
-      <View style={styles.imageContainer}>
-        <QuestionIcon width="100%" height="100%" />
-      </View>
+      <Image
+        style={{
+          width: 80,
+          height: 25,
+          resizeMode: "contain",
+          marginTop: 8,
+          marginBottom: 8,
+        }}
+        source={require("../../imagenes/efectivo.png")}
+      />
 
       <View
         style={{
@@ -29,55 +37,28 @@ const RecuperarContrasena = (props) => {
           marginVertical: 10,
         }}
       >
-        <Text
-          style={{ fontWeight: "bold", fontSize: cambiarContraseña ? 20 : 22 }}
-        >
-          {cambiarContraseña
-            ? "¿Desea cambiar su contraseña?"
-            : "¿Olvidó su clave?"}
-        </Text>
-        <Text style={{ fontSize: 16, textAlign: "center", marginTop: 10 }}>
-          Ingrese el correo que usted usó para crear su cuenta y le enviaremos
-          un link para resetear su clave
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+          Ingrese el monto
         </Text>
       </View>
 
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
-          onChangeText={setemail}
+          placeholder="Monto"
+          onChangeText={setMonto}
+          keyboardType={"numeric"}
         />
-        {result.error && (
-          <Text
-            style={{
-              alignSelf: "center",
-              fontSize: RFPercentage(1.8),
-              color: colores.amarillo,
-              marginTop: 5,
-            }}
-          >
-            {"Email no registrado"}
-          </Text>
-        )}
       </View>
 
       <View style={styles.buttonContainer}>
         <CustomButton
           disabled={loading}
           onPress={() => {
-            setloading(true);
-            sendPassword(email).then((r) => {
-              // console.log("RecuperarContraseña", r);
-              setloading(false);
-              setresult(r);
-
-              !r.error && alert("Por favor revise su bandeja de entrada");
-              !r.error && props.navigation.navigate("Login");
-            });
+            handleNavigateOrderDetails();
           }}
         >
-          <Text style={styles.buttonLabel}>ENVIAR MAIL</Text>
+          <Text style={styles.buttonLabel}>Continuar</Text>
         </CustomButton>
       </View>
     </Container>
@@ -125,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecuperarContrasena;
+export default PayWithCash;

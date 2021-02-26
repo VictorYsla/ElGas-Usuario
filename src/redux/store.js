@@ -10,12 +10,9 @@ const persistConfig = {
   key: "root2",
   keyPrefix: "",
   storage: AsyncStorage,
-  whitelist: ["login", "cart", "user", "prePedido"],
-  /*
-	blacklist: [
-		'productos',
-	  ],
-	  */
+  whitelist: ["prePedido", "user", "login", "cart", "pushToken"],
+
+  blacklist: [],
 };
 
 /* const middlewares = [];

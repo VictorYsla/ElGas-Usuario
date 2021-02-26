@@ -109,10 +109,11 @@ const Item = ({ icon = () => <View />, item, style, elegir, prePedido }) => {
         alignItems: "center",
         flexDirection: "row",
         // borderRadius: 10,
-        backgroundColor:
-          prePedido.facturacion.nombre == item.item.nombre
+        backgroundColor: prePedido.facturacion
+          ? prePedido.facturacion.nombre == item.item.nombre
             ? "rgba(52,52,52,0.1)"
-            : "white",
+            : "white"
+          : "white",
       }}
     >
       <View style={{ justifyContent: "center", flex: 1 }}>{icon()}</View>

@@ -60,7 +60,7 @@ const PantallaPedidos = (props) => {
 
   return (
     <Container styleContainer={styles.screen}>
-      <BasicHeader title='Mis Pedidos' />
+      <BasicHeader title="Mis Pedidos" />
       <View
         style={{
           height: "10%",
@@ -160,9 +160,9 @@ const ListItem = ({ item }) => {
           <Text>{formattedTime}</Text>
         </View>
       </View>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
+      {/* <View style={{ alignItems: "center", justifyContent: "center" }}>
         <Text style={styles.label}>ID {item.id}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };

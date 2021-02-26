@@ -36,6 +36,7 @@ const MyAccount = ({ navigation }) => {
           <Text
             style={{
               color: current === "MyInformation" ? colores.amarillo : "#fff",
+              fontSize: hp(2),
               fontWeight: current === "MyInformation" ? "bold" : "100",
               textAlign: "center",
             }}
@@ -55,6 +56,7 @@ const MyAccount = ({ navigation }) => {
           <Text
             style={{
               color: current === "MyAddresses" ? colores.amarillo : "#fff",
+              fontSize: hp(2),
               fontWeight: current === "MyAddresses" ? "bold" : "100",
               textAlign: "center",
             }}
@@ -74,8 +76,10 @@ const MyAccount = ({ navigation }) => {
           <Text
             style={{
               color: current === "MyFacturData" ? colores.amarillo : "#fff",
+              fontSize: hp(2),
               fontWeight: current === "MyFacturData" ? "bold" : "100",
               textAlign: "center",
+              textAlignVertical: "top",
             }}
           >
             Mis datos de facturación

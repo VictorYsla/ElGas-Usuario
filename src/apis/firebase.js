@@ -6,6 +6,8 @@ export const getAllUsers = async (funcion = () => {}) => {
   try {
     const Db = firebase.firestore().collection("gestion");
 
+    console.log("Db:", Db);
+
     Db.onSnapshot(
       {
         includeMetadataChanges: true,

@@ -2,6 +2,55 @@ import * as firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
+export const getCurrentDeliverys = async (
+  uid = "333333333333",
+  type = status
+) => {
+  const collection = "plant_pedidos_en_camino";
+  if (type !== "") {
+    // console.log("InSolocitado");
+    return await firebase
+      .firestore()
+      .collection(collection)
+      .where("orderStatus", "==", `${type}`)
+      .get()
+      .then((x) => {
+        const values = [];
+        x.docs.forEach((doc) => {
+          values.push({ ...doc.data(), id_doc: doc.id });
+        });
+        return values;
+      });
+  }
+  return await firebase
+    .firestore()
+    .collection(collection)
+    .where("id_driver", "==", `${uid}`)
+    .where("orderStatus", "==", `${type}`)
+    .get()
+    .then((x) => {
+      const values = [];
+      x.docs.forEach((doc) => {
+        values.push({ ...doc.data(), id_doc: doc.id });
+      });
+      return values;
+    });
+};
+
+export const createDB = async (collection = "1", body = { name: "" }) => {
+  return await firebase
+    .firestore()
+    .collection(collection)
+    .doc()
+    .set(body)
+    .then((x) => {
+      console.log("Enviado");
+    })
+    .catch((error) => {
+      console.log("Error-createDB:", error);
+    });
+};
+
 export const getCollection = async (collectionName = "1") => {
   return await firebase
     .firestore()
@@ -28,8 +77,8 @@ export const postCollection = (collectionName = "1", body = { name: "" }) => {
     .then(() => {
       return true;
     })
-    .catch(() => {
-      return false;
+    .catch((error) => {
+      return false, console.log("postCollection:", error);
     });
 };
 
@@ -95,7 +144,7 @@ export const singUp = async (
   password = "",
   phoneNumberUser = ""
 ) => {
-  //console.log(email, userName, password, phoneNumberUser);
+  console.log(email, userName, password, phoneNumberUser);
   return await firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -116,17 +165,20 @@ export const singUp = async (
         });
     })
     .catch((e) => {
-      console.log("error: ", e);
+      console.log("error-createuser: ", e);
       return { type: "error", value: e };
     });
 };
 
+console.log("firebase:", firebase);
+
 export const logIn = async (email = "", password = "") => {
+  console.log("email:", email, "password:", password);
   return await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((res) => {
-      // console.log('Login: ',res)
+      // console.log("Login: ", res);
       const user = {
         userName: res.user.displayName,
         token: res.user.l,
@@ -139,7 +191,7 @@ export const logIn = async (email = "", password = "") => {
       // setResponse({type:'sucess', value: user})
     })
     .catch((e) => {
-      console.log("error: ", e);
+      console.log("error-LoginIn: ", e);
       return { type: "error", value: e };
     });
 };

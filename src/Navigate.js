@@ -21,7 +21,7 @@ import AddressDeliveryForm from "./screens/AddressDelivery/AddressDeliveryForm";
 import AddressDeliveryFormUser from "./screens/AddressDelivery/AddressDeliveryFormUser";
 import AddressDeliveryOptions from "./screens/AddressDelivery/AddressDeliveryOptions";
 import AddressDeliveryUsers from "./screens/AddressDelivery/AddressDeliveryUsers";
-import Products from "./screens/SelecProduct/Products";
+import Products from "./screens/SelecProduct/Products"; // segunda pantalla
 import ProductInfo from "./screens/SelecProduct/ProductInfo";
 import MyCart from "./screens/SelecProduct/MyCart";
 import DeliveryDetails from "./screens/SelecProduct/DeliveryDetails";
@@ -39,6 +39,7 @@ import { actions } from "./redux";
 import { getCollection } from "./apis/querys";
 import FactuForm from "./screens/Facturaciones/FactuForm";
 import FactuList from "./screens/Facturaciones/FactuList";
+import PayWithCash from "./screens/SelecProduct/PayWithCash";
 
 const Navegador = ({ dispatch }) => {
   const Stack = createStackNavigator();
@@ -54,10 +55,19 @@ const Navegador = ({ dispatch }) => {
         return us.uid === user.uid;
       });
 
-      // console.log("PantallaLogin user", user);
+      // console.log("userData", userData[0].userName);
       // console.log("PantallaLogin foundUser", foundUser);
 
       dispatch(actions.actualizarLogin({ isLogged: true }));
+      dispatch(
+        actions.actualizarLogin({
+          isLogged: true,
+          uid: userData[0].uid,
+          userName: userData[0].userName,
+          email: userData[0].email,
+          token: userData[0].token,
+        })
+      );
       dispatch(actions.setUser(foundUser[0]));
 
       if (initializing) setInitializing(false);
@@ -85,7 +95,7 @@ const Navegador = ({ dispatch }) => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName="PantallaBienvenida" //PantallaBienvenida,  DeliveryDetails
+          initialRouteName="Login" //PantallaBienvenida,  DeliveryDetails
         >
           <Stack.Screen name="PantallaBienvenida">
             {(props) => {
@@ -116,7 +126,7 @@ const Navegador = ({ dispatch }) => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="products" //PantallaBienvenida,  DeliveryDetails 'products'
+        initialRouteName="Products" //PantallaBienvenida,  DeliveryDetails 'products'
       >
         {/* Product */}
         <Stack.Screen name="Products" component={Products} options={options} />
@@ -204,6 +214,11 @@ const Navegador = ({ dispatch }) => {
           component={PantallaPedidos}
           options={options}
         />
+        <Stack.Screen
+          name="RecuperarContrasena"
+          component={RecuperarContrasena}
+        />
+        <Stack.Screen name="PayWithCash" component={PayWithCash} />
       </Stack.Navigator>
     </NavigationContainer>
   );

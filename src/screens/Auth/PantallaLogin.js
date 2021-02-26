@@ -48,11 +48,28 @@ const PantallaLogin = (props) => {
     setloading(true);
     console.log("PantallaLogin", "Iniciando Login");
     if (ValidateForm(form)) {
-      logIn("ll@gmail.com", "123456").then(async (x) => {
+      logIn(email, password).then(async (x) => {
         if (x.type == "error") {
           onLogin();
         } else {
-          console.log("PantallaLogin x.type", x.type);
+          console.log("PantallaLogin x.type:", x.type);
+          // dispatch(
+          //   actions.actualizarLogin({
+          //     isLogged: true,
+          //     uid: x.value.uid,
+          //     userName: x.value.userName,
+          //     email: x.value.email,
+          //     token: x.value.token,
+          //   })
+          // );
+          // // console.log("TEST:", {
+          // //   isLogged: true,
+          // //   uid: x.value.uid,
+          // //   userName: x.value.userName,
+          // //   email: x.value.email,
+          // //   token: x.value.token,
+          // // });
+          console.log("Error ctmr");
           setloading(false);
         }
       });

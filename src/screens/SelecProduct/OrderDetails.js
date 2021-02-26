@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { set } from "react-native-reanimated";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { postCollection } from "../../apis/querys";
 import CustomButton from "../../components/CustomButton";
 
 import BasicHeader from "../../components/Header/BasicHeader";
@@ -10,12 +13,28 @@ import CardIcon from "../../components/Icons/CardIcon";
 import ChevronRightIcon from "../../components/Icons/ChevronRightIcon";
 import OutlineUserIcon from "../../components/Icons/OutlineUserIcon";
 import { colores } from "../../constantes/Temas";
+import { registerForPushNotificationsAsync } from "../../functions/Notificaciones";
+import { generateUUID } from "../../functions/UUID";
 import Container from "../../generales/Container";
+import { actions } from "../../redux";
 
-const OrderDetails = ({ cart, navigation, prePedido }) => {
-  const [metodo, setmetodo] = useState("Efectivo");
+const OrderDetails = ({
+  cart,
+  navigation,
+  prePedido,
+  route,
+  user,
+  pushToken,
+}) => {
+  const [metodo, setMetodo] = useState("Efectivo");
+  const [notifyToken, setNotifyToken] = useState("");
 
-  // console.log("OrderDetails", prePedido);
+  const login = useSelector((state) => state.login.login);
+  // const pushToken = useSelector((state) => state.pushToken.pushToken);
+  // const dispatch = useDispatch();
+
+  // console.log("notifyToken:", notifyToken);
+  // console.log("pushToken:", pushToken);
 
   let total = 0;
   let domicilio = 2;
@@ -25,13 +44,56 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
   });
 
   total = total + domicilio;
+  useEffect(() => {
+    const getToken = async () => {
+      await registerForPushNotificationsAsync().then((token) => {
+        // console.log("token:", token.length);
+        setNotifyToken(token);
+      });
+      // dispatch(actions.setPushToken(notifyToken));
+    };
+    getToken();
+  }, [notifyToken]);
+
+  const handleConfirmPurchase = () => {
+    const payload = {
+      date: moment(Date.now()).format("YYYY-MM-DD"),
+      time: moment(Date.now()).format("'HH:mm:ss'"),
+
+      products: cart,
+      orderStatus: "Solicitado",
+      user_id: login.uid,
+      userNotificationToken: notifyToken,
+      total: route.params.total,
+      title: prePedido.direccion.address,
+      userName: login.userName,
+      payType: metodo,
+      payWith: route.params.payWith,
+      // products: value.productos,
+      id: generateUUID(),
+      // pushToken: value.pushToken,
+    };
+
+    prePedido.direccion && prePedido.facturacion
+      ? postCollection("plant_pedidos_en_camino", payload).then((r) => {
+          r
+            ? navigation.navigate("OrderDetails")
+            : alert("Ups, sucedió un error");
+        })
+      : alert("Por favor complete todos los campos");
+  };
+
+  const handleNavigateCash = () => {
+    setMetodo("Efectivo");
+    navigation.navigate("PayWithCash");
+  };
 
   return (
     <Container>
       <BasicHeader title="Revisar datos del pedido" />
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("AddressDeliveryUsers")}
+          onPress={() => navigation.navigate("AddressDeliveryUsers")} //MyAddress
           style={[
             {
               flexDirection: "row",
@@ -46,12 +108,12 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
           <AddressIcon height={30} width={30} />
           <View style={{ flex: 1, paddingLeft: 10 }}>
             <Text>
-              {prePedido.direccion.address != undefined
+              {prePedido.direccion
                 ? prePedido.direccion.address
                 : "Direccion de entrega"}
             </Text>
             <Text>
-              {prePedido.direccion.addressDetails != undefined
+              {prePedido.direccion
                 ? prePedido.direccion.addressDetails
                 : "Elige una dirección"}
             </Text>
@@ -60,7 +122,7 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("FactuList")}
+          onPress={() => navigation.navigate("FactuList")} //MyFactuData
           style={[
             {
               flexDirection: "row",
@@ -131,7 +193,7 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
         >
           <TouchableOpacity
             onPress={() => {
-              setmetodo("Tarjeta");
+              setMetodo("Tarjeta");
             }}
             style={[{ alignItems: "center", width: "40%" }]}
           >
@@ -150,7 +212,7 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setmetodo("Efectivo");
+              handleNavigateCash();
             }}
             style={[{ alignItems: "center", width: "40%" }]}
           >
@@ -186,7 +248,11 @@ const OrderDetails = ({ cart, navigation, prePedido }) => {
             bottom: 20,
           }}
         >
-          <CustomButton onPress={() => {}}>
+          <CustomButton
+            onPress={() => {
+              handleConfirmPurchase();
+            }}
+          >
             <Text
               style={{
                 fontWeight: "bold",
@@ -216,6 +282,8 @@ const mapStateToProps = (state) => ({
   login: state.login.login,
   cart: state.cart.cart,
   prePedido: state.prePedido.prePedido,
+  user: state.user.user,
+  pushToken: state.pushToken.pushToken,
 });
 
 export default connect(mapStateToProps)(OrderDetails);
