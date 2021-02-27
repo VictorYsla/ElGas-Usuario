@@ -43,10 +43,16 @@ const BasicHeader = ({
         alignItems: "center",
       }}
     >
-      <View style={{ width: `${leftWidth}%`, justifyContent: "center" }}>
+      {/* <View style={{ width: `${leftWidth}%`, justifyContent: "center" }}>
         {leftComponent(icon())}
-      </View>
-      <View style={{ width: `${centerWidth}%`, justifyContent: "center" }}>
+      </View> */}
+      <View
+        style={{
+          marginLeft: 65,
+          width: `${centerWidth}%`,
+          justifyContent: "center",
+        }}
+      >
         {centerComponent() ? (
           centerComponent()
         ) : (
@@ -61,7 +67,13 @@ const BasicHeader = ({
           </Text>
         )}
       </View>
-      <View style={{ width: `${rigthWidth}%`, justifyContent: "center" }}>
+      <View
+        style={{
+          marginLeft: 15,
+          width: `${rigthWidth}%`,
+          justifyContent: "center",
+        }}
+      >
         {rigthComponent()}
       </View>
     </View>

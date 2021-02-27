@@ -88,7 +88,7 @@ const Item = ({
   item,
   elegir,
   prePedido,
-  image = () => <CancelIcon width={wp(10)} height={hp(5)} />,
+  image = () => <CancelIcon width={wp(2.5)} height={hp(5)} />,
 }) => {
   // console.log("MyAddress", item);
 

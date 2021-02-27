@@ -7,56 +7,47 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { useEffect } from "react/cjs/react.development";
 import BasicHeader from "../../components/Header/BasicHeader";
+import { getCurrentDeliverys } from "../../apis/querys";
 
 import Container from "../../generales/Container";
+import { useSelector } from "react-redux";
 
 const PantallaPedidos = (props) => {
   const [onTheWay, setIsOnTheWay] = useState(true);
   const [received, setReceived] = useState(false);
+  const [onWay, setOnWay] = useState([]);
+  const [finished, setFinished] = useState([]);
+  const login = useSelector((state) => state.login);
 
-  const dummy_data = [
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "970",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "969",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "968",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "967",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "966",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "965",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "964",
-    },
-    {
-      user: "Manuel Córdova Galarza",
-      date: new Date().toISOString(),
-      id: "963",
-    },
-  ];
+  console.log("onWay", onWay);
+  console.log("finished", finished);
+
+  const id = login.login.uid;
+
+  useEffect(() => {
+    onTheWay &&
+      getCurrentDeliverys(id, "En Camino").then((response) => {
+        setFinished([]);
+        setOnWay(response);
+      });
+    received &&
+      getCurrentDeliverys(id, "Terminado").then((response) => {
+        setOnWay([]);
+        setFinished(response);
+      });
+  }, [onTheWay, received]);
+
+  const dummy_data = (onWay.length > 0 ? onWay : finished).map((item) => {
+    return {
+      user: item.userName,
+      date: item.date,
+      time: item.time,
+    };
+  });
+
+  console.log("dummy_data:", dummy_data);
 
   return (
     <Container styleContainer={styles.screen}>
@@ -143,8 +134,8 @@ const PantallaPedidos = (props) => {
 };
 
 const ListItem = ({ item }) => {
-  const date = item.date.split("T");
-  const formattedTime = date[1].substring(0, 8);
+  // const date = item.date.split("T");
+  // const formattedTime = date[1].substring(0, 8);
 
   return (
     <View
@@ -156,8 +147,8 @@ const ListItem = ({ item }) => {
       <View>
         <Text style={styles.user}>{item.user}</Text>
         <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <Text style={[styles.label]}>{`${date[0]}`}</Text>
-          <Text>{formattedTime}</Text>
+          <Text style={[styles.label]}>{`${item.date} - `}</Text>
+          <Text>{item.time}</Text>
         </View>
       </View>
       {/* <View style={{ alignItems: "center", justifyContent: "center" }}>

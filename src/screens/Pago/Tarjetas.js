@@ -21,34 +21,34 @@ const Tarjetas = (props) => {
   const dummy_data = [
     {
       id: "1",
-      cardNumber: "2144-4213-4124-1232",
+      cardNumber: "2144-4213-4124-5235",
       cardHolder: " Brayan García",
     },
     {
       id: "2",
-      cardNumber: "2144-4213-4124-1232",
+      cardNumber: "2144-4213-4124-6277",
       cardHolder: " Brayan García",
     },
     {
       id: "3",
-      cardNumber: "2144-4213-4124-1232",
+      cardNumber: "2144-4213-4124-8296",
       cardHolder: " Brayan García",
     },
     {
       id: "4",
-      cardNumber: "2144-4213-4124-1232",
+      cardNumber: "2144-4213-4124-9263",
       cardHolder: " Brayan García",
     },
     {
       id: "5",
-      cardNumber: "2144-4213-4124-1232",
+      cardNumber: "2144-4213-4124-7242",
       cardHolder: " Brayan García",
     },
   ];
 
   return (
     <Container styleContainer={styles.screen}>
-      <BasicHeader title='Mis Tarjetas' />
+      <BasicHeader title="Mis Tarjetas" />
 
       <View style={styles.listContainer}>
         <ScrollView>
